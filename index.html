@@ -209,7 +209,7 @@ body.notes-on .slide.is-active .note { display: block; }
   width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
   font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--accent-ink); background: var(--grad);
 }
-.person .role { color: var(--accent); }
+.person .p-role { color: var(--accent); }
 .person p { font-size: var(--small); }
 
 /* ─── O que ouvimos ─── */
@@ -845,12 +845,12 @@ const CONFIG = {
     ["Pós-venda", "60 dias", "de acompanhamento depois da entrega."]
   ],
 
-  // CONFIRMAR: nomes, cargos e bios
+  // Time
   team: [
-    { name: "Lucas Boaretto", role: "Comercial e processos", bio: "Foi gerente de outbound na Progep. Especialista em processo comercial e apresentação de proposta." },
-    { name: "Pedro Henrique Pazoti Mega", role: "Diretor de projetos", bio: "Foi gerente de projetos na Progep. Responsável pela execução deste projeto." },
-    { name: "Vinicius Nicoletti Marzocchi", role: "Projetos e social media", bio: "Recordista de faturamento no núcleo. Gerencia projetos de posicionamento de marca." },
-    { name: "[ Nome ]", role: "Design e marketing", bio: "[ Bio curta: quem cuida do visual e da frente de marketing. ]" }
+    { name: "Lucas Boaretto", role: "Comercial e processos", bio: "Foi gerente de outbound na Projep. Especialista em processo comercial e apresentação de proposta." },
+    { name: "Pedro Henrique Pazoti Mega", role: "Diretor de projetos", bio: "Foi gerente de projetos na Projep. Responsável pela execução deste projeto." },
+    { name: "Vinicius Nicoletti Marzocchi", role: "Projetos e social media", bio: "Foi presidente executivo do Núcleo Triângulo. Gerencia projetos de posicionamento de marca e social media." },
+    { name: "Matheus Miguel", role: "CTO", bio: "Ampla experiência em marketing. Responsável por eventos como Uai Summit, CIA, Intercursos e Rodeio de Uberaba." }
   ],
 
   // Frases da reunião · clique revela a causa
@@ -1023,7 +1023,7 @@ slides.forEach((s, i) => {
 $("[data-metrics]").innerHTML = CONFIG.metrics.map(([k, v, t], i) => `
   <div class="card"><span class="mono muted">${pad(i + 1)} · ${esc(k)}</span><div class="metric-num"><span class="${v.includes("XX") ? "ph" : ""}">${esc(v)}</span></div><p>${esc(t)}</p></div>`).join("");
 $("[data-team]").innerHTML = CONFIG.team.map(p => `
-  <div class="card person"><div class="avatar">${esc(initials(p.name))}</div><div><h3>${esc(p.name)}</h3><span class="mono role">${esc(p.role)}</span></div><p>${esc(p.bio)}</p></div>`).join("");
+  <div class="card person"><div class="avatar">${esc(initials(p.name))}</div><div><h3>${esc(p.name)}</h3><span class="mono p-role">${esc(p.role)}</span></div><p>${esc(p.bio)}</p></div>`).join("");
 $("[data-heard]").innerHTML = CONFIG.heard.map(([q, c]) => `
   <button class="card quote-card"><q>${esc(q)}</q><span class="cause">${c}</span></button>`).join("");
 $$(".quote-card").forEach(b => b.addEventListener("click", () => b.classList.toggle("open")));
