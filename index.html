@@ -292,7 +292,7 @@ body.notes-on .slide.is-active .note { display: block; }
 .scope-list .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .78rem; margin-top: .1em; }
 .scope-list.in .ic { background: rgba(63,208,138,.15); color: var(--ok); }
 .scope-list.out .ic { background: rgba(255,107,94,.15); color: var(--no); }
-.scope-list.gift .ic { background: rgba(242,169,59,.15); color: var(--accent); }
+.scope-list.courtesy .ic { background: rgba(242,169,59,.15); color: var(--accent); }
 .scope-pane { display: none; animation: fadeUp .35s ease; }
 .scope-pane.on { display: block; }
 
@@ -611,7 +611,7 @@ body.notes-on .slide.is-active .note { display: block; }
       <button data-scope-tab="out">Não incluído</button>
     </div>
     <div class="scope-pane on" data-scope-pane="in"><ul class="scope-list in" data-scope="in"></ul></div>
-    <div class="scope-pane" data-scope-pane="gift"><ul class="scope-list gift" data-scope="gift"></ul></div>
+    <div class="scope-pane" data-scope-pane="gift"><ul class="scope-list courtesy" data-scope="gift"></ul></div>
     <div class="scope-pane" data-scope-pane="out"><ul class="scope-list out" data-scope="out"></ul></div>
   </div>
   <div class="stamp" data-stamp data-pact-key="escopo"></div>
@@ -680,27 +680,24 @@ body.notes-on .slide.is-active .note { display: block; }
     <div class="paths" data-paths>
       <button class="card path p1" data-path="1">
         <span class="mono muted">Caminho 1</span>
-        <h3>Proposta padrão</h3>
+        <h3>Contratação padrão</h3>
         <ul>
-          <li>Encerramos aqui e enviamos a proposta formal por escrito.</li>
-          <li>Vocês têm até <span data-f="validityDays"></span> dias para decidir, no valor de mercado.</li>
-          <li>Tempo para colocar na planilha de investimentos e comparar.</li>
+          <li>Valor de mercado, sem contrapartidas.</li>
+          <li>A Triângulo entra como fornecedora do projeto.</li>
+          <li>Proposta formal por escrito, válida por <span data-f="validityDays"></span> dias.</li>
         </ul>
       </button>
       <button class="card path p2" data-path="2">
         <span class="mono eyebrow">Caminho 2</span>
-        <h3>Condição MEJ, decidida hoje</h3>
-        <ul>
-          <li>Para quem já viu que o escopo resolve o momento atual.</li>
-          <li>Repassamos como desconto o custo dos dias de follow-up.</li>
-          <li>Para manter essa condição, preciso de um <strong>sim ou não</strong> nesta reunião.</li>
-        </ul>
+        <h3>Parceria MEJ</h3>
+        <p>Valor reduzido. Em troca, combinamos:</p>
+        <ul data-mej-terms></ul>
       </button>
     </div>
     <div class="pact-summary" data-pact-summary></div>
   </div>
-  <div class="stamp" data-stamp data-hint="Vocês escolhem o ritmo"></div>
-  <aside class="note"><strong>Roteiro</strong>Leia os pactos em voz alta: "até aqui a gente concordou em…". Coerência (Cialdini): quem concordou com tudo tende a seguir concordando.</aside>
+  <div class="stamp" data-stamp data-hint="Vocês escolhem o formato"></div>
+  <aside class="note"><strong>Roteiro</strong>Não peça decisão hoje: no MEJ a aprovação passa por mais etapas. Leia os pactos em voz alta ("até aqui a gente concordou em…") e pergunte qual caminho faz mais sentido levar para aprovação. Coerência (Cialdini): quem concordou com tudo tende a seguir concordando.</aside>
 </section>
 
 <!-- ═══════════ 16 · CALCULADORA ═══════════ -->
@@ -741,10 +738,11 @@ body.notes-on .slide.is-active .note { display: block; }
           <div class="btn-row" data-unlock-row style="margin-top:8px"><button class="btn" data-unlock>Desbloquear condição MEJ</button></div>
         </div>
         <div class="price-row hidden" data-stage-deal>
-          <span class="mono eyebrow">Condição MEJ · fechando hoje</span>
+          <span class="mono eyebrow">Condição MEJ · parceria</span>
           <div class="val grad-text" data-q-deal></div>
           <span class="inst" data-q-deal-inst></span>
           <div class="save" data-q-save></div>
+          <span class="inst" data-q-deal-terms></span>
         </div>
         <div class="btn-row no-print">
           <button class="btn" data-cta disabled>Vamos seguir</button>
@@ -752,7 +750,7 @@ body.notes-on .slide.is-active .note { display: block; }
           <button class="btn ghost" data-copy>Copiar resumo</button>
         </div>
         <div class="no-print" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
-          <span class="muted" style="font-size:var(--small)">Condição válida para decisão nesta reunião.</span>
+          <span class="muted" style="font-size:var(--small)">A condição MEJ vale com as contrapartidas de parceria.</span>
           <button class="linkish" data-tune-toggle>ajustar</button>
         </div>
         <div class="tune no-print" data-tune>
@@ -772,9 +770,9 @@ body.notes-on .slide.is-active .note { display: block; }
   <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
   <div class="slide-body">
     <span class="mono eyebrow">Próximos passos</span>
-    <h2>Do sim ao primeiro fechamento com o novo processo.</h2>
+    <h2>Da aprovação ao primeiro fechamento com o novo processo.</h2>
     <div class="steps">
-      <div class="step"><span class="mono when">Hoje</span><div class="dotline"></div><h3>Aceite</h3><p>Assinatura digital da proposta.</p></div>
+      <div class="step"><span class="mono when">Esta semana</span><div class="dotline"></div><h3>Aprovação</h3><p>Proposta formal para a aprovação interna da MecTRIA.</p></div>
       <div class="step"><span class="mono when">Semana 1</span><div class="dotline"></div><h3>Protótipo do site</h3><p>Nova versão com SEO local, robots.txt, llms.txt e sitemap. Cortesia.</p></div>
       <div class="step"><span class="mono when">Semanas 1–5</span><div class="dotline"></div><h3>Site e copy</h3><p>Estrutura, textos e processo comercial visual aprovados por etapa.</p></div>
       <div class="step"><span class="mono when">Semanas 6–7</span><div class="dotline"></div><h3>Nova apresentação</h3><p>Proposta interativa, micro pactos e roteiro do vendedor.</p></div>
@@ -787,7 +785,7 @@ body.notes-on .slide.is-active .note { display: block; }
     </div>
   </div>
   <div class="stamp" data-stamp></div>
-  <aside class="note"><strong>Roteiro</strong>Combine a data do kick-off antes de encerrar a chamada.</aside>
+  <aside class="note"><strong>Roteiro</strong>Antes de encerrar, combine quem aprova do lado da MecTRIA e a data de retorno.</aside>
 </section>
 
 <!-- ═══════════ 18 · ENCERRAMENTO ═══════════ -->
@@ -938,7 +936,14 @@ const CONFIG = {
   cases: [
     { client: "Ateliê de cortinas", tag: "Sistema de orçamento", result: "Orçamento na hora", text: "Preço, tecido exato do rolo e PDF com a marca do ateliê, gerados na frente do cliente." },
     { client: "Triângulo Solutions", tag: "SEO local", result: "Topo no Google", text: "Buscas com “Triângulo” em Uberaba chegam até nós, não à concorrência." },
-    { client: "[ Case 3 ]", tag: "[ Segmento ]", result: "[ Resultado ]", text: "[ Problema, o que foi feito e o número que mudou. ]" }
+    { client: "Teacher Lucas", tag: "Automação de conteúdo e site", result: "2 alunos em 1 semana", text: "Automatizamos a geração de conteúdo no Instagram. Com uma semana de site no ar, já foram 2 alunos fechados para aulas particulares." }
+  ],
+
+  // Condição MEJ · contrapartidas da parceria [resumo, frase completa]
+  mejTerms: [
+    ["Troca de divulgação", "Troca de divulgação entre MecTRIA e Triângulo."],
+    ["Parcerias em projetos", "Abertura para parcerias em projetos."],
+    ["Indicações", "Indicações da MecTRIA para novos clientes."]
   ],
 
   // Micro pactos · resumidos no slide "Dois caminhos"
@@ -1070,6 +1075,10 @@ $("[data-cases]").innerHTML = CONFIG.cases.map(c => `
   <div class="card case"><span class="mono muted">${esc(c.tag)}</span><div class="result grad-text">${esc(c.result)}</div>
   <div class="client">${esc(c.client)}</div><p>${esc(c.text)}</p></div>`).join("");
 
+// Condição MEJ · contrapartidas no slide dos caminhos e na calculadora
+$("[data-mej-terms]").innerHTML = CONFIG.mejTerms.map(t => `<li>${esc(t[1])}</li>`).join("");
+$("[data-q-deal-terms]").textContent = "Contrapartidas: " + CONFIG.mejTerms.map(t => t[0]).join(" · ");
+
 /* ─── Valor · revelação progressiva ─── */
 const rolesEl = $("[data-roles]");
 rolesEl.innerHTML = CONFIG.roles.map(([n], i) => `<button class="role" data-role="${i}"><span class="r-name">${esc(n)}</span><span class="r-val">— — —</span></button>`).join("");
@@ -1157,7 +1166,7 @@ function renderCalc() {
 $$("[data-g]").forEach(b => b.addEventListener("click", () => { sel[b.dataset.g] = b.dataset.o; override = null; renderCalc(); }));
 $("[data-reveal]").addEventListener("click", () => { stage = "anchor"; renderCalc(); });
 $("[data-unlock]").addEventListener("click", () => { stage = "deal"; renderCalc(); });
-$("[data-cta]").addEventListener("click", () => { toast("Fechado! Bora pro kick-off"); go(slides.length - 2); });
+$("[data-cta]").addEventListener("click", () => { toast("Combinado! Próximo passo: aprovação interna"); go(slides.length - 2); });
 $("[data-tune-toggle]").addEventListener("click", () => $("[data-tune]").classList.toggle("open"));
 $("[data-tune-apply]").addEventListener("click", () => {
   const v = Number($("[data-tune-input]").value.replace(/\D/g, ""));
@@ -1203,6 +1212,7 @@ function summaryText() {
     ``,
     `Valor no mercado sênior: ${brl(p.anchor)} (${inst(p.anchor, p.n)})`,
     stage === "deal" ? `Condição MEJ: ${brl(p.deal)} (${inst(p.deal, p.n)})` : null,
+    stage === "deal" ? `Contrapartidas: ${CONFIG.mejTerms.map(t => t[0]).join(", ")}` : null,
     `Retorno simulado: ${roi.now}% → ${roi.goal}% de fechamento = +${brl(r.rev)}/mês`,
     ``,
     `Validade: ${CONFIG.validityDays} dias · Triângulo Solutions · ${CONFIG.site}`
@@ -1239,6 +1249,7 @@ $("[data-pdf]").addEventListener("click", () => {
   <li>Validade da proposta: ${CONFIG.validityDays} dias (até ${valid.toLocaleDateString("pt-BR")}).</li>
   <li>Prazo: 8 semanas de execução, seguidas do acompanhamento contratado.</li>
   <li>Site e processo comercial visual entregues como cortesia. Os arquivos são da ${esc(CONFIG.client)}.</li>
+  ${showDeal ? `<li>Condição MEJ vinculada às contrapartidas de parceria: ${CONFIG.mejTerms.map(t => esc(t[1])).join(" ")}</li>` : ""}
   <li>Solicitações após a aprovação de uma etapa são avaliadas como mudança de escopo.</li>
   <li>Atrasos em acessos, informações ou aprovações deslocam proporcionalmente os marcos seguintes.</li></ul>
   <h2>Fechamento</h2><p>Para aceitar, basta assinar digitalmente este documento. O pagamento é feito por link e a nota fiscal enviada por e-mail em até 3 dias úteis após a confirmação.</p>
