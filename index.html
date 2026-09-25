@@ -191,13 +191,18 @@ body.notes-on .slide.is-active .note { display: block; }
 .cover-meta .url { margin-left: auto; color: var(--fg-3); font-size: 0.78rem; letter-spacing: 0.1em; }
 .big-mark { position: absolute; right: 7vw; top: 50%; transform: translateY(-50%); width: min(24vw, 360px); height: auto; color: var(--red-logo); z-index: -1; }
 .closing h1 { max-width: 17ch; }
+.tel { color: inherit; text-decoration: none; }
+.tel:hover { color: var(--red); }
 
 /* ─── Quem somos ─── */
 .purpose { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(20px, 3vw, 56px); align-items: center; }
 .purpose blockquote { font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2.6rem); line-height: 1.2; text-wrap: balance; }
 
 /* ─── Números ─── */
-.metric-num { font-weight: 700; font-size: clamp(2.1rem, 3.5vw, 3.5rem); line-height: 1; margin: 14px 0 8px; color: var(--red); }
+.metric-num { font-weight: 700; font-size: clamp(2rem, 3.2vw, 3.3rem); line-height: 1; margin: 14px 0 8px; color: var(--red); }
+/* Experiência anterior do time: visual separado para não se confundir com a base da Triângulo */
+.metric.prior { border-style: dashed; background: transparent; }
+.metric.prior .metric-num { color: var(--fg-2); }
 
 /* ─── Time ─── */
 .team { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.5vw, 22px); }
@@ -489,12 +494,13 @@ body.notes-on .slide.is-active .note { display: block; }
 <section class="slide alt" data-title="Números">
   <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="eyebrow">Histórico</span>
-    <h2>O que já construímos.</h2>
+    <span class="eyebrow">Nossos números</span>
+    <h2>Empresa nova, número real.</h2>
+    <p class="lead">Tudo o que está aqui dá para verificar.</p>
     <div class="grid g4" data-metrics></div>
   </div>
   <div class="stamp" data-stamp></div>
-  <aside class="note"><strong>Roteiro</strong>Números curtos, sem se alongar. Eles servem de credencial para o que vem depois.</aside>
+  <aside class="note"><strong>Roteiro</strong>Seja direto: somos novos, e isso é um fato. Mostre o prêmio, a pré-incubação, o SEO medido e os cases. Se falar dos 600 clientes, diga que é experiência anterior da dupla, não clientes da Triângulo.</aside>
 </section>
 
 <!-- ═══════════ 04 · QUEM ESTÁ POR TRÁS ═══════════ -->
@@ -669,7 +675,7 @@ body.notes-on .slide.is-active .note { display: block; }
   <div class="slide-body">
     <span class="eyebrow">Em operação</span>
     <h2>Já está rodando em outros negócios.</h2>
-    <div class="grid g3" data-cases></div>
+    <div class="grid g4" data-cases></div>
   </div>
   <div class="stamp" data-stamp></div>
   <aside class="note"><strong>Roteiro</strong>Hall da fama e prova social sempre logo antes do preço.</aside>
@@ -808,8 +814,8 @@ body.notes-on .slide.is-active .note { display: block; }
     <p class="lead">Destrave o lucro que já é seu.</p>
   </div>
   <div class="cover-meta">
-    <div><span class="kicker">Site</span><strong data-f="site"></strong></div>
-    <div><span class="kicker">Contato</span><strong data-f="sellerContact"></strong></div>
+    <div><span class="kicker">Site</span><strong data-f="site"></strong><small>Uberaba/MG</small></div>
+    <div><span class="kicker">Contato</span><strong><a class="tel" data-tel></a></strong><small data-f="seller"></small></div>
   </div>
 </section>
 
@@ -834,25 +840,25 @@ const CONFIG = {
   // Para quem a proposta foi preparada · [nome, cargo]
   contacts: [["Marcelo Zaiden", "Vice-presidente"], ["Arthur", ""]],   // CONFIRMAR: sobrenome e cargo do Arthur
   projectLead: "Pedro Henrique Pazoti Mega",
-  seller: "Lucas Boaretto",
-  sellerContact: "[ WhatsApp / e-mail ]",          // CONFIRMAR
+  seller: "Lucas Cruvinel",
+  sellerContact: "(16) 99388-2232",
   site: "triangulosolutions.com.br",
   service: "Reestruturação Comercial e Digital",
   date: "2026-09-25",
   validityDays: 7,
   revision: "01",
 
-  // CONFIRMAR: números reais da Triângulo
+  // Só números verificáveis. prior: experiência anterior do time, nunca somar com a base da Triângulo
   metrics: [
-    ["Projetos", "+XX", "projetos entregues em sites, automações e sistemas."],
-    ["Processos", "+XX", "processos comerciais mapeados e implantados."],
-    ["SEO local", "Top 1", "no Google para buscas com “Triângulo” em Uberaba."],
-    ["Pós-venda", "60 dias", "de acompanhamento depois da entrega."]
+    { k: "Reconhecimento", v: "FAPEMIG", t: "Prêmio de pesquisa e inovação com o Precisa, nosso sistema de orçamento. Pré-incubados na UFTM." },
+    { k: "SEO medido", v: "7,9", t: "de posição média no Google com cerca de 1 mês de site no ar: 227 impressões, sem tráfego pago (Search Console)." },
+    { k: "Cases", v: "4", t: "FN Cortinas, Teacher Lucas, Acrescer e Ribercon." },
+    { k: "Experiência do time", v: "600", t: "clientes ativos ao mesmo tempo na operação de marketing de onde vêm Lucas e Vinicius. Experiência da dupla, não clientes da Triângulo.", prior: true }
   ],
 
   // Time
   team: [
-    { name: "Lucas Boaretto", role: "Comercial e processos", bio: "Foi gerente de outbound na Projep. Especialista em processo comercial e apresentação de proposta." },
+    { name: "Lucas Cruvinel", role: "Comercial e processos", bio: "Foi gerente de outbound na Projep. Especialista em processo comercial e apresentação de proposta." },
     { name: "Pedro Henrique Pazoti Mega", role: "Diretor de projetos", bio: "Foi gerente de projetos na Projep. Responsável pela execução deste projeto." },
     { name: "Vinicius Nicoletti Marzocchi", role: "Projetos e social media", bio: "Foi presidente executivo do Núcleo Triângulo. Gerencia projetos de posicionamento de marca e social media." },
     { name: "Matheus Miguel", role: "CTO", bio: "Ampla experiência em marketing. Responsável por eventos como Uai Summit, CIA, Intercursos e Rodeio de Uberaba." }
@@ -940,9 +946,10 @@ const CONFIG = {
   rolesMonths: 2,
 
   cases: [
-    { client: "Ateliê de cortinas", tag: "Sistema de orçamento", result: "Orçamento na hora", text: "Preço, tecido exato do rolo e PDF com a marca do ateliê, gerados na frente do cliente." },
-    { client: "Triângulo Solutions", tag: "SEO local", result: "Topo no Google", text: "Buscas com “Triângulo” em Uberaba chegam até nós, não à concorrência." },
-    { client: "Teacher Lucas", tag: "Automação de conteúdo e site", result: "2 alunos em 1 semana", text: "Automatizamos a geração de conteúdo no Instagram. Com uma semana de site no ar, já foram 2 alunos fechados para aulas particulares." }
+    { client: "FN Cortinas", tag: "Precisa · orçamento", result: "Orçamento na hora", text: "Com o Precisa, sistema premiado pela FAPEMIG: preço, tecido exato do rolo e PDF com a marca do ateliê, na frente do cliente." },
+    { client: "Teacher Lucas", tag: "Conteúdo e site", result: "2 alunos em 1 semana", text: "Automatizamos a geração de conteúdo no Instagram. Com uma semana de site no ar, já foram 2 alunos fechados para aulas particulares." },
+    { client: "Acrescer", tag: "CRM e dashboard", result: "CRM + dashboard", text: "Implantamos CRM e dashboard de indicadores." },
+    { client: "Ribercon", tag: "CRM e dashboard", result: "Virada no portfólio", text: "Implantamos CRM e dashboard. Internamente, é o projeto que chamamos de divisor de águas." }
   ],
 
   // Condição MEJ · contrapartidas da parceria [resumo, frase completa]
@@ -1014,6 +1021,7 @@ const names = CONFIG.contacts.map(c => c[0]);
 const FIELDS = { ...CONFIG, contactNames: joinE(names), contactFirsts: joinE(names.map(n => n.split(" ")[0])) };
 $$("[data-f]").forEach(el => el.textContent = FIELDS[el.dataset.f] ?? "");
 $$("[data-date]").forEach(el => el.textContent = dateBR(CONFIG.date));
+$$("[data-tel]").forEach(el => { el.textContent = CONFIG.sellerContact; el.href = "tel:+55" + CONFIG.sellerContact.replace(/\D/g, ""); });
 $("[data-contacts]").outerHTML = CONFIG.contacts.map((c, i) =>
   `<div><span class="kicker">${i ? "&nbsp;" : "Preparado para"}</span><strong>${esc(c[0])}</strong><small>${esc(c[1] || CONFIG.client)}</small></div>`).join("");
 $$("[data-brand]").forEach(el => el.innerHTML = `${mark()}<span class="wm"><i>Triângulo</i> <b>Solutions</b></span><span class="x">× ${esc(CONFIG.client)}</span>`);
@@ -1028,8 +1036,8 @@ slides.forEach((s, i) => {
     `<span class="count">${pad(i + 1)} / ${pad(slides.length)}</span>`;
 });
 
-$("[data-metrics]").innerHTML = CONFIG.metrics.map(([k, v, t], i) => `
-  <div class="card"><span class="kicker">${pad(i + 1)} · ${esc(k)}</span><div class="metric-num"><span class="${v.includes("XX") ? "ph" : ""}">${esc(v)}</span></div><p>${esc(t)}</p></div>`).join("");
+$("[data-metrics]").innerHTML = CONFIG.metrics.map(m => `
+  <div class="card metric${m.prior ? " prior" : ""}"><span class="kicker">${esc(m.k)}</span><div class="metric-num">${esc(m.v)}</div><p>${esc(m.t)}</p></div>`).join("");
 $("[data-team]").innerHTML = CONFIG.team.map(p => `
   <div class="card person"><div class="avatar">${esc(initials(p.name))}</div><div><h3>${esc(p.name)}</h3><span class="p-role">${esc(p.role)}</span></div><p>${esc(p.bio)}</p></div>`).join("");
 $("[data-heard]").innerHTML = CONFIG.heard.map(([q, c]) => `
@@ -1228,7 +1236,8 @@ function summaryText() {
     stage === "deal" ? `Condição MEJ: ${brl(p.deal)} (${inst(p.deal, p.n)})` : null,
     stage === "deal" ? `Contrapartidas: ${CONFIG.mejTerms.map(t => t[0]).join(", ")}` : null,
     ``,
-    `Validade: ${CONFIG.validityDays} dias · Triângulo Solutions · ${CONFIG.site}`
+    `Validade: ${CONFIG.validityDays} dias · Triângulo Solutions · ${CONFIG.site}`,
+    `Contato: ${CONFIG.seller} · ${CONFIG.sellerContact}`
   ].filter(x => x !== null).join("\n");
 }
 $("[data-copy]").addEventListener("click", async () => {
@@ -1252,7 +1261,7 @@ $("[data-pdf]").addEventListener("click", () => {
   .price{display:flex;gap:14px;margin-top:10px}.box{flex:1;border:1px solid #E6E6EA;border-radius:8px;padding:12px}.box.hl{border-color:#E83E46;background:#FDE9EA}
   .box .v{font-size:18pt;font-weight:700}.small{font-size:8.5pt;color:#6E6E76}ul{margin:4px 0;padding-left:18px}.sign{margin-top:34px;display:flex;gap:40px}.sign div{flex:1;border-top:1px solid #17171A;padding-top:6px;font-size:9.5pt}</style></head><body>
   <div class="top"><div><div class="tag">Proposta comercial · ${esc(CONFIG.service)}</div><h1>${esc(CONFIG.client)}</h1><div class="small">Preparado para ${esc(joinE(who))}</div></div>
-  <div class="brand"><div class="small"><i>Triângulo</i> <b>Solutions</b><br>${esc(CONFIG.site)}<br>${dateBR(CONFIG.date)} · Rev. ${esc(CONFIG.revision)}</div>${logo}</div></div>
+  <div class="brand"><div class="small"><i>Triângulo</i> <b>Solutions</b><br>${esc(CONFIG.site)} · ${esc(CONFIG.sellerContact)}<br>${dateBR(CONFIG.date)} · Rev. ${esc(CONFIG.revision)}</div>${logo}</div></div>
   <h2>Objetivo</h2><p>Aumentar a taxa de conversão entre proposta e fechamento da ${esc(CONFIG.client)} com uma apresentação de proposta metódica e interativa, um time treinado para usá-la e um site renovado que comunica a qualidade da engenharia entregue.</p>
   <h2>Método TRIA · etapas</h2><table><tr><th>Etapa</th><th>Entrega</th><th>Prazo</th></tr>
   ${CONFIG.method.map(m => `<tr><td><b>${m.letter} · ${esc(m.word)}</b><br><span class="small">${esc(m.sub)}</span></td><td>${esc(m.deliverable)}</td><td>${esc(m.weeks)}</td></tr>`).join("")}</table>
