@@ -6,387 +6,396 @@
 <title>Proposta MecTRIA</title>
 <meta name="description" content="Proposta comercial interativa da Triângulo Solutions para a MecTRIA">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0E0E10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════════════════════════════════════
-   TOKENS · identidade visual (apresentação dark por escolha)
-   Azul de prancheta técnica + âmbar de sinalização industrial.
+   TOKENS · identidade visual da Triângulo (apresentação institucional 2026)
+   Grafite quase preto, vermelho de destaque, Poppins.
    ════════════════════════════════════════════════════════════════ */
 :root {
   color-scheme: dark;
-  --bg: #0B1526;
-  --surface: #111E33;
-  --surface-2: #16263F;
-  --line: rgba(142, 172, 214, 0.14);
-  --line-2: rgba(142, 172, 214, 0.30);
-  --fg: #F2F5FA;
-  --fg-2: #BFCADB;
-  --fg-3: #8393AD;
-  --accent: #F2A93B;
-  --accent-2: #FF7B47;
-  --accent-ink: #1C1204;
-  --ok: #3FD08A;
-  --no: #FF6B5E;
-  --grad: linear-gradient(115deg, var(--accent) 0%, var(--accent-2) 100%);
-  --radius: 14px;
-  --pad-x: clamp(20px, 5vw, 96px);
-  --pad-y: clamp(24px, 4.5vh, 60px);
-  --h1: clamp(2.1rem, 4.6vw, 4.6rem);
-  --h2: clamp(1.6rem, 3.1vw, 3.1rem);
-  --body: clamp(0.98rem, 1.12vw, 1.18rem);
-  --small: clamp(0.8rem, 0.88vw, 0.94rem);
-  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --bg: #0E0E10;
+  --surface: #17171A;
+  --surface-2: #1D1D21;
+  --line: #2C2C33;
+  --line-2: #3C3C45;
+  --fg: #FFFFFF;
+  --fg-2: #9A9AA2;
+  --fg-3: #6E6E76;
+  --red: #E83E46;
+  --red-logo: #CE2B34;
+  --red-deep: #8A2A30;
+  --red-tint: rgba(232, 62, 70, 0.12);
+  --red-line: rgba(232, 62, 70, 0.5);
+  --radius: 8px;
+  --pad-x: clamp(20px, 5.2vw, 100px);
+  --pad-y: clamp(24px, 5vh, 64px);
+  --h1: clamp(1.9rem, 3.4vw, 3.6rem);
+  --h2: clamp(1.6rem, 3vw, 3.2rem);
+  --body: clamp(0.95rem, 1.08vw, 1.15rem);
+  --small: clamp(0.8rem, 0.86vw, 0.92rem);
+  --font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   background: var(--bg); color: var(--fg);
-  font-family: var(--font-body); font-size: var(--body); line-height: 1.5;
+  font-family: var(--font); font-size: var(--body); line-height: 1.55;
   -webkit-font-smoothing: antialiased; overflow: hidden;
 }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.mono { font-family: var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; font-size: var(--small); }
-.grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.muted { color: var(--fg-3); }
-.ph { border-bottom: 1px dashed var(--accent); } /* conteúdo a confirmar antes de apresentar */
+button:focus-visible, input:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.eyebrow { font-weight: 700; font-size: clamp(0.66rem, 0.76vw, 0.82rem); letter-spacing: 0.32em; text-transform: uppercase; color: var(--red); }
+.kicker { font-weight: 600; font-size: clamp(0.64rem, 0.72vw, 0.78rem); letter-spacing: 0.26em; text-transform: uppercase; color: var(--fg-3); }
+.hl { color: var(--red); }
+.muted { color: var(--fg-2); }
+.ph { border-bottom: 1px dashed var(--red); } /* conteúdo a confirmar antes de apresentar */
 
 /* ════════════════════════════════════════════════════════════════
    DECK · uma folha por vez no desktop, rolagem no celular
    ════════════════════════════════════════════════════════════════ */
 .deck { position: relative; height: 100%; }
 .slide {
+  --gx: 88%; --gy: 100%;
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
-  padding: var(--pad-y) var(--pad-x) calc(var(--pad-y) - 8px);
+  padding: var(--pad-y) var(--pad-x) calc(var(--pad-y) - 10px);
   overflow: hidden auto;
-  opacity: 0; visibility: hidden; transform: translateY(12px);
+  background:
+    radial-gradient(ellipse 55% 70% at var(--gx) var(--gy), rgba(158, 30, 38, 0.34), transparent 70%),
+    linear-gradient(165deg, #131316 0%, #0C0C0E 60%, #0A0A0C 100%);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
   transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s;
   isolation: isolate;
 }
+.slide.alt { --gx: 10%; --gy: 100%; }
+.slide.mid { --gx: 64%; --gy: 42%; }
 .slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .45s ease, transform .45s ease; }
-.slide::before { /* malha de prancheta */
-  content: ""; position: absolute; inset: 0; z-index: -2;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px),
-    linear-gradient(rgba(142,172,214,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(142,172,214,.05) 1px, transparent 1px);
-  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
-  mask-image: radial-gradient(ellipse at 75% 25%, #000 0%, transparent 72%);
-  opacity: .55;
-}
-.slide::after {
-  content: ""; position: absolute; z-index: -1; pointer-events: none;
-  width: 60vmax; height: 60vmax; right: -22vmax; top: -26vmax;
-  background: radial-gradient(circle, rgba(242,169,59,.14), transparent 60%);
-}
-.slide.alt::after { left: -25vmax; right: auto; top: auto; bottom: -30vmax; background: radial-gradient(circle, rgba(255,123,71,.11), transparent 60%); }
 
-.slide-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: clamp(14px, 2.6vh, 36px); }
-.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; letter-spacing: .01em; }
-.brand svg { width: 26px; height: 26px; flex: none; }
-.brand .x { color: var(--fg-3); font-weight: 500; }
-.slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: clamp(14px, 2.6vh, 32px); min-height: 0; }
+/* Slide vermelho para o momento de maior impacto */
+.slide.red { background: radial-gradient(ellipse 75% 85% at 42% 32%, #E23C44 0%, #C42A33 48%, #8A2A30 100%); }
+.slide.red .eyebrow, .slide.red .kicker, .slide.red .stamp, .slide.red .brand .x { color: rgba(255, 255, 255, 0.72); }
+.slide.red .brand .mark, .slide.red .hl { color: #fff; }
+
+.slide-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: clamp(14px, 3vh, 40px); min-height: 26px; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: clamp(0.88rem, 1vw, 1.02rem); }
+.brand .mark { width: 20px; height: 22px; color: var(--red); flex: none; }
+.wm i { font-weight: 300; font-style: italic; }
+.wm b { font-weight: 700; }
+.brand .x { color: var(--fg-3); margin-left: 2px; }
+.slide-body { flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; gap: clamp(14px, 2.6vh, 30px); }
 .slide-body.top { justify-content: flex-start; }
 
-/* Carimbo de desenho técnico no rodapé de cada folha */
+/* Rodapé de cada folha, no padrão da institucional */
 .stamp {
-  display: flex; align-items: stretch; flex-wrap: wrap;
-  margin-top: clamp(14px, 2.4vh, 28px); margin-right: 200px;
-  border: 1px solid var(--line-2); border-radius: 6px; overflow: hidden;
-  font-family: var(--font-mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px 28px;
+  margin-top: clamp(14px, 2.4vh, 28px); margin-right: 220px; min-height: 36px;
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-3);
 }
-.stamp > * { padding: 6px 12px; border-right: 1px solid var(--line-2); display: flex; align-items: center; gap: 8px; }
-.stamp > *:last-child { border-right: 0; }
-.stamp b { color: var(--fg-2); font-weight: 500; }
-.stamp .grow { flex: 1; }
-.stamp .pact-slot { padding: 3px; margin-left: auto; }
+.stamp .grow { flex: 1; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.02em; text-transform: none; }
+.stamp .count { letter-spacing: 0.2em; }
 
-.eyebrow { color: var(--accent); }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
-h1 { font-size: var(--h1); font-weight: 800; }
-h2 { font-size: var(--h2); max-width: 24ch; }
-h3 { font-size: clamp(1.08rem, 1.45vw, 1.45rem); font-weight: 600; letter-spacing: -0.01em; }
-.lead { color: var(--fg-2); max-width: 62ch; font-size: clamp(1.04rem, 1.3vw, 1.36rem); }
+h1, h2, h3 { font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); max-width: 26ch; }
+h3 { font-size: clamp(1.05rem, 1.35vw, 1.4rem); font-weight: 600; }
+.lead { color: var(--fg-2); font-weight: 300; max-width: 60ch; font-size: clamp(1.02rem, 1.3vw, 1.35rem); }
 
 .grid { display: grid; gap: clamp(12px, 1.5vw, 22px); }
-.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .card {
-  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  background: linear-gradient(180deg, #1A1A1E, var(--surface));
   border: 1px solid var(--line); border-radius: var(--radius);
   padding: clamp(16px, 1.7vw, 26px);
 }
 .card p { color: var(--fg-2); }
 
+/* Lista com losango vermelho, como no credo */
+.dlist { list-style: none; display: grid; gap: 16px; }
+.dlist li { position: relative; padding-left: 30px; font-weight: 300; }
+.dlist li::before { content: ""; position: absolute; left: 2px; top: 0.5em; width: 10px; height: 10px; background: var(--red); transform: rotate(45deg); border-radius: 1px; }
+
 /* Navegação */
-.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--grad); z-index: 50; transition: width .4s ease; }
+.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); z-index: 50; transition: width .4s ease; }
 .nav {
   position: fixed; right: clamp(12px, 2vw, 28px); bottom: calc(clamp(12px, 2vh, 22px) + env(safe-area-inset-bottom, 0px)); z-index: 50;
   display: flex; align-items: center; gap: 2px;
-  background: rgba(17,30,51,.9); backdrop-filter: blur(8px);
-  border: 1px solid var(--line-2); border-radius: 999px; padding: 4px;
+  background: rgba(23, 23, 26, 0.92); backdrop-filter: blur(8px);
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px;
 }
 .nav button { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--fg-2); }
 .nav button:hover { background: var(--surface-2); color: var(--fg); }
-.nav .counter { width: auto; padding: 0 12px; border-radius: 999px; font-family: var(--font-mono); font-size: .82rem; font-variant-numeric: tabular-nums; }
-.nav .notes-btn { width: auto; padding: 0 12px; border-radius: 999px; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; }
-body.notes-on .nav .notes-btn { color: var(--accent); }
+.nav .counter { width: auto; padding: 0 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; }
+.nav .notes-btn { width: auto; padding: 0 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; }
+body.notes-on .nav .notes-btn { color: var(--red); }
 .index-menu {
   position: fixed; right: clamp(12px, 2vw, 28px); bottom: 74px; z-index: 60;
-  background: var(--surface); border: 1px solid var(--line-2); border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--line-2); border-radius: 10px;
   padding: 8px; max-height: 70vh; overflow: auto; min-width: 270px;
 }
-.index-menu button { display: flex; gap: 12px; width: 100%; text-align: left; padding: 7px 12px; border-radius: 8px; color: var(--fg-2); font-size: .92rem; }
+.index-menu button { display: flex; gap: 12px; width: 100%; text-align: left; padding: 7px 12px; border-radius: 6px; color: var(--fg-2); font-size: 0.9rem; }
 .index-menu button:hover, .index-menu button.current { background: var(--surface-2); color: var(--fg); }
-.index-menu .n { font-family: var(--font-mono); color: var(--fg-3); min-width: 2ch; }
+.index-menu .n { color: var(--red); font-weight: 600; min-width: 2ch; }
 
 /* Roteiro do vendedor (tecla N) */
 .note {
   position: fixed; left: var(--pad-x); bottom: 74px; z-index: 55; max-width: min(560px, 80vw);
-  background: #FFF6E3; color: #2A1D05; border-radius: 12px; padding: 14px 18px;
-  font-size: .92rem; line-height: 1.45; box-shadow: 0 20px 50px -20px rgba(0,0,0,.6);
+  background: #FFF4F2; color: #2B1214; border-radius: 10px; padding: 14px 18px;
+  font-size: 0.9rem; line-height: 1.5; box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
   display: none;
 }
-.note strong { display: block; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; color: #8A5A00; }
+.note strong { display: block; font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 6px; color: var(--red-deep); }
 body.notes-on .slide.is-active .note { display: block; }
 
 /* Micro pacto · registra concordância com um clique */
 .pact {
   display: inline-flex; align-items: center; gap: 10px;
   border: 1px solid var(--line-2); border-radius: 999px;
-  padding: 6px 14px 6px 6px; color: var(--fg-2); font-size: var(--small);
-  font-family: var(--font-body); text-transform: none; letter-spacing: 0;
+  padding: 6px 14px 6px 6px; color: var(--fg-2);
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0; text-transform: none;
   transition: all .25s ease; white-space: nowrap;
 }
-.pact .tick { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); display: grid; place-items: center; transition: all .25s ease; }
+.pact .tick { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); display: grid; place-items: center; transition: all .25s ease; flex: none; }
 .pact .tick svg { width: 13px; height: 13px; opacity: 0; transition: opacity .2s; }
-.pact:hover { border-color: var(--accent); color: var(--fg); }
-.pact.on { border-color: var(--ok); color: var(--fg); background: rgba(63,208,138,.08); }
-.pact.on .tick { background: var(--ok); border-color: var(--ok); color: #05210F; }
+.pact:hover { border-color: var(--red); color: var(--fg); }
+.pact.on { border-color: var(--red); color: var(--fg); background: var(--red-tint); }
+.pact.on .tick { background: var(--red); border-color: var(--red); color: #fff; }
 .pact.on .tick svg { opacity: 1; }
+.slide.red .pact { border-color: rgba(255, 255, 255, 0.55); color: #fff; }
+.slide.red .pact .tick { border-color: rgba(255, 255, 255, 0.7); }
+.slide.red .pact.on { background: #fff; color: var(--red-logo); border-color: #fff; }
+.slide.red .pact.on .tick { background: var(--red-logo); border-color: var(--red-logo); }
 
 /* ─── Capa / Encerramento ─── */
-.cover .slide-body { justify-content: center; }
-.cover h1 { max-width: 15ch; }
-.cover-meta { display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 48px); margin-right: 200px; }
-.cover-meta div { display: flex; flex-direction: column; gap: 4px; }
+.corner {
+  position: absolute; left: 0; top: 0; width: 30vw; height: 40vh; z-index: -1;
+  background: linear-gradient(165deg, rgba(150, 34, 42, 0.62), rgba(90, 18, 24, 0.3));
+  clip-path: polygon(0 0, 100% 0, 44% 100%, 0 54%);
+}
+.lockup { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); }
+.lockup .mark { width: clamp(64px, 7.4vw, 128px); height: auto; color: #fff; flex: none; }
+.lockup .wm { display: flex; flex-direction: column; line-height: 0.98; }
+.lockup .wm i { font-size: clamp(1.5rem, 2.9vw, 3.1rem); }
+.lockup .wm b { font-size: clamp(2.1rem, 4.3vw, 4.7rem); letter-spacing: -0.015em; }
+.cover h1 { max-width: 22ch; }
+.cover-meta { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px clamp(16px, 3vw, 48px); margin-right: 220px; }
+.cover-meta > div { display: flex; flex-direction: column; gap: 4px; }
 .cover-meta strong { font-weight: 500; }
 .cover-meta small { color: var(--fg-3); font-size: var(--small); }
-.tri-art { position: absolute; right: 5vw; top: 50%; transform: translateY(-50%); width: min(36vw, 540px); z-index: -1; }
-.tri-art path, .tri-art line { fill: none; stroke-width: 1.2; }
-.tri-art .t1 { stroke: var(--accent); stroke-dasharray: 1300; stroke-dashoffset: 1300; }
-.slide.is-active .tri-art .t1 { animation: draw 2.4s ease forwards .2s; }
-.tri-art .t2 { stroke: var(--line-2); }
-.tri-art .t3 { stroke: var(--accent-2); opacity: .55; stroke-dasharray: 900; stroke-dashoffset: 900; }
-.slide.is-active .tri-art .t3 { animation: draw 2.8s ease forwards .7s; }
-.tri-art .dim { stroke: var(--fg-3); stroke-width: .8; stroke-dasharray: 4 4; }
-.tri-art text { fill: var(--fg-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
-.tri-art circle { fill: var(--accent); }
-@keyframes draw { to { stroke-dashoffset: 0; } }
+.cover-meta .url { margin-left: auto; color: var(--fg-3); font-size: 0.78rem; letter-spacing: 0.1em; }
+.big-mark { position: absolute; right: 7vw; top: 50%; transform: translateY(-50%); width: min(24vw, 360px); height: auto; color: var(--red-logo); z-index: -1; }
+.closing h1 { max-width: 17ch; }
 
-/* ─── Propósito ─── */
-.purpose { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(20px, 3vw, 56px); align-items: center; }
-.purpose blockquote { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.6rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.015em; text-wrap: balance; }
-.purpose ul { list-style: none; display: grid; gap: 14px; }
-.purpose li { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; color: var(--fg-2); }
-.purpose li .k { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--accent); line-height: 1; }
+/* ─── Quem somos ─── */
+.purpose { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(20px, 3vw, 56px); align-items: center; }
+.purpose blockquote { font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2.6rem); line-height: 1.2; text-wrap: balance; }
 
 /* ─── Números ─── */
-.metric-num { font-family: var(--font-display); font-size: clamp(2.2rem, 3.8vw, 3.8rem); font-weight: 800; line-height: 1; margin: 12px 0 8px; font-variant-numeric: tabular-nums; }
+.metric-num { font-weight: 700; font-size: clamp(2.1rem, 3.5vw, 3.5rem); line-height: 1; margin: 14px 0 8px; color: var(--red); }
 
 /* ─── Time ─── */
-.team { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: clamp(12px, 1.5vw, 22px); }
+.team { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.5vw, 22px); }
 .person { display: flex; flex-direction: column; gap: 10px; }
-.avatar {
-  width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
-  font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--accent-ink); background: var(--grad);
-}
-.person .p-role { color: var(--accent); }
+.avatar { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 1.15rem; color: #fff; background: var(--red-logo); }
+.person .p-role { display: block; margin-top: 4px; color: var(--red); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; }
 .person p { font-size: var(--small); }
 
 /* ─── O que ouvimos ─── */
-.heard { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: clamp(10px, 1.3vw, 18px); }
+.heard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.3vw, 18px); }
 .quote-card { text-align: left; display: flex; flex-direction: column; gap: 10px; transition: border-color .25s; }
-.quote-card q { font-family: var(--font-display); font-size: clamp(1.02rem, 1.3vw, 1.3rem); font-weight: 600; line-height: 1.25; quotes: "“" "”"; }
-.quote-card .cause { color: var(--fg-3); font-size: var(--small); border-top: 1px dashed var(--line-2); padding-top: 10px; display: none; }
-.quote-card.open { border-color: rgba(242,169,59,.5); }
+.quote-card:hover { border-color: var(--line-2); }
+.quote-card q { font-weight: 600; font-size: clamp(1rem, 1.25vw, 1.28rem); line-height: 1.35; quotes: "“" "”"; }
+.quote-card .cause { color: var(--fg-2); font-size: var(--small); border-top: 1px solid var(--line); padding-top: 10px; display: none; }
+.quote-card.open { border-color: var(--red-line); }
 .quote-card.open .cause { display: block; animation: fadeUp .3s ease; }
-.quote-card .cause b { color: var(--accent); font-weight: 600; }
+.quote-card .cause b { color: var(--red); font-weight: 600; }
 
-/* ─── Céu / inferno ─── */
-.ba { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 28px); }
-.ba ul { list-style: none; display: grid; gap: 12px; margin-top: 14px; }
-.ba li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; color: var(--fg-2); }
-.ba li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; margin-top: .6em; background: var(--no); }
-.ba .after { border-color: rgba(242,169,59,.45); background: linear-gradient(180deg, rgba(242,169,59,.09), var(--surface)); }
-.ba .after li::before { background: var(--ok); }
-.ba .after li { color: var(--fg); }
-.drucker { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; color: var(--fg-2); font-style: italic; max-width: 70ch; }
+/* ─── Antes / depois ─── */
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); }
+.ba .card { padding: clamp(20px, 2vw, 30px); }
+.ba ul { list-style: none; display: grid; gap: 14px; margin-top: 18px; }
+.ba li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--fg-2); font-weight: 300; }
+.ba li::before { content: "×"; color: var(--fg-3); }
+.ba .after { background: var(--red-logo); border-color: var(--red-logo); }
+.ba .after .kicker { color: rgba(255, 255, 255, 0.85); }
+.ba .after li { color: #fff; font-weight: 600; }
+.ba .after li::before { content: "✓"; color: #fff; }
+.drucker { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; color: var(--fg-2); font-style: italic; font-weight: 300; }
 .drucker span { font-style: normal; }
 
 /* ─── Método TRIA ─── */
-.tria { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: clamp(10px, 1.3vw, 18px); }
-.tria-step { position: relative; text-align: left; display: flex; flex-direction: column; gap: 6px; transition: border-color .3s, transform .3s, background .3s; }
-.tria-step .letter { font-family: var(--font-display); font-weight: 800; font-size: clamp(3.6rem, 7.4vw, 8rem); line-height: .85; margin: 10px 0 6px; }
-.tria-step .word { font-family: var(--font-display); font-size: clamp(1.1rem, 1.5vw, 1.5rem); font-weight: 700; }
-.tria-step .sub { color: var(--fg-3); }
+.tria { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.3vw, 18px); }
+.tria-step { position: relative; text-align: left; display: flex; flex-direction: column; gap: 6px; transition: border-color .3s, background .3s; }
+.tria-step .letter { font-weight: 700; font-size: clamp(3.4rem, 7vw, 7.4rem); line-height: 0.9; margin: 10px 0 6px; color: var(--red); }
+.tria-step .word { font-size: clamp(1.06rem, 1.45vw, 1.45rem); font-weight: 600; }
+.tria-step .sub { color: var(--fg-2); font-weight: 300; }
 .explorer .tria-step { padding: clamp(12px, 1.1vw, 16px); flex-direction: row; align-items: center; gap: 14px; }
 .explorer .tria-step:hover { border-color: var(--line-2); }
 .explorer .tria-step .letter { font-size: clamp(2rem, 3vw, 3rem); margin: 0; }
-.explorer .tria-step.active { border-color: var(--accent); background: linear-gradient(180deg, rgba(242,169,59,.12), var(--surface)); }
-.explorer .tria-step.active .letter { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.explorer .tria-step.active { background: var(--red-logo); border-color: var(--red-logo); }
+.explorer .tria-step.active .letter, .explorer .tria-step.active .sub { color: #fff; }
 .panel { display: none; grid-template-columns: 1.3fr 1fr; gap: clamp(16px, 2vw, 32px); animation: fadeUp .4s ease; }
 .panel.active { display: grid; }
 .panel ol { list-style: none; counter-reset: s; display: grid; gap: 9px; }
 .panel ol li { counter-increment: s; display: grid; grid-template-columns: 32px 1fr; gap: 10px; color: var(--fg-2); }
-.panel ol li::before { content: counter(s, decimal-leading-zero); font-family: var(--font-mono); color: var(--accent); font-size: .82rem; padding-top: .25em; }
+.panel ol li::before { content: counter(s, decimal-leading-zero); color: var(--red); font-weight: 600; font-size: 0.82rem; padding-top: 0.2em; }
 .panel .facts { display: grid; gap: 12px; align-content: start; }
 .panel .facts .card { padding: 14px 18px; }
-.panel .facts .mono { color: var(--fg-3); margin-bottom: 4px; }
-.gift { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ok); border: 1px solid rgba(63,208,138,.4); border-radius: 999px; padding: 2px 10px; }
+.panel .facts .kicker { margin-bottom: 4px; }
+.tag-gift {
+  display: inline-flex; align-items: center; vertical-align: middle;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--fg); background: var(--red-tint); border: 1px solid var(--red-line); border-radius: 999px; padding: 2px 9px;
+}
 @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-/* ─── Dúvidas / Pergunta-pacto ─── */
-.qmark { font-family: var(--font-display); font-size: clamp(6rem, 17vw, 15rem); line-height: .8; font-weight: 800; }
+/* ─── Dúvidas / Pergunta ─── */
+.qmark { font-weight: 700; font-size: clamp(6rem, 16vw, 14rem); line-height: 0.85; color: var(--red); }
 .mini-tria { display: flex; gap: clamp(10px, 2vw, 28px); flex-wrap: wrap; }
-.mini-tria span { font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 2.6rem); font-weight: 700; color: var(--fg-3); }
-.mini-tria span b { font-weight: 800; }
-.big-q h1 { max-width: 20ch; }
+.mini-tria span { font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.5rem); color: var(--fg-3); }
+.mini-tria span b { color: var(--red); }
+.big-q h1 { max-width: 20ch; font-size: clamp(2.2rem, 4.4vw, 4.6rem); }
 .answer { display: flex; flex-wrap: wrap; gap: 12px; }
 .answer .pact { font-size: 1rem; padding: 10px 20px 10px 10px; white-space: normal; text-align: left; }
-.answer .pact .tick { width: 28px; height: 28px; flex: none; }
+.answer .pact .tick { width: 28px; height: 28px; }
 
 /* ─── Cronograma ─── */
 .gantt-wrap { overflow-x: auto; }
 .gantt { display: grid; gap: 10px; min-width: 640px; }
 .gantt-head, .gantt-row { display: grid; grid-template-columns: minmax(170px, 1.1fr) 3fr; gap: 16px; align-items: center; }
 .gantt-scale, .gantt-track { display: grid; grid-template-columns: repeat(8, 1fr) 2fr; gap: 4px; }
-.gantt-scale span { text-align: center; color: var(--fg-3); font-family: var(--font-mono); font-size: .74rem; }
+.gantt-scale span { text-align: center; color: var(--fg-3); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; }
 .gantt-track { height: 36px; }
 .gantt-bar {
-  border-radius: 7px; background: var(--grad); display: flex; align-items: center; padding: 0 12px;
-  color: var(--accent-ink); font-weight: 600; font-size: .84rem; white-space: nowrap; overflow: hidden;
-  transform-origin: left;
+  border-radius: 6px; background: var(--red-logo); display: flex; align-items: center; padding: 0 12px;
+  color: #fff; font-weight: 600; font-size: 0.8rem; white-space: nowrap; overflow: hidden; transform-origin: left;
 }
-.slide.is-active .gantt-bar { animation: grow .8s cubic-bezier(.2,.8,.2,1) both; }
-.gantt-bar.soft { background: repeating-linear-gradient(135deg, rgba(242,169,59,.25) 0 8px, rgba(242,169,59,.1) 8px 16px); color: var(--fg); border: 1px solid rgba(242,169,59,.4); }
-.gantt-bar.gift-bar { background: rgba(63,208,138,.18); color: var(--ok); border: 1px solid rgba(63,208,138,.45); }
-.gantt-label strong { display: block; font-family: var(--font-display); font-weight: 600; }
+.slide.is-active .gantt-bar { animation: grow .8s cubic-bezier(.2, .8, .2, 1) both; }
+.gantt-bar.soft { background: repeating-linear-gradient(135deg, rgba(232, 62, 70, 0.28) 0 8px, rgba(232, 62, 70, 0.1) 8px 16px); color: var(--fg); border: 1px solid var(--red-line); }
+.gantt-bar.gift-bar { background: transparent; color: var(--red); border: 1px dashed var(--red-line); }
+.gantt-label strong { display: block; font-weight: 600; }
 .gantt-label span { color: var(--fg-3); font-size: var(--small); }
 @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 /* ─── Escopo ─── */
 .tabs { display: inline-flex; border: 1px solid var(--line-2); border-radius: 999px; padding: 4px; gap: 4px; align-self: flex-start; flex-wrap: wrap; }
 .tabs button { padding: 7px 16px; border-radius: 999px; color: var(--fg-2); font-size: var(--small); }
-.tabs button.on { background: var(--fg); color: var(--bg); font-weight: 600; }
+.tabs button.on { background: var(--fg); color: #111114; font-weight: 600; }
 .scope-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
-.scope-list li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; color: var(--fg-2); padding: 9px 0; border-bottom: 1px solid var(--line); }
-.scope-list .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .78rem; margin-top: .1em; }
-.scope-list.in .ic { background: rgba(63,208,138,.15); color: var(--ok); }
-.scope-list.out .ic { background: rgba(255,107,94,.15); color: var(--no); }
-.scope-list.courtesy .ic { background: rgba(242,169,59,.15); color: var(--accent); }
+.scope-list li { display: grid; grid-template-columns: 30px 1fr; gap: 10px; color: var(--fg-2); padding: 9px 0; border-bottom: 1px solid var(--line); }
+.scope-list .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.72rem; margin-top: 0.15em; }
+.scope-list.in .ic { background: var(--red-logo); color: #fff; }
+.scope-list.courtesy .ic { border: 1px solid var(--red-line); color: var(--red); }
+.scope-list.out .ic { background: var(--surface-2); color: var(--fg-3); }
 .scope-pane { display: none; animation: fadeUp .35s ease; }
 .scope-pane.on { display: block; }
 
-/* ─── Valor x preço ─── */
+/* ─── Valor × preço ─── */
 .value-wrap { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(16px, 2.4vw, 40px); align-items: stretch; }
 .roles { display: grid; gap: 8px; align-content: start; }
 .role {
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
-  padding: 11px 18px; text-align: left; border-radius: 10px;
+  padding: 11px 18px; text-align: left; border-radius: var(--radius);
   border: 1px solid var(--line); background: var(--surface); transition: all .3s ease;
 }
 .role .r-name { color: var(--fg-2); }
-.role .r-val { font-family: var(--font-mono); color: var(--fg-3); font-variant-numeric: tabular-nums; }
-.role.on { border-color: rgba(242,169,59,.45); background: linear-gradient(90deg, rgba(242,169,59,.1), var(--surface)); }
+.role .r-val { color: var(--fg-3); font-weight: 500; }
+.role.on { border-color: var(--red-line); background: var(--red-tint); }
 .role.on .r-name { color: var(--fg); }
-.role.on .r-val { color: var(--accent); }
+.role.on .r-val { color: var(--red); }
 .value-total { display: flex; flex-direction: column; gap: 14px; }
-.value-total .big { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 4rem); font-weight: 800; line-height: 1; margin-top: 6px; font-variant-numeric: tabular-nums; }
-.locked { border-style: dashed; display: grid; gap: 6px; }
-.locked .big { color: var(--fg-3); font-size: clamp(1.6rem, 2.4vw, 2.4rem); filter: blur(7px); user-select: none; }
+.value-total .big { font-weight: 700; font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1; margin-top: 8px; }
+.locked-card { border-style: dashed; display: grid; gap: 6px; }
+.locked-card .big { color: var(--fg-3); font-size: clamp(1.6rem, 2.4vw, 2.4rem); filter: blur(7px); user-select: none; }
 
 /* ─── Prova social ─── */
-.case .client { font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; margin-bottom: 4px; }
-.case .result { font-family: var(--font-display); font-size: clamp(1.4rem, 2vw, 2rem); font-weight: 800; margin: 14px 0 6px; }
+.case .client { font-weight: 600; font-size: 1.08rem; margin-bottom: 4px; }
+.case .result { font-size: clamp(1.35rem, 2vw, 2rem); font-weight: 700; margin: 14px 0 6px; color: var(--red); line-height: 1.15; }
 
 /* ─── Dois caminhos ─── */
 .paths { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 28px); }
 .path { text-align: left; display: flex; flex-direction: column; gap: 12px; transition: all .35s ease; }
 .path ul { list-style: none; display: grid; gap: 10px; }
-.path li { color: var(--fg-2); padding-left: 18px; position: relative; }
-.path li::before { content: ""; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--fg-3); }
-.path.p2 li::before { background: var(--accent); }
-.path.p2 { border-color: rgba(242,169,59,.4); }
-.paths.focus-1 .p2, .paths.focus-2 .p1 { opacity: .35; transform: scale(.98); }
-.paths.focus-2 .p2 { box-shadow: 0 0 0 1px var(--accent), 0 20px 60px -20px rgba(242,169,59,.4); }
+.path li { color: var(--fg-2); padding-left: 22px; position: relative; }
+.path li::before { content: ""; position: absolute; left: 2px; top: 0.6em; width: 7px; height: 7px; transform: rotate(45deg); background: var(--fg-3); }
+.path.p2 li::before { background: var(--red); }
+.path.p2 { border-color: var(--red-line); }
+.paths.focus-1 .p2, .paths.focus-2 .p1 { opacity: 0.35; transform: scale(0.98); }
+.paths.focus-2 .p2 { box-shadow: 0 0 0 1px var(--red), 0 20px 60px -20px rgba(232, 62, 70, 0.45); }
 .pact-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; color: var(--fg-2); font-size: var(--small); }
 .pact-summary .dot { display: inline-flex; align-items: center; gap: 8px; }
-.pact-summary .dot i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
-.pact-summary .dot.on i { background: var(--ok); }
+.pact-summary .dot i { width: 9px; height: 9px; transform: rotate(45deg); background: var(--line-2); }
+.pact-summary .dot.on i { background: var(--red); }
 
-/* ─── Calculadora ─── */
-.calc { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(16px, 2.2vw, 32px); align-items: start; }
-.calc-left { display: grid; gap: 18px; }
-.opts { display: grid; gap: 12px; }
-.opt-group { display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 14px; }
-.opt-group .label { display: flex; gap: 10px; align-items: baseline; }
-.opt-group .label .mono { color: var(--accent); }
-.seg { display: flex; flex-wrap: wrap; gap: 6px; }
-.seg button { padding: 8px 13px; border-radius: 9px; border: 1px solid var(--line-2); color: var(--fg-2); font-size: .9rem; transition: all .2s; }
-.seg button:hover { border-color: var(--fg-3); color: var(--fg); }
-.seg button.on { background: var(--fg); color: var(--bg); border-color: var(--fg); font-weight: 600; }
-.seg button small { opacity: .7; font-weight: 400; margin-left: 4px; }
-.seg .fixed { padding: 8px 13px; border-radius: 9px; border: 1px dashed rgba(63,208,138,.5); color: var(--ok); font-size: .9rem; }
-.roi { display: grid; gap: 12px; padding: 16px 18px; }
-.roi-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px 20px; }
-.roi label { display: grid; gap: 4px; font-size: var(--small); color: var(--fg-2); }
+/* ─── Investimento · retorno + preço ─── */
+.calc { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(14px, 2vw, 28px); align-items: stretch; }
+.roi { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+.roi-head p { font-weight: 500; margin-top: 6px; }
+.roi-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
+.roi label { display: grid; gap: 6px; font-size: var(--small); color: var(--fg-2); }
 .roi label span { display: flex; justify-content: space-between; gap: 8px; }
-.roi label b { color: var(--fg); font-variant-numeric: tabular-nums; font-weight: 600; }
-.roi input[type=range] { width: 100%; accent-color: var(--accent); }
-.roi-out { display: flex; flex-wrap: wrap; gap: 8px 24px; border-top: 1px solid var(--line); padding-top: 12px; }
-.roi-out div { display: grid; }
-.roi-out strong { font-family: var(--font-display); font-size: 1.35rem; font-variant-numeric: tabular-nums; }
-.quote { display: grid; gap: 12px; }
-.quote .scope-name { color: var(--fg); font-weight: 500; font-size: var(--small); }
-.price-row { display: grid; gap: 4px; padding: 14px 0 0; border-top: 1px solid var(--line); }
-.price-row .val { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1.05; font-variant-numeric: tabular-nums; }
-.price-row .inst { color: var(--fg-3); font-size: var(--small); }
-.price-row.anchor .val.struck { color: var(--fg-3); text-decoration: line-through; text-decoration-thickness: 2px; font-size: clamp(1.3rem, 2vw, 2rem); }
-.hidden { display: none !important; }
-.save { display: flex; gap: 6px 18px; flex-wrap: wrap; color: var(--ok); font-weight: 500; font-size: var(--small); }
+.roi label b { color: var(--fg); font-weight: 600; }
+.roi input[type=range] { width: 100%; accent-color: var(--red); }
+.conv { display: grid; gap: 10px; }
+.conv-row { display: grid; grid-template-columns: 110px 1fr 84px; align-items: center; gap: 12px; font-size: var(--small); color: var(--fg-2); }
+.conv-row b { color: var(--fg); font-weight: 600; text-align: right; white-space: nowrap; }
+.dots { display: flex; gap: 3px; min-width: 0; }
+.dots i { flex: 0 1 24px; min-width: 3px; aspect-ratio: 1; border-radius: 50%; }
+.roi-out { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+.roi-out div { display: grid; gap: 2px; }
+.roi-out span { color: var(--fg-2); font-size: 0.8rem; }
+.roi-out strong { font-size: clamp(1.2rem, 1.7vw, 1.7rem); font-weight: 700; }
+.roi-out .lead-num { color: var(--red); }
+.quote { display: flex; flex-direction: column; gap: 14px; }
+.scope-line { color: var(--fg-2); font-size: var(--small); line-height: 1.8; }
+.pay-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { padding: 7px 12px; border-radius: var(--radius); border: 1px solid var(--line-2); color: var(--fg-2); font-size: 0.86rem; transition: all .2s; }
+.seg button:hover { border-color: var(--fg-3); color: var(--fg); }
+.seg button.on { background: var(--fg); color: #111114; border-color: var(--fg); font-weight: 600; }
+.seg button small { opacity: 0.7; margin-left: 4px; }
+.prices { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.price-cell { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(0, 0, 0, 0.18); }
+.price-cell.deal { border-color: var(--red-line); background: var(--red-tint); }
+.price-cell .val { font-weight: 700; font-size: clamp(1.5rem, 2.3vw, 2.4rem); line-height: 1.1; transition: filter .4s, color .4s; }
+.price-cell.locked .val { filter: blur(9px); color: var(--fg-3); user-select: none; }
+.price-cell .val.struck { color: var(--fg-3); text-decoration: line-through; text-decoration-thickness: 2px; }
+.price-cell .inst { color: var(--fg-2); font-size: 0.8rem; min-height: 1.3em; }
+.price-cell .btn { align-self: flex-start; margin-top: 6px; }
+.deal-extra { display: grid; gap: 4px; font-size: 0.82rem; color: var(--fg-2); }
+.deal-extra b { color: var(--fg); font-weight: 600; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: .94rem;
-  background: var(--grad); color: var(--accent-ink); transition: transform .2s, opacity .2s;
+  padding: 10px 16px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem;
+  background: var(--red-logo); color: #fff; transition: background .2s, transform .2s, opacity .2s;
 }
-.btn:hover { transform: translateY(-1px); }
+.btn:hover { background: var(--red); transform: translateY(-1px); }
 .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line-2); }
-.btn[disabled] { opacity: .35; cursor: not-allowed; transform: none; }
+.btn.ghost:hover { border-color: var(--fg-3); }
+.btn[disabled] { opacity: 0.35; cursor: not-allowed; transform: none; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.quote-foot { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 0.8rem; color: var(--fg-3); }
 .tune { display: none; gap: 8px; align-items: center; flex-wrap: wrap; font-size: var(--small); color: var(--fg-3); }
 .tune.open { display: flex; }
-.tune input { background: var(--surface); border: 1px solid var(--line-2); border-radius: 8px; color: var(--fg); padding: 6px 10px; width: 130px; font: inherit; }
-.linkish { color: var(--fg-3); font-size: var(--small); text-decoration: underline; text-underline-offset: 3px; }
-.toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0; background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .9rem; transition: all .3s; z-index: 80; pointer-events: none; }
+.tune input { background: var(--surface); border: 1px solid var(--line-2); border-radius: 6px; color: var(--fg); padding: 6px 10px; width: 130px; font: inherit; }
+.linkish { color: var(--fg-3); font-size: 0.8rem; text-decoration: underline; text-underline-offset: 3px; }
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0; background: var(--fg); color: #111114; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; transition: all .3s; z-index: 80; pointer-events: none; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 /* ─── Próximos passos ─── */
-.steps { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
 .step { display: flex; flex-direction: column; gap: 6px; }
-.step .when { color: var(--accent); }
+.step .when { color: var(--red); }
 .step .dotline { height: 2px; background: var(--line-2); position: relative; margin: 8px 0 10px; }
-.step .dotline::before { content: ""; position: absolute; left: 0; top: -5px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(242,169,59,.18); }
+.step .dotline::before { content: ""; position: absolute; left: 0; top: -5px; width: 12px; height: 12px; transform: rotate(45deg); background: var(--red); box-shadow: 0 0 0 5px rgba(232, 62, 70, 0.18); }
 .step p { color: var(--fg-2); font-size: var(--small); }
-.terms { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.terms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .terms .card { padding: 14px 18px; }
 .terms p { font-size: var(--small); margin-top: 4px; }
 
@@ -394,10 +403,10 @@ body.notes-on .slide.is-active .note { display: block; }
    RESPONSIVO
    ════════════════════════════════════════════════════════════════ */
 @media (max-width: 1180px) {
-  .g4, .team { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .g4, .team { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .calc, .value-wrap { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: repeat(3, minmax(0,1fr)); row-gap: 24px; }
-  .heard { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 24px; }
+  .heard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 /* Celular e tablet em pé: vira página rolável */
 @media (max-width: 820px), (max-height: 520px) and (max-width: 1000px) {
@@ -411,13 +420,14 @@ body.notes-on .slide.is-active .note { display: block; }
   }
   .slide.cover { min-height: 100svh; }
   .nav, .progress, .note { display: none !important; }
-  .g2, .g3, .g4, .team, .heard, .ba, .paths, .panel, .terms, .scope-list, .purpose, .roi-grid { grid-template-columns: 1fr; }
-  .tria { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .g3, .g4, .team, .heard, .ba, .paths, .panel, .terms, .scope-list, .purpose, .roi-grid { grid-template-columns: 1fr; }
+  .tria { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps { grid-template-columns: 1fr; }
-  .opt-group { grid-template-columns: 1fr; gap: 8px; }
   .stamp, .cover-meta { margin-right: 0; }
-  .stamp .hide-sm { display: none; }
-  .tri-art { opacity: .22; width: 90vw; right: -30vw; }
+  .conv-row { grid-template-columns: 1fr auto; }
+  .conv-row .dots { grid-column: 1 / -1; grid-row: 2; }
+  .big-mark { opacity: 0.18; width: 70vw; right: -18vw; }
+  .corner { width: 60vw; height: 26vh; }
 }
 
 /* PDF do deck inteiro (Ctrl+P) */
@@ -441,51 +451,45 @@ body.notes-on .slide.is-active .note { display: block; }
 
 <!-- ═══════════ 01 · CAPA ═══════════ -->
 <section class="slide cover" data-title="Capa">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-date></span></div>
-  <svg class="tri-art" viewBox="0 0 520 470" aria-hidden="true">
-    <path class="t2" d="M260 30 L490 430 L30 430 Z"/>
-    <path class="t1" d="M260 30 L490 430 L30 430 Z"/>
-    <path class="t3" d="M260 170 L375 370 L145 370 Z"/>
-    <line class="dim" x1="30" y1="452" x2="490" y2="452"/>
-    <text x="196" y="466">PROPOSTA · REV. 01</text>
-    <circle cx="260" cy="30" r="5"/><circle cx="490" cy="430" r="5"/><circle cx="30" cy="430" r="5"/>
-  </svg>
+  <div class="corner" aria-hidden="true"></div>
+  <div class="slide-header"><span class="eyebrow">Proposta comercial · <span data-f="client"></span> · 2026</span><span class="kicker" data-date></span></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Proposta comercial · Fechamento</span>
-    <h1>A qualidade da <span data-f="client"></span> <span class="grad-text">precisa aparecer</span> antes do preço.</h1>
+    <div class="lockup"><span data-mark="lock"></span><span class="wm"><i>Triângulo</i><b>Solutions</b></span></div>
+    <h1>A qualidade da <span data-f="client"></span> <span class="hl">precisa aparecer antes do preço.</span></h1>
     <p class="lead">Apresentação de proposta com processo, site renovado e um time comercial treinado para conduzir o cliente até o sim.</p>
   </div>
   <div class="cover-meta">
-    <div><span class="mono muted">Preparado para</span><strong data-f="contact"></strong><small data-f="contactRole"></small></div>
-    <div><span class="mono muted">Empresa</span><strong data-f="client"></strong><small>Uberaba/MG</small></div>
-    <div><span class="mono muted">Responsável pelo projeto</span><strong data-f="projectLead"></strong><small>Diretor de projetos · Triângulo</small></div>
+    <span data-contacts></span>
+    <div><span class="kicker">Responsável pelo projeto</span><strong data-f="projectLead"></strong><small>Diretor de projetos · Triângulo</small></div>
+    <span class="url" data-f="site"></span>
   </div>
-  <aside class="note"><strong>Roteiro</strong>Abra agradecendo o tempo do Marcelo, do Vinícius e do João. Diga que esta apresentação é o próprio exemplo do que vai ser entregue.</aside>
+  <aside class="note"><strong>Roteiro</strong>Abra agradecendo o tempo do Marcelo, do Arthur, do Vinícius e do João. Diga que esta apresentação é o próprio exemplo do que vai ser entregue.</aside>
 </section>
 
-<!-- ═══════════ 02 · PROPÓSITO ═══════════ -->
-<section class="slide alt" data-title="Propósito">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<!-- ═══════════ 02 · QUEM SOMOS ═══════════ -->
+<section class="slide mid" data-title="Quem somos">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Por que existimos</span>
+    <span class="eyebrow">Quem somos</span>
     <div class="purpose">
-      <blockquote>Engenharia aplicada para que o empreendedorismo local <span class="grad-text">cresça com processo</span>, não com sorte.</blockquote>
-      <ul>
-        <li><span class="k">01</span><span>Nascemos de gente que viveu o Movimento Empresa Júnior por dentro: projeto, comercial e gestão.</span></li>
-        <li><span class="k">02</span><span>Engenharia de produção aplicada a vendas. Processo, indicador e rotina antes de técnica e gatilho.</span></li>
-        <li><span class="k">03</span><span>A gente fica depois da entrega para acompanhar resultado e ajustar.</span></li>
+      <blockquote>Existe lucro preso em toda empresa. <span class="hl">Nosso trabalho é destravar.</span></blockquote>
+      <ul class="dlist">
+        <li>Nascemos da inquietação de estudantes de engenharia de produção. Parte do time veio do Movimento Empresa Júnior.</li>
+        <li>Não somos agência nem software house. Usamos o método da engenharia: mapear o processo, achar a falha, medir e otimizar.</li>
+        <li>A gente não chuta: triangula. Acha o ponto exato antes de agir.</li>
+        <li>Se não move o ponteiro do lucro, a gente não faz.</li>
       </ul>
     </div>
   </div>
   <div class="stamp" data-stamp></div>
-  <aside class="note"><strong>Roteiro</strong>Primeiro algo social, depois números, depois pessoas. Conecte com o propósito da própria MecTRIA: impacto no empreendedorismo local através da engenharia.</aside>
+  <aside class="note"><strong>Roteiro</strong>Primeiro algo de propósito, depois números, depois pessoas. Conecte com o propósito da própria MecTRIA: impacto no empreendedorismo local através da engenharia.</aside>
 </section>
 
 <!-- ═══════════ 03 · NÚMEROS ═══════════ -->
-<section class="slide" data-title="Números">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide alt" data-title="Números">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Histórico</span>
+    <span class="eyebrow">Histórico</span>
     <h2>O que já construímos.</h2>
     <div class="grid g4" data-metrics></div>
   </div>
@@ -494,10 +498,10 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 04 · QUEM ESTÁ POR TRÁS ═══════════ -->
-<section class="slide alt" data-title="Quem está por trás">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide" data-title="Quem está por trás">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Quem está por trás</span>
+    <span class="eyebrow">Quem está por trás</span>
     <h2>Gente que já sentou do lado de vocês da mesa.</h2>
     <div class="team" data-team></div>
   </div>
@@ -506,56 +510,56 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 05 · O QUE OUVIMOS ═══════════ -->
-<section class="slide" data-title="O que ouvimos">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide alt" data-title="O que ouvimos">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">O que ouvimos de vocês</span>
+    <span class="eyebrow">O que ouvimos de vocês</span>
     <h2>Seis frases da nossa conversa.</h2>
     <div class="heard" data-heard></div>
   </div>
-  <div class="stamp" data-stamp data-pact-key="dor" data-hint="Clique para ver a causa"></div>
+  <div class="stamp" data-stamp data-pact-key="dor" data-hint="Clique em cada frase para ver a causa"></div>
   <aside class="note"><strong>Roteiro</strong>Leia cada frase e pergunte: "é isso mesmo?". Clique para revelar a causa. No fim, marque o pacto: as dores estão certas.</aside>
 </section>
 
-<!-- ═══════════ 06 · CÉU / INFERNO ═══════════ -->
-<section class="slide alt" data-title="Dois cenários">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<!-- ═══════════ 06 · ANTES / DEPOIS ═══════════ -->
+<section class="slide" data-title="Dois cenários">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Variabilidade × constância</span>
+    <span class="eyebrow">Variabilidade × constância</span>
     <h2>O mesmo time, com e sem processo.</h2>
     <div class="ba">
       <div class="card">
-        <span class="mono muted">Sem processo · hoje</span>
+        <span class="kicker">Sem processo · hoje</span>
         <ul>
           <li>Cada reunião depende do ânimo do vendedor naquela semana.</li>
-          <li>A apresentação muda de ordem a cada proposta e o cliente fica em silêncio na hora de decidir.</li>
+          <li>A apresentação muda de ordem e o cliente fica em silêncio na hora de decidir.</li>
           <li>Quando o melhor vendedor sai, o repertório vai junto.</li>
           <li>O treinamento ensina, mas ninguém acompanha a aplicação.</li>
           <li>A entrega é excelente e o cliente só descobre depois de comprar.</li>
         </ul>
       </div>
       <div class="card after">
-        <span class="mono eyebrow">Com processo · depois</span>
+        <span class="kicker">Com processo · depois</span>
         <ul>
-          <li>Mesma estrutura, mesmos micro pactos e mesmas provas em toda reunião.</li>
-          <li>O que varia é pequeno: logo, dores, preço, prazo e time.</li>
+          <li>Mesma estrutura, micro pactos e provas em toda reunião.</li>
+          <li>O que varia é pouco: logo, dores, preço, prazo e time.</li>
           <li>Um novo membro apresenta no mesmo nível em poucas semanas.</li>
           <li>Taxa de fechamento medida proposta a proposta.</li>
           <li>A qualidade da engenharia aparece antes do preço.</li>
         </ul>
       </div>
     </div>
-    <p class="drucker">“O que não se mede não se gerencia.”<span class="mono muted">Peter Drucker</span></p>
+    <p class="drucker">“O que não se mede não se gerencia.”<span class="kicker">Peter Drucker</span></p>
   </div>
   <div class="stamp" data-stamp data-pact-key="cenario"></div>
   <aside class="note"><strong>Roteiro</strong>Use o exemplo das 8 ligações: uma na segunda, três na terça, o resto na sexta. Isso é variabilidade. O que reduz variabilidade? Processo.</aside>
 </section>
 
 <!-- ═══════════ 07 · MÉTODO TRIA ═══════════ -->
-<section class="slide" data-title="Método TRIA">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide mid" data-title="Método TRIA">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Método TRIA</span>
+    <span class="eyebrow">Método TRIA</span>
     <h2>Quatro etapas. Um processo de fechamento.</h2>
     <p class="lead">Cada letra é uma etapa do projeto. Nenhuma começa antes de a anterior ser aprovada por vocês.</p>
     <div class="tria" data-tria-static></div>
@@ -566,7 +570,7 @@ body.notes-on .slide.is-active .note { display: block; }
 
 <!-- ═══════════ 08 · EXPLORADOR TRIA ═══════════ -->
 <section class="slide alt explorer" data-title="Etapas em detalhe">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body top">
     <div class="tria" data-tria-explorer></div>
     <div data-tria-panels></div>
@@ -576,22 +580,22 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 09 · DÚVIDAS ═══════════ -->
-<section class="slide" data-title="Dúvidas">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide mid" data-title="Dúvidas">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <div class="qmark grad-text">?</div>
+    <div class="qmark">?</div>
     <h2>Alguma dúvida sobre o projeto?</h2>
     <div class="mini-tria" data-mini-tria></div>
   </div>
-  <div class="stamp" data-stamp data-hint="Pausa proposital · ouça antes de seguir"></div>
+  <div class="stamp" data-stamp data-hint="Pausa proposital: ouça antes de seguir"></div>
   <aside class="note"><strong>Roteiro</strong>Faça a pergunta e fique em silêncio. Deixe o cliente falar primeiro.</aside>
 </section>
 
 <!-- ═══════════ 10 · CRONOGRAMA ═══════════ -->
-<section class="slide alt" data-title="Cronograma">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide" data-title="Cronograma">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Cronograma</span>
+    <span class="eyebrow">Cronograma</span>
     <h2>8 semanas de execução. Acompanhamento depois.</h2>
     <div class="gantt-wrap"><div class="gantt" data-gantt></div></div>
   </div>
@@ -600,10 +604,10 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 11 · ESCOPO ═══════════ -->
-<section class="slide" data-title="Escopo">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide alt" data-title="Escopo">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body top">
-    <span class="mono eyebrow">Escopo</span>
+    <span class="eyebrow">Escopo</span>
     <h2>O que está dentro, o que é cortesia e o que fica fora.</h2>
     <div class="tabs" role="tablist">
       <button class="on" data-scope-tab="in">Incluído</button>
@@ -619,11 +623,11 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 12 · PERGUNTA-PACTO ═══════════ -->
-<section class="slide alt big-q" data-title="Tirando o preço">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide red big-q" data-title="Tirando o preço">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Uma pergunta sincera</span>
-    <h1>Tirando o preço da mesa, vocês seriam clientes da <span class="grad-text">Triângulo</span>?</h1>
+    <span class="eyebrow">Uma pergunta sincera</span>
+    <h1>Tirando o preço da mesa, vocês seriam clientes da Triângulo?</h1>
     <div class="answer">
       <button class="pact" data-pact="cliente"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8.5l3 3 7-7"/></svg></span>Sim, o projeto resolve o que precisamos</button>
       <button class="pact" data-goto-title="Dúvidas">Ainda tenho dúvidas</button>
@@ -635,22 +639,22 @@ body.notes-on .slide.is-active .note { display: block; }
 
 <!-- ═══════════ 13 · VALOR ═══════════ -->
 <section class="slide" data-title="Quanto vale">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Valor × preço</span>
+    <span class="eyebrow">Valor × preço</span>
     <h2>Quanto custaria montar esse time no mercado?</h2>
     <div class="value-wrap">
       <div class="roles" data-roles></div>
       <div class="value-total">
         <div class="card">
-          <span class="mono muted">Custo mensal · <span data-roles-count>0</span></span>
+          <span class="kicker">Custo mensal · <span data-roles-count>0</span></span>
           <div class="big" data-roles-total>R$ 0</div>
-          <p class="muted" style="margin-top:8px">× <span data-f="rolesMonths"></span> meses de projeto = <strong style="color:var(--fg)" data-roles-period>R$ 0</strong><br>sem encargos, recrutamento ou gestão.</p>
+          <p style="margin-top:8px">× <span data-f="rolesMonths"></span> meses de projeto = <strong style="color:var(--fg)" data-roles-period>R$ 0</strong><br>sem encargos, recrutamento ou gestão.</p>
         </div>
-        <div class="card locked">
-          <span class="mono muted">Quanto vocês investem na condição MEJ</span>
+        <div class="card locked-card">
+          <span class="kicker">Quanto vocês investem na condição MEJ</span>
           <div class="big">R$ 00.000</div>
-          <span class="muted" style="font-size:var(--small)">Bloqueado · revelado na calculadora</span>
+          <span class="muted" style="font-size:var(--small)">Bloqueado · revelado no investimento</span>
         </div>
       </div>
     </div>
@@ -661,9 +665,9 @@ body.notes-on .slide.is-active .note { display: block; }
 
 <!-- ═══════════ 14 · PROVA SOCIAL ═══════════ -->
 <section class="slide alt" data-title="Prova social">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Em operação</span>
+    <span class="eyebrow">Em operação</span>
     <h2>Já está rodando em outros negócios.</h2>
     <div class="grid g3" data-cases></div>
   </div>
@@ -672,14 +676,14 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 15 · DOIS CAMINHOS ═══════════ -->
-<section class="slide" data-title="Dois caminhos">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide mid" data-title="Dois caminhos">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Ponto de decisão</span>
+    <span class="eyebrow">Ponto de decisão</span>
     <h2>Existem dois caminhos a partir daqui.</h2>
     <div class="paths" data-paths>
       <button class="card path p1" data-path="1">
-        <span class="mono muted">Caminho 1</span>
+        <span class="kicker">Caminho 1</span>
         <h3>Contratação padrão</h3>
         <ul>
           <li>Valor de mercado, sem contrapartidas.</li>
@@ -688,7 +692,7 @@ body.notes-on .slide.is-active .note { display: block; }
         </ul>
       </button>
       <button class="card path p2" data-path="2">
-        <span class="mono eyebrow">Caminho 2</span>
+        <span class="eyebrow">Caminho 2</span>
         <h3>Parceria MEJ</h3>
         <p>Valor reduzido. Em troca, combinamos:</p>
         <ul data-mej-terms></ul>
@@ -700,57 +704,63 @@ body.notes-on .slide.is-active .note { display: block; }
   <aside class="note"><strong>Roteiro</strong>Não peça decisão hoje: no MEJ a aprovação passa por mais etapas. Leia os pactos em voz alta ("até aqui a gente concordou em…") e pergunte qual caminho faz mais sentido levar para aprovação. Coerência (Cialdini): quem concordou com tudo tende a seguir concordando.</aside>
 </section>
 
-<!-- ═══════════ 16 · CALCULADORA ═══════════ -->
-<section class="slide alt" data-title="Investimento">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<!-- ═══════════ 16 · INVESTIMENTO ═══════════ -->
+<section class="slide" data-title="Investimento">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body top">
-    <span class="mono eyebrow">Investimento e retorno</span>
-    <h2 style="max-width:none">Vamos montar o cenário da <span data-f="client"></span>.</h2>
+    <span class="eyebrow">Investimento</span>
+    <h2 style="max-width:none">Primeiro o retorno. <span class="hl">Depois o investimento.</span></h2>
     <div class="calc">
-      <div class="calc-left">
-        <div class="opts" data-opts></div>
-        <div class="card roi">
-          <span class="mono muted">Retorno esperado · simule com os números de vocês</span>
-          <div class="roi-grid">
-            <label for="roi-props"><span>Propostas apresentadas por mês <b data-roi-out="props"></b></span><input id="roi-props" type="range" min="2" max="30" step="1" data-roi="props"></label>
-            <label for="roi-ticket"><span>Ticket médio por projeto <b data-roi-out="ticket"></b></span><input id="roi-ticket" type="range" min="500" max="15000" step="250" data-roi="ticket"></label>
-            <label for="roi-now"><span>Taxa de fechamento hoje <b data-roi-out="now"></b></span><input id="roi-now" type="range" min="5" max="60" step="1" data-roi="now"></label>
-            <label for="roi-goal"><span>Taxa com o novo processo <b data-roi-out="goal"></b></span><input id="roi-goal" type="range" min="5" max="80" step="1" data-roi="goal"></label>
-          </div>
-          <div class="roi-out">
-            <div><span class="muted" style="font-size:var(--small)">Projetos a mais por mês</span><strong data-roi-res="extra"></strong></div>
-            <div><span class="muted" style="font-size:var(--small)">Faturamento a mais por mês</span><strong class="grad-text" data-roi-res="rev"></strong></div>
-            <div data-roi-payback-wrap class="hidden"><span class="muted" style="font-size:var(--small)">O projeto se paga em</span><strong data-roi-res="payback"></strong></div>
-          </div>
+      <div class="card roi">
+        <div class="roi-head">
+          <span class="eyebrow">Tese de lucro · Retorno esperado</span>
+          <p><span data-f="contactFirsts"></span>, simulem com os números reais da <span data-f="client"></span>.</p>
+        </div>
+        <div class="roi-grid">
+          <label for="roi-props"><span>Propostas apresentadas por mês <b data-roi-out="props"></b></span><input id="roi-props" type="range" min="2" max="30" step="1" data-roi="props"></label>
+          <label for="roi-ticket"><span>Ticket médio por projeto <b data-roi-out="ticket"></b></span><input id="roi-ticket" type="range" min="500" max="15000" step="250" data-roi="ticket"></label>
+          <label for="roi-now"><span>Taxa de fechamento hoje <b data-roi-out="now"></b></span><input id="roi-now" type="range" min="5" max="60" step="1" data-roi="now"></label>
+          <label for="roi-goal"><span>Taxa com o novo processo <b data-roi-out="goal"></b></span><input id="roi-goal" type="range" min="5" max="80" step="1" data-roi="goal"></label>
+        </div>
+        <div class="conv" aria-label="Propostas fechadas por mês">
+          <div class="conv-row"><span>Hoje</span><div class="dots" data-dots="now"></div><b data-conv="now"></b></div>
+          <div class="conv-row"><span>Com processo</span><div class="dots" data-dots="goal"></div><b data-conv="goal"></b></div>
+        </div>
+        <div class="roi-out">
+          <div><span>Projetos a mais/mês</span><strong data-roi-res="extra"></strong></div>
+          <div><span>Faturamento a mais/mês</span><strong class="lead-num" data-roi-res="rev"></strong></div>
+          <div><span>Em 12 meses</span><strong data-roi-res="year"></strong></div>
+          <div data-roi-payback-wrap hidden><span>O projeto se paga em</span><strong data-roi-res="payback"></strong></div>
         </div>
       </div>
       <div class="card quote">
-        <div><span class="mono muted">Escopo selecionado</span><div class="scope-name" data-q-scope></div></div>
-        <div class="price-row" data-stage-scope>
-          <span class="mono muted">Investimento</span>
-          <p class="muted">Primeiro, o escopo certo. O investimento vem na sequência.</p>
-          <div class="btn-row"><button class="btn" data-reveal>Revelar valor de mercado</button></div>
+        <div><span class="kicker">Escopo fechado</span><p class="scope-line" data-scope-line></p></div>
+        <div class="pay-row"><span class="kicker">Pagamento</span><div class="seg" data-pay></div></div>
+        <div class="prices">
+          <div class="price-cell locked" data-cell-anchor>
+            <span class="kicker">Mercado sênior</span>
+            <div class="val" data-q-anchor>R$ 00.000</div>
+            <span class="inst" data-q-anchor-inst></span>
+            <button class="btn" data-reveal>Revelar valor</button>
+          </div>
+          <div class="price-cell deal locked" data-cell-deal>
+            <span class="eyebrow">Condição MEJ</span>
+            <div class="val" data-q-deal>R$ 00.000</div>
+            <span class="inst" data-q-deal-inst></span>
+            <button class="btn" data-unlock hidden>Desbloquear</button>
+          </div>
         </div>
-        <div class="price-row anchor hidden" data-stage-anchor>
-          <span class="mono muted">Valor no mercado sênior</span>
-          <div class="val" data-q-anchor></div>
-          <span class="inst" data-q-anchor-inst></span>
-          <div class="btn-row" data-unlock-row style="margin-top:8px"><button class="btn" data-unlock>Desbloquear condição MEJ</button></div>
-        </div>
-        <div class="price-row hidden" data-stage-deal>
-          <span class="mono eyebrow">Condição MEJ · parceria</span>
-          <div class="val grad-text" data-q-deal></div>
-          <span class="inst" data-q-deal-inst></span>
-          <div class="save" data-q-save></div>
-          <span class="inst" data-q-deal-terms></span>
+        <div class="deal-extra" data-deal-extra hidden>
+          <span data-q-save></span>
+          <span data-q-deal-terms></span>
         </div>
         <div class="btn-row no-print">
           <button class="btn" data-cta disabled>Vamos seguir</button>
           <button class="btn ghost" data-pdf>Gerar proposta (PDF)</button>
           <button class="btn ghost" data-copy>Copiar resumo</button>
         </div>
-        <div class="no-print" style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
-          <span class="muted" style="font-size:var(--small)">A condição MEJ vale com as contrapartidas de parceria.</span>
+        <div class="quote-foot no-print">
+          <span>A condição MEJ vale com as contrapartidas de parceria.</span>
           <button class="linkish" data-tune-toggle>ajustar</button>
         </div>
         <div class="tune no-print" data-tune>
@@ -762,26 +772,26 @@ body.notes-on .slide.is-active .note { display: block; }
     </div>
   </div>
   <div class="stamp" data-stamp></div>
-  <aside class="note"><strong>Roteiro</strong>Preencha o simulador com os números reais do Marcelo (3 de 10 propostas hoje). Só revele o preço depois do retorno na tela. Isso vai direto para a planilha de nota de investimentos dele.</aside>
+  <aside class="note"><strong>Roteiro</strong>Comece pelo retorno: preencha com os números que o Marcelo e o Arthur trouxerem (hoje, cerca de 3 de 10 propostas fecham). Só depois revele o valor de mercado e, por fim, a condição MEJ. É esse retorno que entra na planilha de investimentos deles.</aside>
 </section>
 
 <!-- ═══════════ 17 · PRÓXIMOS PASSOS ═══════════ -->
-<section class="slide" data-title="Próximos passos">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
+<section class="slide alt" data-title="Próximos passos">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
   <div class="slide-body">
-    <span class="mono eyebrow">Próximos passos</span>
+    <span class="eyebrow">Próximos passos</span>
     <h2>Da aprovação ao primeiro fechamento com o novo processo.</h2>
     <div class="steps">
-      <div class="step"><span class="mono when">Esta semana</span><div class="dotline"></div><h3>Aprovação</h3><p>Proposta formal para a aprovação interna da MecTRIA.</p></div>
-      <div class="step"><span class="mono when">Semana 1</span><div class="dotline"></div><h3>Protótipo do site</h3><p>Nova versão com SEO local, robots.txt, llms.txt e sitemap. Cortesia.</p></div>
-      <div class="step"><span class="mono when">Semanas 1–5</span><div class="dotline"></div><h3>Site e copy</h3><p>Estrutura, textos e processo comercial visual aprovados por etapa.</p></div>
-      <div class="step"><span class="mono when">Semanas 6–7</span><div class="dotline"></div><h3>Nova apresentação</h3><p>Proposta interativa, micro pactos e roteiro do vendedor.</p></div>
-      <div class="step"><span class="mono when">Semana 8 +</span><div class="dotline"></div><h3>Treino e acompanhamento</h3><p>Capacitação do time e acompanhamento das primeiras reuniões.</p></div>
+      <div class="step"><span class="eyebrow when">Esta semana</span><div class="dotline"></div><h3>Aprovação</h3><p>Proposta formal para a aprovação interna da MecTRIA.</p></div>
+      <div class="step"><span class="eyebrow when">Semana 1</span><div class="dotline"></div><h3>Protótipo do site</h3><p>Nova versão com SEO local, robots.txt, llms.txt e sitemap. Cortesia.</p></div>
+      <div class="step"><span class="eyebrow when">Semanas 1–5</span><div class="dotline"></div><h3>Site e copy</h3><p>Estrutura, textos e processo comercial visual aprovados por etapa.</p></div>
+      <div class="step"><span class="eyebrow when">Semanas 6–7</span><div class="dotline"></div><h3>Nova apresentação</h3><p>Proposta interativa, micro pactos e roteiro do vendedor.</p></div>
+      <div class="step"><span class="eyebrow when">Semana 8 +</span><div class="dotline"></div><h3>Treino e acompanhamento</h3><p>Capacitação do time e acompanhamento das primeiras reuniões.</p></div>
     </div>
     <div class="terms">
-      <div class="card"><span class="mono muted">Validade</span><p>Proposta válida por <span data-f="validityDays"></span> dias a partir do envio.</p></div>
-      <div class="card"><span class="mono muted">Arquivos</span><p>Site, apresentação e materiais são de vocês. Sem custo de hospedagem durante o projeto.</p></div>
-      <div class="card"><span class="mono muted">Demandas extras</span><p>O que ficar fora do escopo aprovado é negociado à parte, por aditivo.</p></div>
+      <div class="card"><span class="kicker">Validade</span><p>Proposta válida por <span data-f="validityDays"></span> dias a partir do envio.</p></div>
+      <div class="card"><span class="kicker">Arquivos</span><p>Site, apresentação e materiais são de vocês. Sem custo de hospedagem durante o projeto.</p></div>
+      <div class="card"><span class="kicker">Demandas extras</span><p>O que ficar fora do escopo aprovado é negociado à parte, por aditivo.</p></div>
     </div>
   </div>
   <div class="stamp" data-stamp></div>
@@ -789,20 +799,17 @@ body.notes-on .slide.is-active .note { display: block; }
 </section>
 
 <!-- ═══════════ 18 · ENCERRAMENTO ═══════════ -->
-<section class="slide cover alt" data-title="Encerramento">
-  <div class="slide-header"><div class="brand" data-brand></div><span class="mono muted" data-count></span></div>
-  <svg class="tri-art" viewBox="0 0 520 470" aria-hidden="true">
-    <path class="t2" d="M260 30 L490 430 L30 430 Z"/>
-    <path class="t1" d="M260 30 L490 430 L30 430 Z"/>
-    <circle cx="260" cy="30" r="5"/><circle cx="490" cy="430" r="5"/><circle cx="30" cy="430" r="5"/>
-  </svg>
+<section class="slide cover closing mid" data-title="Encerramento">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <span data-mark="big-mark"></span>
   <div class="slide-body">
-    <h1>A entrega de vocês já é de alto nível. <span class="grad-text">Agora a venda também.</span></h1>
-    <p class="lead">Obrigado pelo tempo, <span data-f="contactFirst"></span>.</p>
+    <span class="eyebrow">Obrigado, <span data-f="contactFirsts"></span></span>
+    <h1>A entrega de vocês já é de alto nível. <span class="hl">Agora a venda também.</span></h1>
+    <p class="lead">Destrave o lucro que já é seu.</p>
   </div>
   <div class="cover-meta">
-    <div><span class="mono muted">Site</span><strong data-f="site"></strong></div>
-    <div><span class="mono muted">Contato</span><strong data-f="sellerContact"></strong></div>
+    <div><span class="kicker">Site</span><strong data-f="site"></strong></div>
+    <div><span class="kicker">Contato</span><strong data-f="sellerContact"></strong></div>
   </div>
 </section>
 
@@ -824,8 +831,8 @@ body.notes-on .slide.is-active .note { display: block; }
    ════════════════════════════════════════════════════════════════ */
 const CONFIG = {
   client: "MecTRIA",
-  contact: "Marcelo Zaiden",
-  contactRole: "Vice-presidente",
+  // Para quem a proposta foi preparada · [nome, cargo]
+  contacts: [["Marcelo Zaiden", "Vice-presidente"], ["Arthur", ""]],   // CONFIRMAR: sobrenome e cargo do Arthur
   projectLead: "Pedro Henrique Pazoti Mega",
   seller: "Lucas Boaretto",
   sellerContact: "[ WhatsApp / e-mail ]",          // CONFIRMAR
@@ -837,7 +844,7 @@ const CONFIG = {
 
   // CONFIRMAR: números reais da Triângulo
   metrics: [
-    ["Projetos", "+XX", "projetos entregues em sistemas, processos e presença digital."],
+    ["Projetos", "+XX", "projetos entregues em sites, automações e sistemas."],
     ["Processos", "+XX", "processos comerciais mapeados e implantados."],
     ["SEO local", "Top 1", "no Google para buscas com “Triângulo” em Uberaba."],
     ["Pós-venda", "60 dias", "de acompanhamento depois da entrega."]
@@ -932,7 +939,6 @@ const CONFIG = {
   ],
   rolesMonths: 2,
 
-  // CONFIRMAR: cases reais
   cases: [
     { client: "Ateliê de cortinas", tag: "Sistema de orçamento", result: "Orçamento na hora", text: "Preço, tecido exato do rolo e PDF com a marca do ateliê, gerados na frente do cliente." },
     { client: "Triângulo Solutions", tag: "SEO local", result: "Topo no Google", text: "Buscas com “Triângulo” em Uberaba chegam até nós, não à concorrência." },
@@ -949,35 +955,24 @@ const CONFIG = {
   // Micro pactos · resumidos no slide "Dois caminhos"
   pacts: { dor: "Dores certas", cenario: "Precisa de processo", metodo: "Método TRIA", escopo: "Escopo claro", cliente: "Seriam clientes" },
 
-  // Simulador de retorno · valores iniciais
+  // Tese de lucro · valores iniciais do simulador
   roi: { props: 10, ticket: 3000, now: 30, goal: 40 },   // CONFIRMAR ticket médio
 
-  // CONFIRMAR: tabela de preços (R$). Mercado sênior = soma de tudo, cortesias pelo valor cheio.
+  // CONFIRMAR: tabela de preços (R$). Escopo fechado · [item, valor no mercado sênior, cortesia?]
   calc: {
-    gifts: [ ["Site + SEO local", 6000], ["Processo comercial visual", 2500] ],
-    groups: [
-      { key: "prop", label: "Apresentação", options: [
-        { id: "p1", label: "Interativa + PDF", price: 4500 },
-        { id: "p2", label: "+ 2ª versão por serviço", price: 6500 }
-      ], default: "p1" },
-      { key: "copy", label: "Copy", options: [
-        { id: "c1", label: "Site", price: 2000 },
-        { id: "c2", label: "Site + materiais comerciais", price: 3500 }
-      ], default: "c1" },
-      { key: "train", label: "Treino e acompanhamento", options: [
-        { id: "t1", label: "1 mês", price: 1800 },
-        { id: "t2", label: "2 meses", price: 3000 }
-      ], default: "t2" },
-      { key: "kpi", label: "Painel de indicadores", options: [
-        { id: "k0", label: "Não", price: 0 },
-        { id: "k1", label: "Comercial + marketing", price: 2500 }
-      ], default: "k0" },
-      { key: "pay", label: "Pagamento", options: [
-        { id: "pix", label: "À vista", n: 1, off: 0.05, note: "−5%" },
-        { id: "x3", label: "3x", n: 3 },
-        { id: "x6", label: "6x", n: 6 }
-      ], default: "x3" }
+    items: [
+      ["Site + SEO local", 6000, true],
+      ["Copy do site", 2000],
+      ["Processo comercial visual", 2500, true],
+      ["Apresentação interativa + PDF", 4500],
+      ["Treino e acompanhamento · 2 meses", 3000]
     ],
+    pay: [
+      { id: "pix", label: "À vista", n: 1, off: 0.05, note: "−5%" },
+      { id: "x3", label: "3x", n: 3 },
+      { id: "x6", label: "6x", n: 6 }
+    ],
+    payDefault: "x3",
     mejDiscount: 0.30   // desconto da condição MEJ sobre os itens pagos
   }
 };
@@ -988,9 +983,11 @@ const CONFIG = {
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const brl = n => "R$ " + Math.round(n).toLocaleString("pt-BR");
+const fmt1 = v => v.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const dateBR = d => new Date(d + "T12:00:00").toLocaleDateString("pt-BR");
 const pad = n => String(n).padStart(2, "0");
+const joinE = a => a.length > 1 ? a.slice(0, -1).join(", ") + " e " + a[a.length - 1] : (a[0] || "");
 const TICK = '<span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8.5l3 3 7-7"/></svg></span>';
 function toast(msg) { const t = $("[data-toast]"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
 function countUp(el, to, fmt = brl, ms = 700) {
@@ -1001,53 +998,59 @@ function countUp(el, to, fmt = brl, ms = 700) {
 }
 const initials = n => n.replace(/[\[\]]/g, "").trim().split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase() || "?";
 
+/* Símbolo da Triângulo (vetorizado da logo oficial) */
+const MARK_D = "M 411.6 298 C 269.3 354.8, 277.1 351.3, 271.8 361.9 L 269.5 366.5 269.2 485.9 C 268.9 620.2, 268.5 612.1, 276.2 620.4 C 278.6 622.9, 282.1 625.7, 284.1 626.7 C 286 627.7, 341.9 649.9, 408.3 676 L 529 723.5 529 775 C 529 843.4, 526.9 839.5, 557.2 827.5 C 699.9 771.1, 795.5 732.4, 800.1 729.2 C 803.8 726.6, 806.2 723.9, 808.2 720.1 L 811 714.8 811 593.6 L 811 472.5 808.6 467.4 C 805.2 460.2, 800 455.6, 791.1 451.9 C 786.9 450.2, 731.3 428.3, 667.5 403.2 L 551.5 357.5 551 303.5 C 550.7 273.8, 550.4 249.4, 550.2 249.3 C 549.3 248.4, 543.9 246, 542.8 246.1 C 542.1 246.1, 483.1 269.5, 411.6 298 M 414.5 438 C 289.7 486.5, 293.1 484.9, 299.4 491.1 C 301 492.7, 338.6 507.6, 418.6 538.4 C 482.9 563.1, 538.3 584.6, 541.7 586.1 C 551.5 590.4, 551 587.5, 551 641 L 551 687.1 553.2 686.4 C 565.8 682.5, 779.8 598.6, 781.4 597 L 783.5 595 781.5 591.4 C 779.5 587.8, 778.9 587.6, 657.6 541 C 556 502, 535.2 493.7, 532.6 491.1 L 529.5 488 529.2 441 C 529.1 415.1, 528.6 394, 528.2 394.1 C 527.8 394.2, 476.6 413.9, 414.5 438";
+const mark = cls => `<svg class="mark ${cls || ""}" viewBox="266 243 548 595" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="${MARK_D}"/></svg>`;
+(() => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1081 1081"><rect width="1081" height="1081" fill="#CE2B34"/><path fill="#fff" fill-rule="evenodd" d="${MARK_D}"/></svg>`;
+  const l = document.createElement("link"); l.rel = "icon"; l.href = "data:image/svg+xml," + encodeURIComponent(svg); document.head.appendChild(l);
+})();
+
 /* ════════════════════════════════════════════════════════════════
    Conteúdo a partir do CONFIG
    ════════════════════════════════════════════════════════════════ */
 const slides = $$(".slide");
-const FIELDS = { ...CONFIG, contactFirst: CONFIG.contact.split(" ")[0] };
+const names = CONFIG.contacts.map(c => c[0]);
+const FIELDS = { ...CONFIG, contactNames: joinE(names), contactFirsts: joinE(names.map(n => n.split(" ")[0])) };
 $$("[data-f]").forEach(el => el.textContent = FIELDS[el.dataset.f] ?? "");
 $$("[data-date]").forEach(el => el.textContent = dateBR(CONFIG.date));
-const LOGO = '<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3 L30 28 H2 Z" stroke="#F2A93B" stroke-width="2.4" stroke-linejoin="round"/><path d="M16 13 L22 24 H10 Z" fill="#FF7B47"/></svg>';
-$$("[data-brand]").forEach(el => el.innerHTML = `${LOGO}<span>Triângulo Solutions <span class="x">× ${esc(CONFIG.client)}</span></span>`);
-slides.forEach((s, i) => $$("[data-count]", s).forEach(el => el.textContent = `${pad(i + 1)} / ${slides.length}`));
+$("[data-contacts]").outerHTML = CONFIG.contacts.map((c, i) =>
+  `<div><span class="kicker">${i ? "&nbsp;" : "Preparado para"}</span><strong>${esc(c[0])}</strong><small>${esc(c[1] || CONFIG.client)}</small></div>`).join("");
+$$("[data-brand]").forEach(el => el.innerHTML = `${mark()}<span class="wm"><i>Triângulo</i> <b>Solutions</b></span><span class="x">× ${esc(CONFIG.client)}</span>`);
+$$("[data-mark]").forEach(el => el.outerHTML = mark(el.dataset.mark));
 
-// Carimbo técnico em cada folha, com micro pacto quando houver
+// Rodapé de cada folha, com micro pacto quando houver
 slides.forEach((s, i) => {
   const st = $("[data-stamp]", s); if (!st) return;
   const key = st.dataset.pactKey, hint = st.dataset.hint;
-  st.innerHTML = `
-    <span><b>Triângulo Solutions</b></span>
-    <span class="hide-sm">Cliente <b>${esc(CONFIG.client)}</b></span>
-    <span class="grow">${esc(hint || s.dataset.title)}</span>
-    <span class="hide-sm">Rev. <b>${esc(CONFIG.revision)}</b></span>
-    <span>Folha <b>${pad(i + 1)}/${pad(slides.length)}</b></span>
-    ${key ? `<span class="pact-slot"><button class="pact" data-pact="${key}">${TICK}${esc(CONFIG.pacts[key])}</button></span>` : ""}`;
+  st.innerHTML = `<span>Triângulo Solutions × ${esc(CONFIG.client)}</span><span class="grow">${esc(hint || "")}</span>` +
+    (key ? `<button class="pact" data-pact="${key}">${TICK}${esc(CONFIG.pacts[key])}</button>` : "") +
+    `<span class="count">${pad(i + 1)} / ${pad(slides.length)}</span>`;
 });
 
 $("[data-metrics]").innerHTML = CONFIG.metrics.map(([k, v, t], i) => `
-  <div class="card"><span class="mono muted">${pad(i + 1)} · ${esc(k)}</span><div class="metric-num"><span class="${v.includes("XX") ? "ph" : ""}">${esc(v)}</span></div><p>${esc(t)}</p></div>`).join("");
+  <div class="card"><span class="kicker">${pad(i + 1)} · ${esc(k)}</span><div class="metric-num"><span class="${v.includes("XX") ? "ph" : ""}">${esc(v)}</span></div><p>${esc(t)}</p></div>`).join("");
 $("[data-team]").innerHTML = CONFIG.team.map(p => `
-  <div class="card person"><div class="avatar">${esc(initials(p.name))}</div><div><h3>${esc(p.name)}</h3><span class="mono p-role">${esc(p.role)}</span></div><p>${esc(p.bio)}</p></div>`).join("");
+  <div class="card person"><div class="avatar">${esc(initials(p.name))}</div><div><h3>${esc(p.name)}</h3><span class="p-role">${esc(p.role)}</span></div><p>${esc(p.bio)}</p></div>`).join("");
 $("[data-heard]").innerHTML = CONFIG.heard.map(([q, c]) => `
   <button class="card quote-card"><q>${esc(q)}</q><span class="cause">${c}</span></button>`).join("");
 $$(".quote-card").forEach(b => b.addEventListener("click", () => b.classList.toggle("open")));
 
 // Método TRIA
 $("[data-tria-static]").innerHTML = CONFIG.method.map((m, i) => `
-  <div class="card tria-step"><span class="mono muted">${pad(i + 1)} · ${esc(m.weeks)}</span>
-  <span class="letter grad-text">${m.letter}</span><span class="word">${esc(m.word)}</span><span class="sub">${esc(m.sub)}</span>
-  ${m.gift ? '<span><span class="gift">Cortesia</span></span>' : ""}</div>`).join("");
+  <div class="card tria-step"><span class="kicker">${pad(i + 1)} · ${esc(m.weeks)}</span>
+  <span class="letter">${m.letter}</span><span class="word">${esc(m.word)}</span><span class="sub">${esc(m.sub)}</span>
+  ${m.gift ? '<span><span class="tag-gift">Cortesia</span></span>' : ""}</div>`).join("");
 $("[data-tria-explorer]").innerHTML = CONFIG.method.map((m, i) => `
   <button class="card tria-step${i ? "" : " active"}" data-step="${i}"><span class="letter">${m.letter}</span>
   <span><span class="word" style="display:block">${esc(m.word)}</span><span class="sub">${esc(m.sub)}</span></span></button>`).join("");
 $("[data-tria-panels]").innerHTML = CONFIG.method.map((m, i) => `
   <div class="panel${i ? "" : " active"}" data-panel="${i}">
-    <div><span class="mono eyebrow">${m.letter} · ${esc(m.word)} · ${esc(m.sub)}</span><h3 style="margin:10px 0 14px">${esc(m.goal)}</h3><ol>${m.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol></div>
-    <div class="facts"><div class="card"><div class="mono">Entrega</div><p>${esc(m.deliverable)}</p></div>
-    <div class="card"><div class="mono">Prazo</div><p>${esc(m.weeks)}${m.gift ? ' · <span class="gift">Cortesia</span>' : ""}</p></div></div>
+    <div><span class="eyebrow">${m.letter} · ${esc(m.word)} · ${esc(m.sub)}</span><h3 style="margin:10px 0 14px">${esc(m.goal)}</h3><ol>${m.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol></div>
+    <div class="facts"><div class="card"><div class="kicker">Entrega</div><p>${esc(m.deliverable)}</p></div>
+    <div class="card"><div class="kicker">Prazo</div><p>${esc(m.weeks)}${m.gift ? ' · <span class="tag-gift">Cortesia</span>' : ""}</p></div></div>
   </div>`).join("");
-$("[data-mini-tria]").innerHTML = CONFIG.method.map(m => `<span><b class="grad-text">${m.letter}</b>${esc(m.word.slice(1))}</span>`).join("");
+$("[data-mini-tria]").innerHTML = CONFIG.method.map(m => `<span><b>${m.letter}</b>${esc(m.word.slice(1))}</span>`).join("");
 $$("[data-step]").forEach(b => b.addEventListener("click", () => {
   $$("[data-step]").forEach(x => x.classList.toggle("active", x === b));
   $$("[data-panel]").forEach(p => p.classList.toggle("active", p.dataset.panel === b.dataset.step));
@@ -1055,7 +1058,7 @@ $$("[data-step]").forEach(b => b.addEventListener("click", () => {
 
 // Cronograma
 $("[data-gantt]").innerHTML = `
-  <div class="gantt-head"><span></span><div class="gantt-scale">${[1,2,3,4,5,6,7,8].map(n => `<span>S${n}</span>`).join("")}<span>Pós-venda</span></div></div>` +
+  <div class="gantt-head"><span></span><div class="gantt-scale">${[1, 2, 3, 4, 5, 6, 7, 8].map(n => `<span>S${n}</span>`).join("")}<span>PÓS-VENDA</span></div></div>` +
   CONFIG.gantt.map((g, i) => `
   <div class="gantt-row"><div class="gantt-label"><strong>${esc(g.name)}</strong><span>${esc(g.when)}</span></div>
   <div class="gantt-track"><div class="gantt-bar${g.soft ? " soft" : ""}${g.gift ? " gift-bar" : ""}" style="grid-column:${g.from} / ${g.to + 1};animation-delay:${i * .12}s">${g.to > g.from || g.soft ? esc(g.name.split("· ")[1]) : ""}</div></div></div>`).join("");
@@ -1072,10 +1075,10 @@ $$("[data-scope-tab]").forEach(b => b.addEventListener("click", () => {
 
 // Prova social
 $("[data-cases]").innerHTML = CONFIG.cases.map(c => `
-  <div class="card case"><span class="mono muted">${esc(c.tag)}</span><div class="result grad-text">${esc(c.result)}</div>
+  <div class="card case"><span class="kicker">${esc(c.tag)}</span><div class="result">${esc(c.result)}</div>
   <div class="client">${esc(c.client)}</div><p>${esc(c.text)}</p></div>`).join("");
 
-// Condição MEJ · contrapartidas no slide dos caminhos e na calculadora
+// Condição MEJ · contrapartidas no slide dos caminhos e no investimento
 $("[data-mej-terms]").innerHTML = CONFIG.mejTerms.map(t => `<li>${esc(t[1])}</li>`).join("");
 $("[data-q-deal-terms]").textContent = "Contrapartidas: " + CONFIG.mejTerms.map(t => t[0]).join(" · ");
 
@@ -1101,7 +1104,7 @@ const pacts = {};
 function renderPacts() {
   const keys = Object.keys(CONFIG.pacts);
   const n = keys.filter(k => pacts[k]).length;
-  $("[data-pact-summary]").innerHTML = `<span class="mono">Até aqui concordamos em ${n} de ${keys.length}:</span>` +
+  $("[data-pact-summary]").innerHTML = `<span class="kicker">Até aqui concordamos em ${n} de ${keys.length}</span>` +
     keys.map(k => `<span class="dot${pacts[k] ? " on" : ""}"><i></i>${esc(CONFIG.pacts[k])}</span>`).join("");
 }
 $$("[data-pact]").forEach(b => b.addEventListener("click", () => {
@@ -1121,49 +1124,46 @@ $$("[data-path]").forEach(p => p.addEventListener("click", e => {
 }));
 
 /* ════════════════════════════════════════════════════════════════
-   Calculadora · escopo → mercado sênior → condição MEJ
+   Investimento · escopo fechado → mercado sênior → condição MEJ
    ════════════════════════════════════════════════════════════════ */
 const C = CONFIG.calc;
-const sel = Object.fromEntries(C.groups.map(g => [g.key, g.default]));
+let payId = C.payDefault;
 let stage = "scope";          // scope | anchor | deal
 let override = null;          // valor negociado manualmente
-$("[data-opts]").innerHTML =
-  `<div class="opt-group"><div class="label"><span class="mono">★</span><span>Cortesias</span></div><div class="seg">${C.gifts.map(([n]) => `<span class="fixed">${esc(n)}</span>`).join("")}</div></div>` +
-  C.groups.map((g, i) => `
-  <div class="opt-group"><div class="label"><span class="mono">${pad(i + 1)}</span><span>${esc(g.label)}</span></div>
-  <div class="seg">${g.options.map(o => `<button data-g="${g.key}" data-o="${o.id}">${esc(o.label)}${o.note ? `<small>${esc(o.note)}</small>` : ""}</button>`).join("")}</div></div>`).join("");
-const opt = key => C.groups.find(g => g.key === key).options.find(o => o.id === sel[key]);
-const giftTotal = C.gifts.reduce((s, [, v]) => s + v, 0);
+const giftTotal = C.items.filter(it => it[2]).reduce((s, it) => s + it[1], 0);
+const paidTotal = C.items.filter(it => !it[2]).reduce((s, it) => s + it[1], 0);
+$("[data-scope-line]").innerHTML = C.items.map(([n, , g]) => g ? `${esc(n)} <span class="tag-gift">cortesia</span>` : esc(n)).join(" · ");
+$("[data-pay]").innerHTML = C.pay.map(o => `<button data-pay-id="${o.id}">${esc(o.label)}${o.note ? `<small>${esc(o.note)}</small>` : ""}</button>`).join("");
+const scopeText = () => C.items.map(([n, , g]) => g ? `${n} (cortesia)` : n).join(" · ");
 function pricing() {
-  const paid = C.groups.filter(g => g.key !== "pay").reduce((s, g) => s + opt(g.key).price, 0);
-  const pay = opt("pay"), off = 1 - (pay.off || 0);
-  const anchor = (paid + giftTotal) * off;                                           // mercado sênior
-  const deal = override ?? Math.round(paid * (1 - C.mejDiscount) * off / 10) * 10;   // condição MEJ
+  const pay = C.pay.find(o => o.id === payId), off = 1 - (pay.off || 0);
+  const anchor = (paidTotal + giftTotal) * off;                                          // mercado sênior
+  const deal = override ?? Math.round(paidTotal * (1 - C.mejDiscount) * off / 10) * 10;  // condição MEJ
   return { anchor, deal, n: pay.n };
 }
 const inst = (v, n) => n > 1 ? `${n}x de ${brl(v / n)}` : "à vista via Pix";
-function scopeName() {
-  return [...C.gifts.map(([n]) => n + " (cortesia)"), ...C.groups.filter(g => g.key !== "pay" && opt(g.key).price).map(g => `${g.label}: ${opt(g.key).label}`)].join(" · ");
+function showVal(el, v) {
+  if (v == null) { cancelAnimationFrame(el._raf); el._v = 0; el.textContent = "R$ 00.000"; }
+  else countUp(el, v);
 }
 function renderCalc() {
-  $$("[data-g]").forEach(b => b.classList.toggle("on", sel[b.dataset.g] === b.dataset.o));
-  $("[data-q-scope]").textContent = scopeName();
+  $$("[data-pay-id]").forEach(b => b.classList.toggle("on", b.dataset.payId === payId));
   const p = pricing();
-  $("[data-stage-scope]").classList.toggle("hidden", stage !== "scope");
-  $("[data-stage-anchor]").classList.toggle("hidden", stage === "scope");
-  $("[data-stage-deal]").classList.toggle("hidden", stage !== "deal");
-  $("[data-unlock-row]").classList.toggle("hidden", stage !== "anchor");
+  $("[data-cell-anchor]").classList.toggle("locked", stage === "scope");
+  $("[data-cell-deal]").classList.toggle("locked", stage !== "deal");
+  $("[data-reveal]").hidden = stage !== "scope";
+  $("[data-unlock]").hidden = stage !== "anchor";
   $("[data-q-anchor]").classList.toggle("struck", stage === "deal");
-  if (stage !== "scope") { countUp($("[data-q-anchor]"), p.anchor); $("[data-q-anchor-inst]").textContent = inst(p.anchor, p.n); }
-  if (stage === "deal") {
-    countUp($("[data-q-deal]"), p.deal);
-    $("[data-q-deal-inst]").textContent = inst(p.deal, p.n);
-    $("[data-q-save]").innerHTML = `<span>Economia de ${brl(p.anchor - p.deal)}</span><span>Cortesias: ${brl(giftTotal)}</span>`;
-  }
+  showVal($("[data-q-anchor]"), stage === "scope" ? null : p.anchor);
+  $("[data-q-anchor-inst]").textContent = stage === "scope" ? "" : inst(p.anchor, p.n);
+  showVal($("[data-q-deal]"), stage === "deal" ? p.deal : null);
+  $("[data-q-deal-inst]").textContent = stage === "deal" ? inst(p.deal, p.n) : stage === "scope" ? "Liberada depois do valor de mercado" : "";
+  $("[data-deal-extra]").hidden = stage !== "deal";
+  if (stage === "deal") $("[data-q-save]").innerHTML = `Economia de <b>${brl(p.anchor - p.deal)}</b> · as cortesias somam <b>${brl(giftTotal)}</b>`;
   $("[data-cta]").disabled = stage !== "deal";
   renderRoi();
 }
-$$("[data-g]").forEach(b => b.addEventListener("click", () => { sel[b.dataset.g] = b.dataset.o; override = null; renderCalc(); }));
+$$("[data-pay-id]").forEach(b => b.addEventListener("click", () => { payId = b.dataset.payId; renderCalc(); }));
 $("[data-reveal]").addEventListener("click", () => { stage = "anchor"; renderCalc(); });
 $("[data-unlock]").addEventListener("click", () => { stage = "deal"; renderCalc(); });
 $("[data-cta]").addEventListener("click", () => { toast("Combinado! Próximo passo: aprovação interna"); go(slides.length - 2); });
@@ -1175,29 +1175,42 @@ $("[data-tune-apply]").addEventListener("click", () => {
 });
 $("[data-tune-reset]").addEventListener("click", () => { override = null; $("[data-tune-input]").value = ""; renderCalc(); });
 
-/* Simulador de retorno */
+/* Tese de lucro · simulador de retorno */
 const roi = { ...CONFIG.roi };
 $$("[data-roi]").forEach(inp => {
   inp.value = roi[inp.dataset.roi];
   inp.addEventListener("input", () => { roi[inp.dataset.roi] = +inp.value; renderRoi(); });
 });
 function roiNums() {
-  const extra = roi.props * Math.max(0, roi.goal - roi.now) / 100;
-  return { extra, rev: extra * roi.ticket };
+  const nowV = roi.props * roi.now / 100, goalV = roi.props * roi.goal / 100;
+  const extra = Math.max(0, goalV - nowV);
+  return { nowV, goalV, extra, rev: extra * roi.ticket };
+}
+// Uma bolinha por proposta; o preenchimento é proporcional (3,3 fechamentos = 3 cheias + 30% da quarta)
+function drawDots(el, total, base, upTo) {
+  el.innerHTML = Array.from({ length: total }, (_, i) => {
+    const a = Math.min(1, Math.max(0, base - i)) * 100, b = Math.min(1, Math.max(0, upTo - i)) * 100;
+    return `<i style="background:linear-gradient(90deg,var(--fg-3) ${a}%,var(--red) ${a}% ${b}%,var(--line) ${Math.max(a, b)}%)"></i>`;
+  }).join("");
 }
 function renderRoi() {
   $('[data-roi-out="props"]').textContent = roi.props;
   $('[data-roi-out="ticket"]').textContent = brl(roi.ticket);
   $('[data-roi-out="now"]').textContent = roi.now + "%";
   $('[data-roi-out="goal"]').textContent = roi.goal + "%";
-  const { extra, rev } = roiNums();
-  $('[data-roi-res="extra"]').textContent = "+" + extra.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
-  $('[data-roi-res="rev"]').textContent = "+" + brl(rev);
-  const showPay = stage === "deal" && rev > 0;
-  $("[data-roi-payback-wrap]").classList.toggle("hidden", !showPay);
+  const r = roiNums();
+  drawDots($('[data-dots="now"]'), roi.props, r.nowV, r.nowV);
+  drawDots($('[data-dots="goal"]'), roi.props, Math.min(r.nowV, r.goalV), r.goalV);
+  $('[data-conv="now"]').textContent = `${fmt1(r.nowV)} de ${roi.props}`;
+  $('[data-conv="goal"]').textContent = `${fmt1(r.goalV)} de ${roi.props}`;
+  $('[data-roi-res="extra"]').textContent = "+" + fmt1(r.extra);
+  $('[data-roi-res="rev"]').textContent = "+" + brl(r.rev);
+  $('[data-roi-res="year"]').textContent = "+" + brl(r.rev * 12);
+  const showPay = stage === "deal" && r.rev > 0;
+  $("[data-roi-payback-wrap]").hidden = !showPay;
   if (showPay) {
-    const m = pricing().deal / rev;
-    $('[data-roi-res="payback"]').textContent = m < 1 ? "menos de 1 mês" : `${m.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} meses`;
+    const m = pricing().deal / r.rev;
+    $('[data-roi-res="payback"]').textContent = m < 1 ? "menos de 1 mês" : `${fmt1(m)} meses`;
   }
 }
 
@@ -1205,15 +1218,15 @@ function summaryText() {
   const p = pricing(), r = roiNums();
   return [
     `Proposta · ${CONFIG.service}`,
-    `${CONFIG.client} · ${CONFIG.contact}`,
+    `${CONFIG.client} · ${FIELDS.contactNames}`,
     ``,
-    `Escopo: ${scopeName()}`,
+    `Escopo: ${scopeText()}`,
     `Prazo: 8 semanas + acompanhamento`,
     ``,
+    `Retorno esperado: fechamento de ${roi.now}% para ${roi.goal}% em ${roi.props} propostas/mês = +${brl(r.rev)}/mês (+${brl(r.rev * 12)} em 12 meses)`,
     `Valor no mercado sênior: ${brl(p.anchor)} (${inst(p.anchor, p.n)})`,
     stage === "deal" ? `Condição MEJ: ${brl(p.deal)} (${inst(p.deal, p.n)})` : null,
     stage === "deal" ? `Contrapartidas: ${CONFIG.mejTerms.map(t => t[0]).join(", ")}` : null,
-    `Retorno simulado: ${roi.now}% → ${roi.goal}% de fechamento = +${brl(r.rev)}/mês`,
     ``,
     `Validade: ${CONFIG.validityDays} dias · Triângulo Solutions · ${CONFIG.site}`
   ].filter(x => x !== null).join("\n");
@@ -1227,24 +1240,29 @@ $("[data-copy]").addEventListener("click", async () => {
 $("[data-pdf]").addEventListener("click", () => {
   const p = pricing(), r = roiNums(), showDeal = stage === "deal";
   const valid = new Date(CONFIG.date + "T12:00:00"); valid.setDate(valid.getDate() + CONFIG.validityDays);
+  const who = CONFIG.contacts.map(c => c[1] ? `${c[0]} (${c[1]})` : c[0]);
+  const logo = `<svg viewBox="266 243 548 595" width="34" height="37" aria-hidden="true"><path fill="#CE2B34" fill-rule="evenodd" d="${MARK_D}"/></svg>`;
   const doc = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Proposta ${esc(CONFIG.client)} · Triângulo Solutions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>@page{size:A4;margin:18mm}*{box-sizing:border-box}body{font-family:"IBM Plex Sans",Arial,sans-serif;color:#131B2B;font-size:10.5pt;line-height:1.5;margin:0}
-  h1,h2{font-family:Archivo,Arial,sans-serif;letter-spacing:-.01em;margin:0}h1{font-size:24pt;line-height:1.1}h2{font-size:12.5pt;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid #F2A93B}
-  .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}.tag{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:#8A5A00}
-  table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:6px 8px;border-bottom:1px solid #E1E5EE;vertical-align:top;font-size:9.5pt}th{background:#F5F7FA;font-weight:600}
-  .price{display:flex;gap:14px;margin-top:10px}.box{flex:1;border:1px solid #E1E5EE;border-radius:8px;padding:12px}.box.hl{border-color:#F2A93B;background:#FFF7E8}
-  .box .v{font-family:Archivo,Arial,sans-serif;font-size:18pt;font-weight:800}.small{font-size:8.5pt;color:#5A6478}ul{margin:4px 0;padding-left:18px}.sign{margin-top:34px;display:flex;gap:40px}.sign div{flex:1;border-top:1px solid #131B2B;padding-top:6px;font-size:9.5pt}</style></head><body>
-  <div class="top"><div><div class="tag">Proposta comercial · ${esc(CONFIG.service)}</div><h1>${esc(CONFIG.client)}</h1><div class="small">Preparado para ${esc(CONFIG.contact)} · ${esc(CONFIG.contactRole)}</div></div>
-  <div class="small" style="text-align:right">Triângulo Solutions<br>${esc(CONFIG.site)}<br>${dateBR(CONFIG.date)} · Rev. ${esc(CONFIG.revision)}</div></div>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>@page{size:A4;margin:18mm}*{box-sizing:border-box}body{font-family:Poppins,Arial,sans-serif;color:#17171A;font-size:10pt;line-height:1.55;margin:0}
+  h1,h2{margin:0;font-weight:700}h1{font-size:22pt;line-height:1.1}h2{font-size:12pt;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid #E83E46}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}.tag{font-size:7.5pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#E83E46}
+  .brand{display:flex;align-items:center;gap:10px;text-align:right}.brand i{font-weight:300}.brand b{font-weight:700}
+  table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:6px 8px;border-bottom:1px solid #E6E6EA;vertical-align:top;font-size:9.5pt}th{background:#F4F5F7;font-weight:600}td.v{text-align:right;white-space:nowrap}
+  .price{display:flex;gap:14px;margin-top:10px}.box{flex:1;border:1px solid #E6E6EA;border-radius:8px;padding:12px}.box.hl{border-color:#E83E46;background:#FDE9EA}
+  .box .v{font-size:18pt;font-weight:700}.small{font-size:8.5pt;color:#6E6E76}ul{margin:4px 0;padding-left:18px}.sign{margin-top:34px;display:flex;gap:40px}.sign div{flex:1;border-top:1px solid #17171A;padding-top:6px;font-size:9.5pt}</style></head><body>
+  <div class="top"><div><div class="tag">Proposta comercial · ${esc(CONFIG.service)}</div><h1>${esc(CONFIG.client)}</h1><div class="small">Preparado para ${esc(joinE(who))}</div></div>
+  <div class="brand"><div class="small"><i>Triângulo</i> <b>Solutions</b><br>${esc(CONFIG.site)}<br>${dateBR(CONFIG.date)} · Rev. ${esc(CONFIG.revision)}</div>${logo}</div></div>
   <h2>Objetivo</h2><p>Aumentar a taxa de conversão entre proposta e fechamento da ${esc(CONFIG.client)} com uma apresentação de proposta metódica e interativa, um time treinado para usá-la e um site renovado que comunica a qualidade da engenharia entregue.</p>
   <h2>Método TRIA · etapas</h2><table><tr><th>Etapa</th><th>Entrega</th><th>Prazo</th></tr>
   ${CONFIG.method.map(m => `<tr><td><b>${m.letter} · ${esc(m.word)}</b><br><span class="small">${esc(m.sub)}</span></td><td>${esc(m.deliverable)}</td><td>${esc(m.weeks)}</td></tr>`).join("")}</table>
-  <h2>Escopo selecionado</h2><p>${esc(scopeName())}</p>
+  <h2>Escopo e valor de mercado</h2><table><tr><th>Item</th><th style="text-align:right">Mercado sênior</th></tr>
+  ${C.items.map(([n, v, g]) => `<tr><td>${esc(n)}${g ? ' <span class="tag">cortesia</span>' : ""}</td><td class="v">${brl(v)}</td></tr>`).join("")}
+  <tr><td><b>Total</b></td><td class="v"><b>${brl(paidTotal + giftTotal)}</b></td></tr></table>
+  <h2>Tese de lucro</h2><p>Com ${roi.props} propostas por mês e ticket médio de ${brl(roi.ticket)}, subir o fechamento de ${roi.now}% para ${roi.goal}% representa <b>+${brl(r.rev)} por mês</b> (+${brl(r.rev * 12)} em 12 meses).</p>
   <h2>Investimento</h2><div class="price">
-  <div class="box"><div class="tag">Valor no mercado sênior</div><div class="v">${brl(p.anchor)}</div><div class="small">${inst(p.anchor, p.n)}</div></div>
+  <div class="box"><div class="tag">Mercado sênior</div><div class="v">${brl(p.anchor)}</div><div class="small">${inst(p.anchor, p.n)}</div></div>
   ${showDeal ? `<div class="box hl"><div class="tag">Condição MEJ</div><div class="v">${brl(p.deal)}</div><div class="small">${inst(p.deal, p.n)}</div></div>` : ""}</div>
-  <p class="small" style="margin-top:8px">Retorno simulado: ${roi.props} propostas/mês, fechamento de ${roi.now}% para ${roi.goal}%, ticket de ${brl(roi.ticket)} = +${brl(r.rev)} por mês.</p>
   <h2>Termos</h2><ul>
   <li>Validade da proposta: ${CONFIG.validityDays} dias (até ${valid.toLocaleDateString("pt-BR")}).</li>
   <li>Prazo: 8 semanas de execução, seguidas do acompanhamento contratado.</li>
@@ -1253,7 +1271,7 @@ $("[data-pdf]").addEventListener("click", () => {
   <li>Solicitações após a aprovação de uma etapa são avaliadas como mudança de escopo.</li>
   <li>Atrasos em acessos, informações ou aprovações deslocam proporcionalmente os marcos seguintes.</li></ul>
   <h2>Fechamento</h2><p>Para aceitar, basta assinar digitalmente este documento. O pagamento é feito por link e a nota fiscal enviada por e-mail em até 3 dias úteis após a confirmação.</p>
-  <div class="sign"><div>${esc(CONFIG.contact)}<br><span class="small">${esc(CONFIG.client)}</span></div><div>${esc(CONFIG.seller)}<br><span class="small">Triângulo Solutions</span></div></div>
+  <div class="sign"><div>Pela ${esc(CONFIG.client)}<br><span class="small">Nome e cargo</span></div><div>Pela Triângulo Solutions<br><span class="small">${esc(CONFIG.seller)}</span></div></div>
   <script>document.fonts.ready.then(function(){requestAnimationFrame(function(){requestAnimationFrame(function(){window.print()})})})<\/script></body></html>`;
   const w = window.open("", "_blank");
   if (!w) return toast("Permita pop-ups para gerar o PDF");
@@ -1270,7 +1288,7 @@ const menu = $("[data-index-menu]");
 menu.innerHTML = slides.map((s, i) => `<button data-goto="${i}"><span class="n">${pad(i + 1)}</span>${esc(s.dataset.title)}</button>`).join("");
 
 function onLeave(s) {
-  // o preço nunca abre de cara: ao sair da calculadora sem fechar, ela volta a travar
+  // o preço nunca abre de cara: ao sair do investimento sem fechar, ele volta a travar
   if (s.dataset.title === "Investimento" && stage !== "deal") { stage = "scope"; renderCalc(); }
 }
 function go(i) {
