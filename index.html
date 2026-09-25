@@ -852,7 +852,7 @@ const CONFIG = {
   metrics: [
     { k: "Reconhecimento", v: "FAPEMIG", t: "Prêmio de pesquisa e inovação com o Precisa, nosso sistema de orçamento. Pré-incubados na UFTM." },
     { k: "SEO medido", v: "7,9", t: "de posição média no Google com cerca de 1 mês de site no ar: 227 impressões, sem tráfego pago (Search Console)." },
-    { k: "Cases", v: "4", t: "FN Cortinas, Teacher Lucas, Acrescer e Ribercon." },
+    { k: "Cases", v: "4", t: "FN Cortinas, Teacher Lucas, Parashok e Ribercon." },
     { k: "Experiência do time", v: "600", t: "clientes ativos ao mesmo tempo na operação de marketing de onde vêm Lucas e Vinicius. Experiência da dupla, não clientes da Triângulo.", prior: true }
   ],
 
@@ -948,7 +948,7 @@ const CONFIG = {
   cases: [
     { client: "FN Cortinas", tag: "Precisa · orçamento", result: "Orçamento na hora", text: "Com o Precisa, sistema premiado pela FAPEMIG: preço, tecido exato do rolo e PDF com a marca do ateliê, na frente do cliente." },
     { client: "Teacher Lucas", tag: "Conteúdo e site", result: "2 alunos em 1 semana", text: "Automatizamos a geração de conteúdo no Instagram. Com uma semana de site no ar, já foram 2 alunos fechados para aulas particulares." },
-    { client: "Acrescer", tag: "CRM e dashboard", result: "CRM + dashboard", text: "Implantamos CRM e dashboard de indicadores." },
+    { client: "Parashok", tag: "CRM próprio", result: "Estoque e processos", text: "Desenvolvemos um CRM próprio, com controle de estoque e dos processos da operação." },
     { client: "Ribercon", tag: "CRM e dashboard", result: "Virada no portfólio", text: "Implantamos CRM e dashboard. Internamente, é o projeto que chamamos de divisor de águas." }
   ],
 
@@ -980,7 +980,7 @@ const CONFIG = {
       { id: "x6", label: "6x", n: 6 }
     ],
     payDefault: "x3",
-    mejDiscount: 0.30   // desconto da condição MEJ sobre os itens pagos
+    dealPrice: 4500     // condição MEJ (parceria), valor fechado
   }
 };
 
@@ -1146,7 +1146,7 @@ const scopeText = () => C.items.map(([n, , g]) => g ? `${n} (cortesia)` : n).joi
 function pricing() {
   const pay = C.pay.find(o => o.id === payId), off = 1 - (pay.off || 0);
   const anchor = (paidTotal + giftTotal) * off;                                          // mercado sênior
-  const deal = override ?? Math.round(paidTotal * (1 - C.mejDiscount) * off / 10) * 10;  // condição MEJ
+  const deal = override ?? C.dealPrice;                                                   // condição MEJ
   return { anchor, deal, n: pay.n };
 }
 const inst = (v, n) => n > 1 ? `${n}x de ${brl(v / n)}` : "à vista via Pix";
