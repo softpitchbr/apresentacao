@@ -223,6 +223,10 @@ a.tel { color: inherit; text-decoration: none; }
   .deck { height: auto; }
   .slide { position: relative; opacity: 1; visibility: visible; transform: none; width: 1600px; height: 900px; page-break-after: always; overflow: hidden; }
   .nav, .progress, .index-menu, .toast { display: none !important; }
+  /* Documento para enviar: sem botões, com as causas e os preços abertos */
+  .pact, .pact-summary, .answer, .btn-row, .pain-count, .pain .tick { display: none !important; }
+  .pain .cause { display: block; }
+  [data-pact-key="dor"] .grow { visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -632,11 +636,12 @@ renderPacts();
 /* Investimento · Jornada primeiro, depois a Parceria */
 let stage = 0, picked = null;
 const inst = v => `ou ${C.plans.n}x de ${brl(v / C.plans.n)}`;
-function renderPlans() {
+function renderPlans(instant) {
   ["jornada", "parceria"].forEach((id, i) => {
     const box = $(`[data-price="${id}"]`), open = stage > i, val = $(".val", box);
     box.classList.toggle("locked", !open);
-    if (open) countUp(val, C.plans[id]); else { cancelAnimationFrame(val._raf); val._v = 0; val.textContent = "R$ 0.000"; }
+    if (open && instant) { cancelAnimationFrame(val._raf); val._v = C.plans[id]; val.textContent = brl(C.plans[id]); }
+    else if (open) countUp(val, C.plans[id]); else { cancelAnimationFrame(val._raf); val._v = 0; val.textContent = "R$ 0.000"; }
     $(".inst", box).textContent = open ? inst(C.plans[id]) : (i ? "Liberada depois do Plano 1" : "");
   });
   $("[data-reveal]").hidden = stage !== 0;
@@ -653,6 +658,8 @@ $$("[data-pick]").forEach(b => b.addEventListener("click", () => {
   if (picked) toast(picked === "parceria" ? "Parceria escolhida" : "Jornada Comercial escolhida");
 }));
 renderPlans();
+// Ao imprimir ou salvar em PDF, os dois planos saem revelados
+addEventListener("beforeprint", () => { stage = 2; renderPlans(true); });
 
 /* Navegação */
 let cur = 0;
