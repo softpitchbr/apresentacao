@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perguntas Direcionadas R1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Guia da Triângulo Solutions para conduzir a primeira reunião de diagnóstico">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+/* Manual de campo: índice fixo à esquerda, leitura em coluna única; no celular o índice vira um menu no topo. */
+:root {
+  --bg: #FBF9F9; --surface: #FFFFFF; --surface-2: #F4EFEF; --line: #E7E0E0;
+  --fg: #17161A; --fg-2: #55515A; --fg-3: #85808A;
+  --accent: #C42A33; --accent-tint: rgba(206, 43, 52, 0.07); --accent-line: rgba(206, 43, 52, 0.35);
+  --say-bg: #FFF3F1; --say-fg: #2B1214;
+  --font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 8px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0E0E10; --surface: #17171A; --surface-2: #1D1D21; --line: #2C2C33;
+  --fg: #F4F4F6; --fg-2: #A6A6AE; --fg-3: #77777F;
+  --accent: #E83E46; --accent-tint: rgba(232, 62, 70, 0.12); --accent-line: rgba(232, 62, 70, 0.45);
+  --say-bg: #24171A; --say-fg: #F7E3E4; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #0E0E10; --surface: #17171A; --surface-2: #1D1D21; --line: #2C2C33;
+  --fg: #F4F4F6; --fg-2: #A6A6AE; --fg-3: #77777F;
+  --accent: #E83E46; --accent-tint: rgba(232, 62, 70, 0.12); --accent-line: rgba(232, 62, 70, 0.45);
+  --say-bg: #24171A; --say-fg: #F7E3E4; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15.5px; line-height: 1.65; font-weight: 400; -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { line-height: 1.2; text-wrap: balance; margin: 0; }
+p, ul, ol, dl { margin: 0; }
+.eyebrow { font-weight: 700; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
+.label { font-weight: 600; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-3); }
+.confirm { display: inline-block; border: 1px dashed var(--accent); color: var(--accent); border-radius: 4px; padding: 0 6px; font-size: 0.78em; font-weight: 600; white-space: nowrap; }
+.muted { color: var(--fg-2); }
+
+/* ─── Estrutura ─── */
+.wrap { max-width: 1160px; margin: 0 auto; padding-block: 40px 80px; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 56px; }
+.toc { position: sticky; top: calc(24px + env(safe-area-inset-top, 0px)); align-self: start; max-height: calc(100vh - 48px); overflow: auto; font-size: 0.86rem; }
+.toc ol { list-style: none; padding: 0; display: grid; gap: 2px; counter-reset: t; }
+.toc li a { display: grid; grid-template-columns: 26px 1fr; padding: 5px 8px; border-radius: 6px; color: var(--fg-2); text-decoration: none; }
+.toc li a::before { counter-increment: t; content: counter(t, decimal-leading-zero); color: var(--fg-3); font-size: 0.74rem; font-weight: 600; padding-top: 0.15em; }
+.toc li a:hover { background: var(--surface-2); color: var(--fg); }
+.toc .brand { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; font-size: 0.9rem; }
+.toc .brand svg { width: 18px; height: 20px; color: var(--accent); }
+.toc .brand i { font-weight: 300; } .toc .brand b { font-weight: 700; }
+.toc details > summary { display: none; }
+main { min-width: 0; max-width: 760px; display: grid; gap: 64px; }
+
+/* ─── Abertura ─── */
+.hero { display: grid; gap: 14px; }
+.hero h1 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 700; letter-spacing: -0.015em; }
+.hero h1 span { color: var(--accent); }
+.hero .lead { font-size: 1.12rem; font-weight: 300; color: var(--fg-2); max-width: 58ch; }
+.use { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-top: 10px; }
+.use div { padding: 16px 18px; border-right: 1px solid var(--line); min-width: 0; }
+.use div:last-child { border-right: 0; }
+.use p { font-size: 0.9rem; color: var(--fg-2); margin-top: 4px; }
+
+/* ─── Seções ─── */
+section { display: grid; gap: 18px; scroll-margin-top: 24px; }
+section > header { display: grid; gap: 8px; padding-bottom: 14px; border-bottom: 2px solid var(--fg); }
+section > header h2 { font-size: clamp(1.45rem, 2.6vw, 1.85rem); font-weight: 700; letter-spacing: -0.01em; }
+section > header p { color: var(--fg-2); max-width: 62ch; }
+h3 { font-size: 1.12rem; font-weight: 600; }
+h4 { font-size: 0.95rem; font-weight: 600; }
+.bul { padding-left: 0; list-style: none; display: grid; gap: 7px; }
+.bul li { position: relative; padding-left: 20px; }
+.bul li::before { content: ""; position: absolute; left: 3px; top: 0.62em; width: 7px; height: 7px; transform: rotate(45deg); background: var(--accent); }
+.num { padding-left: 0; list-style: none; display: grid; gap: 8px; counter-reset: n; }
+.num li { display: grid; grid-template-columns: 30px 1fr; counter-increment: n; }
+.num li::before { content: counter(n, decimal-leading-zero); color: var(--accent); font-weight: 700; font-size: 0.82rem; padding-top: 0.15em; }
+
+/* Fala: o que o vendedor diz */
+.say { background: var(--say-bg); color: var(--say-fg); border-radius: var(--radius); padding: 14px 18px; display: grid; gap: 6px; }
+.say .label { color: var(--accent); }
+.say p { font-size: 1rem; }
+
+/* Bloco do diagnóstico */
+.block { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 20px 22px; display: grid; gap: 14px; }
+.block-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.block-head .n { font-weight: 700; color: var(--accent); font-size: 0.86rem; letter-spacing: 0.08em; }
+.block-head .tela { margin-left: auto; font-size: 0.74rem; color: var(--fg-3); }
+.key { font-size: 1.12rem; font-weight: 600; line-height: 1.4; }
+.key::before { content: "Pergunta-chave"; display: block; font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+.facts { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px 18px; font-size: 0.92rem; }
+.facts dt { font-weight: 600; font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-3); padding-top: 0.35em; }
+.facts dd { margin: 0; min-width: 0; }
+.facts dd .bul { gap: 4px; }
+
+/* Rótulo de fase interna */
+.phase { display: inline-block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-2); background: var(--surface-2); border-radius: 999px; padding: 2px 10px; }
+
+/* Tabelas */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-3); font-weight: 600; background: var(--surface-2); }
+tr:last-child td { border-bottom: 0; }
+td.c { text-align: center; color: var(--accent); font-weight: 700; }
+td.money, th.money { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Caminhos de produto */
+.path { border: 1px solid var(--accent-line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.path > .top { background: var(--accent-tint); padding: 18px 22px; display: grid; gap: 4px; }
+.path > .top h3 { font-size: 1.25rem; }
+.path > .body { padding: 18px 22px; display: grid; gap: 16px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.cols > div { min-width: 0; display: grid; gap: 8px; align-content: start; }
+
+.rules { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.rules div { display: grid; grid-template-columns: 36px 1fr; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.rules div:last-child { border-bottom: 0; }
+.rules b { color: var(--accent); font-size: 0.86rem; }
+
+.outs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.out { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
+.out h3 { font-size: 1.02rem; }
+.out p { font-size: 0.9rem; color: var(--fg-2); }
+
+footer { color: var(--fg-3); font-size: 0.82rem; border-top: 1px solid var(--line); padding-top: 18px; }
+
+@media (max-width: 980px) {
+  .wrap { grid-template-columns: 1fr; gap: 28px; padding-block: 20px 60px; }
+  .toc { position: static; max-height: none; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 12px 14px; }
+  .toc details > summary { display: flex; justify-content: space-between; cursor: pointer; font-weight: 600; list-style: none; }
+  .toc details > summary::after { content: "+"; color: var(--accent); font-weight: 700; }
+  .toc details[open] > summary::after { content: "–"; }
+  .toc details[open] ol { margin-top: 10px; }
+  .toc .brand { margin-bottom: 10px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  .use, .cols, .outs { grid-template-columns: 1fr; }
+  .use div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .use div:last-child { border-bottom: 0; }
+  .facts { grid-template-columns: 1fr; gap: 2px; }
+  .facts dd { margin-bottom: 10px; }
+  .block, .path > .top, .path > .body { padding-left: 16px; padding-right: 16px; }
+}
+@media print {
+  body { background: #fff; color: #111; font-size: 11pt; padding: 0; }
+  .toc { display: none; }
+  .wrap { display: block; padding: 0; }
+  main { max-width: none; gap: 28px; }
+  .block, .path, .say, .out, .tbl, .rules { break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav class="toc" aria-label="Índice">
+  <div class="brand"><svg viewBox="266 243 548 595" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M 411.6 298 C 269.3 354.8, 277.1 351.3, 271.8 361.9 L 269.5 366.5 269.2 485.9 C 268.9 620.2, 268.5 612.1, 276.2 620.4 C 278.6 622.9, 282.1 625.7, 284.1 626.7 C 286 627.7, 341.9 649.9, 408.3 676 L 529 723.5 529 775 C 529 843.4, 526.9 839.5, 557.2 827.5 C 699.9 771.1, 795.5 732.4, 800.1 729.2 C 803.8 726.6, 806.2 723.9, 808.2 720.1 L 811 714.8 811 593.6 L 811 472.5 808.6 467.4 C 805.2 460.2, 800 455.6, 791.1 451.9 C 786.9 450.2, 731.3 428.3, 667.5 403.2 L 551.5 357.5 551 303.5 C 550.7 273.8, 550.4 249.4, 550.2 249.3 C 549.3 248.4, 543.9 246, 542.8 246.1 C 542.1 246.1, 483.1 269.5, 411.6 298 M 414.5 438 C 289.7 486.5, 293.1 484.9, 299.4 491.1 C 301 492.7, 338.6 507.6, 418.6 538.4 C 482.9 563.1, 538.3 584.6, 541.7 586.1 C 551.5 590.4, 551 587.5, 551 641 L 551 687.1 553.2 686.4 C 565.8 682.5, 779.8 598.6, 781.4 597 L 783.5 595 781.5 591.4 C 779.5 587.8, 778.9 587.6, 657.6 541 C 556 502, 535.2 493.7, 532.6 491.1 L 529.5 488 529.2 441 C 529.1 415.1, 528.6 394, 528.2 394.1 C 527.8 394.2, 476.6 413.9, 414.5 438"/></svg><span><i>Triângulo</i> <b>Solutions</b></span></div>
+  <details open>
+    <summary>Índice</summary>
+    <ol>
+      <li><a href="#mapa">Mapa da reunião</a></li>
+      <li><a href="#preparacao">Antes da reunião</a></li>
+      <li><a href="#abertura">Abertura e conexão</a></li>
+      <li><a href="#combinado">Combinado</a></li>
+      <li><a href="#diagnostico">Diagnóstico geral</a></li>
+      <li><a href="#caminhos">Qual produto investigar</a></li>
+      <li><a href="#resumo">Resumo do diagnóstico</a></li>
+      <li><a href="#apresentacao">Apresentação</a></li>
+      <li><a href="#pactos">Combinados antes do valor</a></li>
+      <li><a href="#valor">Valor e prova</a></li>
+      <li><a href="#preco">Preço e começar menor</a></li>
+      <li><a href="#decisao">Decisão</a></li>
+      <li><a href="#objecoes">Objeções</a></li>
+      <li><a href="#fatos">O que pode ser dito</a></li>
+    </ol>
+  </details>
+</nav>
+
+<main>
+
+<div class="hero">
+  <span class="eyebrow">Triângulo Solutions · Comercial</span>
+  <h1>Perguntas direcionadas <span>para a R1.</span></h1>
+  <p class="lead">O roteiro para conduzir a primeira reunião de diagnóstico sozinho, do primeiro minuto até a decisão. Use junto com a apresentação diagnóstica: o número da tela correspondente aparece em cada etapa.</p>
+  <div class="use">
+    <div><span class="label">Antes</span><p>Pesquise o lead e preencha as três anotações no botão <b>Preparar</b> da apresentação.</p></div>
+    <div><span class="label">Durante</span><p>Siga a ordem. A pergunta-chave de cada bloco é obrigatória; as outras aprofundam quando a resposta vem curta.</p></div>
+    <div><span class="label">Depois</span><p>Na tela 13, copie o resumo da reunião e registre no CRM no mesmo dia.</p></div>
+  </div>
+</div>
+
+<!-- MAPA -->
+<section id="mapa">
+  <header><span class="eyebrow">Visão geral</span><h2>Mapa da reunião</h2><p>Cada etapa tem um resultado que precisa sair dela. Se não saiu, não avance. O diagnóstico ocupa a maior parte do tempo. Duração-alvo da R1: <span class="confirm">[CONFIRMAR]</span></p></header>
+  <div class="tbl"><table>
+    <thead><tr><th>Etapa</th><th>O que precisa sair dela</th><th>Tela</th></tr></thead>
+    <tbody>
+      <tr><td>Antes da reunião</td><td>Três anotações: gancho, ponto forte, ponto fraco</td><td>Preparar</td></tr>
+      <tr><td>Abertura e conexão</td><td>Clima leve, e você conduzindo</td><td>01</td></tr>
+      <tr><td>Combinado</td><td>Um "pode ser" para fazer perguntas</td><td>02</td></tr>
+      <tr><td>Diagnóstico geral</td><td>Onde estão, onde querem chegar, travas, impacto, prioridade, decisor</td><td>03</td></tr>
+      <tr><td>Qual produto investigar</td><td>O caminho mais aderente, confirmado com perguntas</td><td>03</td></tr>
+      <tr><td>Resumo</td><td>Um "faz sentido" explícito</td><td>04</td></tr>
+      <tr><td>Apresentação</td><td>Confiança na Triângulo e desejo pelo cenário resolvido</td><td>05 a 08</td></tr>
+      <tr><td>Combinados antes do valor</td><td>Seis respostas positivas</td><td>09</td></tr>
+      <tr><td>Valor e prova</td><td>Preço visto como consequência, e menos medo de arriscar</td><td>10 e 11</td></tr>
+      <tr><td>Preço e começar menor</td><td>A reação real ao valor</td><td>12</td></tr>
+      <tr><td>Decisão</td><td>Uma das quatro saídas, registrada</td><td>13</td></tr>
+    </tbody>
+  </table></div>
+  <div class="rules">
+    <div><b>01</b><span>Diagnóstico antes de solução. Quem apresenta cedo vende o que sabe vender, não o que o cliente precisa.</span></div>
+    <div><b>02</b><span>No bloco de impacto, não ofereça saída. Deixe a pessoa sentir o tamanho do problema.</span></div>
+    <div><b>03</b><span>Descubra quem decide no meio do diagnóstico, nunca no fim.</span></div>
+    <div><b>04</b><span>Combinados e prova vêm antes do preço. Sempre.</span></div>
+    <div><b>05</b><span>Se o valor travar, reduza o escopo, nunca o piso.</span></div>
+    <div><b>06</b><span>Fale só o que está na seção <a href="#fatos">O que pode ser dito</a>. Número sem fonte não entra na conversa.</span></div>
+  </div>
+</section>
+
+<!-- PREPARAÇÃO -->
+<section id="preparacao">
+  <header><span class="eyebrow">Etapa 1</span><h2>Antes da reunião</h2><p>Uma pesquisa curta antes da call evita perguntas óbvias e faz você chegar já desconfiando de onde está o problema.</p></header>
+  <div class="tbl"><table>
+    <thead><tr><th>Onde olhar</th><th>O que observar</th></tr></thead>
+    <tbody>
+      <tr><td>Instagram</td><td>Como a empresa se apresenta na bio, cidade, link. Destaques (serviços, bastidores, depoimentos). Data do último post e constância. Se o conteúdo explica o que vende ou é genérico.</td></tr>
+      <tr><td>Site</td><td>Existe? Está atualizado? Abre bem no celular? Tem botão de WhatsApp? Aparece no Google quando você busca o serviço + a cidade?</td></tr>
+      <tr><td>Google Meu Negócio</td><td>Nota, quantidade de avaliações, fotos, horários e se as respostas às avaliações existem.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Anote três coisas</h3>
+  <ol class="num">
+    <li><span><b>Gancho de conexão.</b> Algo real e leve para abrir a conversa. Ex.: a loja nova que aparece nos posts.</span></li>
+    <li><span><b>Ponto forte.</b> O que a empresa já faz bem. Ex.: fotos de produto muito boas.</span></li>
+    <li><span><b>Ponto fraco que vira pergunta.</b> Ex.: último post há dois meses vira "como vocês decidem o que e quando postar?"</span></li>
+  </ol>
+  <h3>O que a pesquisa já sugere</h3>
+  <ul class="bul">
+    <li>Instagram parado, sem site ou invisível no Google: comece desconfiando de <a href="#caminho-presenca">Presença digital</a>.</li>
+    <li>Produto ou serviço sob medida, com orçamento caso a caso: comece desconfiando de <a href="#caminho-sistema">Sistema sob medida</a>.</li>
+    <li>Operação com muitos clientes recorrentes, crediário ou carteira grande: comece desconfiando de <a href="#caminho-crm">CRM e painel</a>.</li>
+  </ul>
+  <p class="muted">É só uma hipótese. Quem confirma é o diagnóstico. O que você viu serve para escolher as perguntas, não para ser comentado.</p>
+</section>
+
+<!-- ABERTURA -->
+<section id="abertura">
+  <header><span class="eyebrow">Etapa 2 · Tela 01</span><h2>Abertura e conexão</h2><p>A conexão serve para baixar a guarda dos dois lados. Poucos minutos bastam; passou disso, ela começa a atrapalhar o diagnóstico.</p></header>
+  <div class="say"><span class="label">Fala</span><p>"[Nome], prazer! Eu sou [seu nome], da Triângulo Solutions. Eu conduzo as conversas de diagnóstico aqui. Obrigado por separar esse horário."</p></div>
+  <h3>FORM: quatro portas de conversa</h3>
+  <p>Escolha <b>uma</b> porta, a partir de algo que você viu ou ouviu. Se a pessoa embalar, ótimo; se não, siga.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Porta</th><th>Quando usar</th><th>Exemplo</th></tr></thead>
+    <tbody>
+      <tr><td><b>F</b>amília</td><td>Apenas quando o assunto parte da pessoa ou aparece na câmera.</td><td>"Pelo visto a rotina aí é cheia também."</td></tr>
+      <tr><td><b>O</b>cupação</td><td>Quase sempre funciona: o negócio, o espaço, a equipe.</td><td>"Vi que vocês abriram a segunda loja. Como foi essa decisão?"</td></tr>
+      <tr><td><b>R</b>ecreação</td><td>Só com um sinal claro (objeto no fundo, post recente).</td><td>"Isso aí atrás é uma bicicleta? Você pedala?"</td></tr>
+      <tr><td><b>M</b>otivação</td><td>A que mais rende: o porquê do negócio, o momento, os planos.</td><td>"Como surgiu a ideia da [empresa]?"</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="bul">
+    <li>Comente só o que dá para ver ou ouvir na hora. Elogio vago soa ensaiado.</li>
+    <li>Nunca cite detalhe pessoal que você só sabe porque pesquisou.</li>
+    <li>Se a pessoa responder curto, não insista: siga para o combinado.</li>
+  </ul>
+</section>
+
+<!-- COMBINADO -->
+<section id="combinado">
+  <header><span class="eyebrow">Etapa 3 · Tela 02</span><h2>Combinado da reunião</h2><p>É aqui que você passa a conduzir: a pessoa autoriza as perguntas e já sabe que, no fim, vai haver uma decisão.</p></header>
+  <div class="say"><span class="label">Fala</span><p>"Pra essa conversa render, queria combinar três coisas com você. Primeiro, entender como a [empresa] funciona hoje. Depois, onde vocês querem chegar e o que está travando no caminho. E, se fizer sentido, te mostrar como a Triângulo ajudaria e qual seria o próximo passo. Se não fizer sentido, eu te falo também. Pode ser?"</p></div>
+  <p>Espere o "pode". Marque <b>Combinado</b> na tela.</p>
+</section>
+
+<!-- DIAGNÓSTICO -->
+<section id="diagnostico">
+  <header><span class="eyebrow">Etapa 4 · Tela 03</span><h2>Diagnóstico geral</h2><p>Serve para qualquer lead, de qualquer produto. São sete blocos, sempre nessa ordem. A sequência vai da conexão à consciência do problema, depois à consequência, à solução que a pessoa enxerga e, por fim, ao compromisso. Por fora parece conversa; por dentro segue a estrutura.</p></header>
+
+  <div class="block">
+    <div class="block-head"><span class="n">01</span><h3>Hoje</h3><span class="phase">Conexão</span><span class="tela">Tela 03 · Hoje</span></div>
+    <p class="key">"Me conta como a [empresa] funciona hoje, do cliente chegar até a entrega."</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>Entender o cenário atual sem julgamento.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"Como o cliente fica sabendo de vocês hoje?"</li>
+        <li>"Quem atende o cliente quando ele chama? E quem fecha a venda?"</li>
+        <li>"Vocês usam planilha, caderno, algum sistema? Onde fica a informação dos clientes?"</li>
+        <li>"O que já funciona bem e você não mexeria?"</li>
+        <li>Use aqui o ponto fraco da pesquisa: "vi que [ponto fraco]. Como vocês têm lidado com isso?"</li>
+      </ul></dd>
+      <dt>Escute por</dt><dd>Canal de clientes, tamanho da equipe, ferramentas, onde o dono fica preso.</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">02</span><h3>Direção</h3><span class="phase">Conexão</span><span class="tela">Tela 03 · Direção</span></div>
+    <p class="key">"Daqui a um ano, como vocês querem que a [empresa] esteja?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>Transformar um desejo vago numa meta concreta.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"Isso tem um número? Faturamento, clientes por mês, tempo livre?"</li>
+        <li>"Por que essa meta? E por que agora?"</li>
+        <li>Se vier "quero crescer": "crescer quanto, e até quando?"</li>
+      </ul></dd>
+      <dt>Anote</dt><dd>A meta com as palavras da pessoa e, se possível, em número.</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">03</span><h3>Números</h3><span class="phase">Conexão</span><span class="tela">Tela 03 · Números</span></div>
+    <p class="key">"Só para eu dimensionar, sem precisar ser exato: vocês trabalham com uma meta de faturamento por mês?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>Entender tamanho, momento e se o investimento cabe. Não é auditoria.</dd>
+      <dt>Pela meta</dt><dd>"E hoje, quanto falta para chegar nela?"</dd>
+      <dt>Pelo volume</dt><dd>Quando a pessoa não gosta de falar de faturamento: "quantos clientes vocês atendem num mês normal? E quanto vale, em média, cada um?" Depois confira: "fazendo a conta, fica em torno de R$ X por mês?" A tela faz a conta.</dd>
+      <dt>Cuidado</dt><dd>Nunca abra a reunião perguntando faturamento. Se a pessoa não quiser responder, siga em frente.</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">04</span><h3>Travas</h3><span class="phase">Consciência</span><span class="tela">Tela 03 · Travas</span></div>
+    <p class="key">"O que está entre onde vocês estão hoje e essa meta?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>Fazer a pessoa nomear o problema com as próprias palavras.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"Desde quando isso acontece?"</li>
+        <li>"Já tentaram alguma solução? Por que não ficou?"</li>
+        <li>"Onde você sente que perde mais tempo ou dinheiro hoje?"</li>
+      </ul></dd>
+      <dt>Na tela</dt><dd>Marque as travas que aparecerem. Elas indicam o produto na tela 07. Veja <a href="#caminhos">Qual produto investigar</a>.</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">05</span><h3>Impacto</h3><span class="phase">Consequência</span><span class="tela">Tela 03 · Impacto</span></div>
+    <p class="key">"Se tudo continuar como está, onde a [empresa] estará daqui a seis meses?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>A pessoa deixar de falar do cenário ideal e enxergar o custo real do problema.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"Dá para colocar um preço nisso? Horas da equipe, vendas que escapam, dinheiro parado?"</li>
+        <li>"Quem mais sente isso? Equipe, clientes, família?"</li>
+        <li>"O que você deixa de fazer por causa disso?"</li>
+      </ul></dd>
+      <dt>Cuidado</dt><dd>Não ofereça solução e não amenize ("isso é normal, todo mundo passa"). Fique em silêncio depois da pergunta.</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">06</span><h3>Prioridade</h3><span class="phase">Solução e compromisso</span><span class="tela">Tela 03 · Prioridade</span></div>
+    <p class="key">"Imagina isso resolvido. Qual é a primeira coisa que muda na rotina de vocês?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>A pessoa descrever o ganho com as próprias palavras e medir a disposição para agir.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"De 0 a 10, quanto resolver isso é prioridade agora?"</li>
+        <li>Abaixo de 7: "o que faria virar 10?"</li>
+        <li>"Se o caminho certo aparecer, quando vocês gostariam de começar?"</li>
+      </ul></dd>
+      <dt>Escute por</dt><dd>Nota baixa sem motivo concreto aponta para a saída "não seguir agora".</dd>
+    </dl>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><span class="n">07</span><h3>Decisão</h3><span class="phase">Compromisso</span><span class="tela">Tela 03 · Decisão</span></div>
+    <p class="key">"Além de você, quem participa de uma decisão como essa?"</p>
+    <dl class="facts">
+      <dt>Objetivo</dt><dd>Evitar o "preciso falar com meu sócio" no final.</dd>
+      <dt>Aprofunde</dt><dd><ul class="bul">
+        <li>"Se tudo fizer sentido, o que mais você precisaria para bater o martelo?"</li>
+        <li>Se houver outra pessoa: "faz sentido a gente marcar a próxima conversa com ela junto?"</li>
+      </ul></dd>
+      <dt>Cuidado</dt><dd>Sem o decisor, a reunião continua, mas o fechamento vira segunda conversa com ele presente.</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- CAMINHOS -->
+<section id="caminhos">
+  <header><span class="eyebrow">Etapa 5 · Telas 03 e 07</span><h2>Qual produto investigar</h2><p>A Triângulo vende mais de uma coisa. Enquanto escuta o diagnóstico, marque as travas: elas apontam o caminho. Confirme com as perguntas do caminho antes de apresentar. Assim você oferece o que resolve a dor, e não o produto que você está mais acostumado a vender.</p></header>
+  <div class="tbl"><table>
+    <thead><tr><th>Trava que aparece</th><th>Presença digital</th><th>Sistema sob medida</th><th>CRM e painel</th></tr></thead>
+    <tbody>
+      <tr><td>Cliente novo depende de indicação</td><td class="c">●</td><td></td><td></td></tr>
+      <tr><td>Pouca presença no Google e no Instagram</td><td class="c">●</td><td></td><td></td></tr>
+      <tr><td>Nenhum canal previsível de novos clientes</td><td class="c">●</td><td></td><td></td></tr>
+      <tr><td>Orçamento ou precificação demora</td><td></td><td class="c">●</td><td></td></tr>
+      <tr><td>Processo manual que toma horas da semana</td><td></td><td class="c">●</td><td></td></tr>
+      <tr><td>Decisões e cálculos presos no dono</td><td></td><td class="c">●</td><td></td></tr>
+      <tr><td>Informação espalhada em planilha, caderno e WhatsApp</td><td></td><td></td><td class="c">●</td></tr>
+      <tr><td>Sem visão única dos números do negócio</td><td></td><td></td><td class="c">●</td></tr>
+      <tr><td>Cliente para de comprar e ninguém percebe</td><td></td><td></td><td class="c">●</td></tr>
+    </tbody>
+  </table></div>
+
+  <article class="path" id="caminho-presenca">
+    <div class="top"><span class="eyebrow">Caminho A</span><h3>Presença digital</h3><p class="muted">Operação de Sites e Assessoria de conteúdo</p></div>
+    <div class="body">
+      <div class="cols">
+        <div><h4>Sinais na pesquisa</h4><ul class="bul"><li>Sem site, ou site desatualizado</li><li>Instagram parado ou sem constância</li><li>Não aparece no Google pelo serviço + cidade</li><li>Google Meu Negócio incompleto</li></ul></div>
+        <div><h4>Sinais na conversa</h4><ul class="bul"><li>"Cliente novo só chega por indicação"</li><li>Mês bom e mês ruim sem explicação</li><li>Já posta, mas não vê retorno</li><li>"Não tenho tempo de postar"</li></ul></div>
+      </div>
+      <div><h4>Perguntas para confirmar</h4><ul class="bul">
+        <li>"Se alguém procurar o que vocês vendem em [cidade] no Google hoje, encontra vocês?"</li>
+        <li>"No último mês, quantos clientes novos chegaram sem ser por indicação?"</li>
+        <li>"Quem cuida do Instagram hoje? Quanto tempo isso toma por semana?"</li>
+        <li>"Se as indicações parassem por dois meses, o que aconteceria?"</li>
+      </ul></div>
+      <div><h4>Não é esse caminho quando</h4><p>Os clientes já sobram e o problema está dentro da operação: orçamento lento, controle de clientes, cobrança. Aí, mais clientes só aumentam o problema.</p></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Produto</th><th>O que é</th><th class="money">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Operação de Sites</td><td>Site sem custo de implantação, com hospedagem e gestão. É a porta de entrada para a Assessoria.</td><td class="money">R$ 97/mês</td></tr>
+          <tr><td>Assessoria de conteúdo</td><td>A IA produz roteiro, legenda e arte toda semana e o cliente só aprova.</td><td class="money">Setup R$ 1.500 a R$ 2.500<br>+ R$ 297 a R$ 350/mês</td></tr>
+          <tr><td>Gestão de tráfego pago</td><td>Terceiro degrau, opcional, para quem já validou os dois anteriores.</td><td class="money">+ R$ 200/mês</td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted">Na apresentação: valor padrão no topo da faixa (setup R$ 2.500 + R$ 350/mês) e condição de parceria no piso (setup R$ 1.500 + R$ 297/mês). Nunca abaixo do piso. Começar menor: só o site, por R$ 97/mês, e a Assessoria entra depois. Fidelidade da mensalidade: <span class="confirm">[CONFIRMAR]</span></p>
+    </div>
+  </article>
+
+  <article class="path" id="caminho-sistema">
+    <div class="top"><span class="eyebrow">Caminho B</span><h3>Sistema sob medida</h3><p class="muted">Do jeito que construímos o Precisa</p></div>
+    <div class="body">
+      <div class="cols">
+        <div><h4>Sinais na pesquisa</h4><ul class="bul"><li>Produto ou serviço sob medida (medidas, materiais, configurações)</li><li>"Peça seu orçamento" como único caminho de compra</li><li>Orçamento feito à mão ou em planilha</li></ul></div>
+        <div><h4>Sinais na conversa</h4><ul class="bul"><li>Orçamento leva horas ou dias</li><li>Só o dono sabe fazer o preço</li><li>Erros de cálculo ou de material</li><li>Cliente esfria esperando o orçamento</li></ul></div>
+      </div>
+      <div><h4>Perguntas para confirmar</h4><ul class="bul">
+        <li>"Quanto tempo passa entre o cliente pedir e receber o orçamento?"</li>
+        <li>"Quem consegue fazer um orçamento além de você?"</li>
+        <li>"Quantos orçamentos vocês fazem por semana? Quantos se perdem pela demora?"</li>
+        <li>"Já aconteceu de errar preço ou material? Quanto isso custou?"</li>
+      </ul></div>
+      <div><h4>Não é esse caminho quando</h4><p>O orçamento já é rápido e confiável, ou o problema principal é falta de clientes.</p></div>
+      <div><h4>Oferta</h4><p>Um sistema construído para o processo do cliente. Valor padrão, condição de parceria e opção menor: <span class="confirm">[CONFIRMAR]</span> Prazo de entrega: <span class="confirm">[CONFIRMAR]</span></p></div>
+      <p class="muted"><b>Não ofereça o Precisa.</b> Ele não está à venda: está travado até a formalização do contrato-modelo, por decisão de proteção jurídica. Use o Precisa como prova de que a Triângulo constrói esse tipo de sistema, nunca como produto. Quando o escopo for grande, a saída certa costuma ser uma segunda conversa com protótipo.</p>
+    </div>
+  </article>
+
+  <article class="path" id="caminho-crm">
+    <div class="top"><span class="eyebrow">Caminho C</span><h3>CRM e painel sob medida</h3><p class="muted">Clientes, cobranças e números num lugar só</p></div>
+    <div class="body">
+      <div class="cols">
+        <div><h4>Sinais na pesquisa</h4><ul class="bul"><li>Muitos clientes recorrentes ou carteira grande</li><li>Crediário próprio ou venda a prazo</li><li>Mais de uma unidade ou equipe de vendas</li></ul></div>
+        <div><h4>Sinais na conversa</h4><ul class="bul"><li>Informação em planilha, caderno e WhatsApp</li><li>Ninguém sabe quem deve ou quem parou de comprar</li><li>Decisão tomada no feeling</li><li>Relatório montado à mão</li></ul></div>
+      </div>
+      <div><h4>Perguntas para confirmar</h4><ul class="bul">
+        <li>"Se eu te pedir agora a lista de clientes que não compram há três meses, quanto tempo leva?"</li>
+        <li>"Onde fica o histórico de cada cliente?"</li>
+        <li>"Quais números você olha toda semana para saber se está indo bem?"</li>
+        <li>"Quanto tempo a equipe gasta juntando informação para responder uma pergunta simples?"</li>
+      </ul></div>
+      <div><h4>Não é esse caminho quando</h4><p>A empresa tem poucos clientes e consegue acompanhar todos de cabeça, ou o problema principal é atrair cliente novo.</p></div>
+      <div class="tbl"><table>
+        <thead><tr><th>Referência</th><th class="money">Valor padrão</th><th class="money">Parceria</th></tr></thead>
+        <tbody><tr><td>MVP de CRM de clientes e cobrança: cadastro, débitos, inadimplentes, inativos, histórico de cobranças e painel</td><td class="money">R$ 5.500<br><span class="muted">5x de R$ 1.100</span></td><td class="money">R$ 2.500<br><span class="muted">5x de R$ 500</span></td></tr></tbody>
+      </table></div>
+      <p class="muted">Outro escopo é orçado à parte. MVP menor (menos módulos), valor: <span class="confirm">[CONFIRMAR]</span> Mensalidade ou manutenção depois da entrega: <span class="confirm">[CONFIRMAR]</span></p>
+    </div>
+  </article>
+
+  <h3>Quando aparecem dois caminhos</h3>
+  <p>Pergunte qual dos dois problemas custa mais hoje e comece por ele. O outro vira a próxima fase. Na tela 07 o caminho vem marcado pelas travas; troque a aba se a prioridade da pessoa for outra.</p>
+  <h3>Quando não é nenhum</h3>
+  <p>Sem prioridade, sem decisor ao alcance, ou um problema que a Triângulo não resolve. Siga para o resumo do mesmo jeito e use a saída "não seguir agora".</p>
+</section>
+
+<!-- RESUMO -->
+<section id="resumo">
+  <header><span class="eyebrow">Etapa 6 · Tela 04</span><h2>Resumo do diagnóstico</h2><p>Mostra que você escutou, gera concordância explícita e dá permissão para apresentar a solução. A tela monta o resumo a partir das anotações.</p></header>
+  <div class="say"><span class="label">Fala</span><p>"Deixa eu ver se entendi direito. Hoje vocês estão em [situação]. Querem chegar em [meta]. O que trava é [travas]. E, se nada mudar, [consequência]. Faz sentido esse resumo?"</p></div>
+  <p>Espere o "faz sentido". Se a pessoa corrigir algo, volte ao diagnóstico, ajuste e só então siga.</p>
+  <div class="say"><span class="label">Transição</span><p>"Com isso na mesa, dá para separar o que é urgente do que pode esperar. Vou te mostrar por onde a gente começaria."</p></div>
+</section>
+
+<!-- APRESENTAÇÃO -->
+<section id="apresentacao">
+  <header><span class="eyebrow">Etapa 7 · Telas 05 a 08</span><h2>Apresentação</h2><p>Três movimentos curtos, nesta ordem: por que confiar na Triângulo, qual é a diferença entre o cenário de hoje e o resolvido, e como a gente trabalha.</p></header>
+  <h3>Quem somos (tela 05)</h3>
+  <p>Curto, ligado ao problema que a pessoa contou. A história completa não ajuda aqui.</p>
+  <div class="say"><span class="label">Fala</span><p>"A Triângulo nasceu na Engenharia de Produção da UFTM. O primeiro problema que a gente resolveu foi o de um instalador de cortinas que levava dias para fazer um orçamento. Daí veio o Precisa, que foi premiado pela FAPEMIG. A gente começa entendendo o processo, igual fiz com você agora, e depois constrói a solução."</p></div>
+  <h3>Por que ainda não foi resolvido (tela 06)</h3>
+  <p>Pergunte com quem a empresa já tentou antes. Agência entende de post, software house entende de código, o "sobrinho" resolve na hora e some. A Triângulo junta diagnóstico de processo, marketing e software no mesmo time, sem terceirizar pedaços.</p>
+  <h3>O caminho (tela 07)</h3>
+  <p>Mostre só o contraste: como está hoje e como fica resolvido. Primeiro a pessoa precisa querer o cenário resolvido; o funcionamento vem na tela seguinte.</p>
+  <h3>Como trabalhamos (tela 08)</h3>
+  <ol class="num">
+    <li><span><b>Diagnóstico.</b> "Começou nesta conversa."</span></li>
+    <li><span><b>Protótipo.</b> O cliente aprova a solução desenhada antes da construção.</span></li>
+    <li><span><b>Construção.</b> Sob medida, com os dados reais, validada por etapa.</span></li>
+    <li><span><b>Acompanhamento.</b> Medir o uso e ajustar.</span></li>
+  </ol>
+  <p class="muted">Ligue cada etapa a uma trava que apareceu no diagnóstico. Prazo de cada etapa por produto: <span class="confirm">[CONFIRMAR]</span></p>
+</section>
+
+<!-- PACTOS -->
+<section id="pactos">
+  <header><span class="eyebrow">Etapa 8 · Tela 09</span><h2>Combinados antes do valor</h2><p>Seis perguntas curtas, uma por vez. Cada resposta positiva deixa o preço como consequência, e não como surpresa. Espere a resposta antes de clicar.</p></header>
+  <div class="tbl"><table>
+    <thead><tr><th>Combinado</th><th>Pergunta</th><th>Se a resposta for não</th></tr></thead>
+    <tbody>
+      <tr><td>Entendimento</td><td>"Até aqui, tem algo que não ficou claro?"</td><td>Tire a dúvida agora, antes de seguir.</td></tr>
+      <tr><td>Aderência</td><td>"Deixando o preço de lado por um instante: isso resolve o que a [empresa] precisa agora?"</td><td>"O que faltou?" Volte ao caminho (tela 07).</td></tr>
+      <tr><td>Urgência</td><td>"Se a gente começasse amanhã, por onde você gostaria que fosse?"</td><td>Anote: vira a primeira entrega e o argumento do começar menor.</td></tr>
+      <tr><td>Ano passado</td><td>"Pensa no ano passado com isso já rodando. O que teria sido diferente?"</td><td>Deixe a pessoa fazer a conta em voz alta.</td></tr>
+      <tr><td>Indispensável</td><td>"Para dizer sim com tranquilidade, o que essa solução precisa ter de qualquer jeito?"</td><td>Anote. É o critério que a proposta precisa cumprir.</td></tr>
+      <tr><td>Sim ou não</td><td>"Combinado então: eu te mostro o valor e você me dá uma resposta direta, seja sim ou não. Pode ser?"</td><td>Pergunte o que impede a resposta direta. Às vezes é o decisor.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- VALOR E PROVA -->
+<section id="valor">
+  <header><span class="eyebrow">Etapa 9 · Telas 10 e 11</span><h2>Valor e prova</h2><p>Antes do preço, mostre o tamanho do que está incluído e reduza o medo de arriscar.</p></header>
+  <h3>Não é uma ferramenta, é uma operação (tela 10)</h3>
+  <p>Quatro frentes no mesmo time: diagnóstico de processo, marketing, desenvolvimento e acompanhamento. A tela lista as travas que a pessoa marcou como "o que sai das costas de vocês".</p>
+  <div class="say"><span class="label">Pergunta</span><p>"Se você fosse montar isso com pessoas separadas, quantas seriam e quanto custaria?"</p></div>
+  <h3>Prova (tela 11)</h3>
+  <p>O objetivo é tirar o medo de ser o primeiro, não impressionar. Conte o problema e o que foi feito, em poucas frases.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Cliente</th><th>Problema</th><th>O que fizemos</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>FN Cortinas</td><td>Precificar um orçamento levava dias</td><td>O Precisa, sistema de precificação sob medida. Está em uso.</td><td><span class="confirm">[CONFIRMAR]</span></td></tr>
+      <tr><td>Ribercon</td><td>Dados espalhados, sem sistema único</td><td>CRM com painel de indicadores</td><td><span class="confirm">[CONFIRMAR]</span></td></tr>
+      <tr><td>Teacher Lucas</td><td>Sem canal digital para novos alunos</td><td>Site, identidade visual e conteúdo com IA</td><td><span class="confirm">[CONFIRMAR]</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">Autorização para usar nome e logo de cada cliente: <span class="confirm">[CONFIRMAR]</span></p>
+</section>
+
+<!-- PREÇO -->
+<section id="preco">
+  <header><span class="eyebrow">Etapa 10 · Tela 12</span><h2>Preço e começar menor</h2><p>O preço segue sempre a mesma ordem, e a tela libera um passo de cada vez.</p></header>
+  <ol class="num">
+    <li><span><b>Valor padrão.</b> "O valor padrão desse projeto é R$ X."</span></li>
+    <li><span><b>Condição de parceria.</b> "Para algumas empresas a gente abre uma condição de parceria: R$ Y."</span></li>
+    <li><span><b>Por que a condição existe.</b> "Em troca, a gente conta o projeto no nosso Instagram, usa a [empresa] como case no site e no portfólio, e conta com indicações." Contrapartidas confirmadas para o CRM; nos outros produtos: <span class="confirm">[CONFIRMAR]</span></span></li>
+    <li><span><b>Sem prisão.</b> Tire o medo de ficar preso. Termos de fidelidade e manutenção de cada produto: <span class="confirm">[CONFIRMAR]</span></span></li>
+    <li><span><b>Pergunte e fique em silêncio.</b> "E aí, o que você achou?" Não explique nada antes da resposta.</span></li>
+  </ol>
+  <h3>Se a objeção for o valor</h3>
+  <div class="say"><span class="label">Pergunta</span><p>"Me ajuda a entender: é o tamanho do investimento ou tem algo na proposta que não te convenceu?"</p></div>
+  <ul class="bul">
+    <li><b>É a proposta:</b> volte ao combinado "indispensável" e mostre onde ela cumpre.</li>
+    <li><b>É o investimento:</b> mostre <b>Começar menor</b> como etapa, não como desconto. "Então vamos por partes: começamos pela trava que você disse que é a mais urgente, e o restante entra quando ela estiver resolvida."</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>Caminho</th><th>Começar menor</th></tr></thead>
+    <tbody>
+      <tr><td>Presença digital</td><td>Só o site: sem custo de implantação + R$ 97/mês. A Assessoria entra quando o site estiver rodando.</td></tr>
+      <tr><td>Sistema sob medida</td><td>O módulo que mais pesa hoje. Valor: <span class="confirm">[CONFIRMAR]</span></td></tr>
+      <tr><td>CRM e painel</td><td>MVP com menos módulos. Valor: <span class="confirm">[CONFIRMAR]</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">Nunca baixe o piso, e nunca dê desconto para fechar na hora. O que muda é o tamanho do começo.</p>
+</section>
+
+<!-- DECISÃO -->
+<section id="decisao">
+  <header><span class="eyebrow">Etapa 11 · Tela 13</span><h2>Decisão</h2><p>Toda R1 termina numa destas quatro saídas. Escolha com a pessoa, marque na tela e copie o resumo para o CRM.</p></header>
+  <div class="outs">
+    <div class="out"><span class="label">Saída 1</span><h3>Seguir agora</h3><p>Quando: os seis combinados vieram e o valor coube.</p><div class="say"><p>"Combinado. Vou te mandar o contrato agora e, assinado, a gente marca o kickoff."</p></div><p>Nada começa antes do contrato assinado.</p></div>
+    <div class="out"><span class="label">Saída 2</span><h3>Segunda conversa</h3><p>Só com motivo real: outro decisor precisa participar, o escopo sob medida pede protótipo antes do valor, ou falta um dado do cliente para fechar o escopo.</p><p>Marque data e horário antes de desligar.</p></div>
+    <div class="out"><span class="label">Saída 3</span><h3>Proposta em vídeo</h3><p>A pessoa gostou, mas ainda não é hora de decidir. Esfria a negociação, então use pouco.</p><p>Combine quando a pessoa vai assistir e já marque o retorno.</p></div>
+    <div class="out"><span class="label">Saída 4</span><h3>Não seguir agora</h3><p>Não é prioridade agora, não é o que a Triângulo resolve, ou o investimento não cabe de jeito nenhum. Agradeça, deixe a porta aberta e registre o motivo.</p><p>Encerrar bem também faz parte do trabalho: o tempo vai para quem está pronto.</p></div>
+  </div>
+</section>
+
+<!-- OBJEÇÕES -->
+<section id="objecoes">
+  <header><span class="eyebrow">Apoio</span><h2>Objeções comuns</h2><p>As três primeiras já foram usadas em reuniões reais. As outras são sugestões e ainda precisam ser testadas em campo.</p></header>
+  <div class="tbl"><table>
+    <thead><tr><th>Objeção</th><th>Resposta</th></tr></thead>
+    <tbody>
+      <tr><td>"Por que o site é de graça? Qual é a pegadinha?"</td><td>"A gente ganha na gestão mensal, não na construção do site."</td></tr>
+      <tr><td>"Já tenho Instagram, para que site?"</td><td>"O Instagram não é seu: a conta pode cair e o alcance muda. O site é seu e aparece no Google."</td></tr>
+      <tr><td>"Preciso pensar."</td><td>Ofereça um prazo curto para a resposta e não insista.</td></tr>
+      <tr><td>"Está caro."</td><td>Pergunte se pesa o valor ou alguma entrega, e siga o roteiro de <a href="#preco">começar menor</a>.</td></tr>
+      <tr><td>"Preciso falar com meu sócio."</td><td>Deveria ter aparecido no bloco Decisão. Proponha a segunda conversa com o sócio presente, com data marcada.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- FATOS -->
+<section id="fatos">
+  <header><span class="eyebrow">Apoio</span><h2>O que pode ser dito</h2><p>Fale só destes fatos. Se o cliente perguntar algo que não está aqui, diga que vai confirmar e responda depois.</p></header>
+  <div class="cols">
+    <div><h4>Pode dizer</h4><ul class="bul">
+      <li>A Triângulo é uma consultoria empresarial que usa soluções tecnológicas próprias para aplicar planos de ação reais dentro das empresas.</li>
+      <li>Nasceu na Engenharia de Produção da UFTM, numa aula de empreendedorismo.</li>
+      <li>O primeiro produto, o Precisa, nasceu do problema de um instalador de cortinas de alto padrão (FN Cortinas) que levava dias para precificar um orçamento.</li>
+      <li>O Precisa foi premiado pela FAPEMIG (pesquisa e inovação) e a Triângulo é pré-incubada na UFTM.</li>
+      <li>Sócios: Lucas Boaretto (CEO), Vinícius Nicoletti Marzocchi (CSO) e Matheus Miguel Tomé Pires (CTO/CIO). Pedro Henrique Pazoti Mega é diretor de projetos; Carlos Felício cuida do design.</li>
+      <li>O mesmo time faz diagnóstico de processo, marketing e software, sem terceirizar pedaços.</li>
+    </ul></div>
+    <div><h4>Não diga</h4><ul class="bul">
+      <li>Quantidade de clientes, posição no Google ou resultado de case em número. <span class="confirm">[CONFIRMAR]</span></li>
+      <li>Ano de fundação. <span class="confirm">[CONFIRMAR]</span></li>
+      <li>Nome oficial e ano do edital da FAPEMIG. <span class="confirm">[CONFIRMAR]</span></li>
+      <li>Números de empresas onde alguém do time trabalhou antes.</li>
+      <li>Que o Precisa está à venda.</li>
+      <li>Promessa de resultado em número.</li>
+    </ul></div>
+  </div>
+</section>
+
+<footer>Triângulo Solutions · triangulosolutions.com.br · @triangulosolutionsbrasil · Uso interno do time comercial.</footer>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnóstico Triângulo Solutions</title>
+<meta name="description" content="Apresentação diagnóstica da Triângulo Solutions para a primeira reunião com o cliente">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0E0E10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════════
+   Identidade da Triângulo (a mesma das propostas): grafite, vermelho, Poppins.
+   Layout: uma folha por vez no computador, página rolável no celular.
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: dark;
+  --bg: #0E0E10; --surface: #17171A; --surface-2: #1D1D21; --line: #2C2C33; --line-2: #3C3C45;
+  --fg: #FFFFFF; --fg-2: #9A9AA2; --fg-3: #6E6E76; --ink: #111114;
+  --red: #E83E46; --red-logo: #CE2B34; --red-deep: #8A2A30;
+  --red-tint: rgba(232, 62, 70, 0.12); --red-line: rgba(232, 62, 70, 0.5);
+  --note-bg: #FFF4F2; --note-fg: #2B1214;
+  --radius: 8px;
+  --pad-x: clamp(20px, 5.2vw, 100px); --pad-y: clamp(24px, 5vh, 64px);
+  --h1: clamp(1.9rem, 3.4vw, 3.6rem); --h2: clamp(1.6rem, 3vw, 3.2rem);
+  --body: clamp(0.95rem, 1.08vw, 1.15rem); --small: clamp(0.8rem, 0.86vw, 0.92rem);
+  --font: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); font-size: var(--body); line-height: 1.55; -webkit-font-smoothing: antialiased; overflow: hidden; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.eyebrow { font-weight: 700; font-size: clamp(0.66rem, 0.76vw, 0.82rem); letter-spacing: 0.32em; text-transform: uppercase; color: var(--red); }
+.kicker { font-weight: 600; font-size: clamp(0.64rem, 0.72vw, 0.78rem); letter-spacing: 0.26em; text-transform: uppercase; color: var(--fg-3); }
+.hl { color: var(--red); }
+.muted { color: var(--fg-2); }
+/* Dado que ainda falta confirmar: aparece na tela de propósito, para ninguém apresentar sem ver */
+.confirm { display: inline-block; border: 1px dashed var(--red); color: var(--red); border-radius: 4px; padding: 0 6px; font-size: 0.78em; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; }
+
+/* ─── Deck ─── */
+.deck { position: relative; height: 100%; }
+.slide {
+  --gx: 88%; --gy: 100%;
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  padding: var(--pad-y) var(--pad-x) calc(var(--pad-y) - 10px); overflow: hidden auto;
+  background: radial-gradient(ellipse 55% 70% at var(--gx) var(--gy), rgba(158, 30, 38, 0.34), transparent 70%), linear-gradient(165deg, #131316 0%, #0C0C0E 60%, #0A0A0C 100%);
+  opacity: 0; visibility: hidden; transform: translateY(10px);
+  transition: opacity .45s ease, transform .45s ease, visibility 0s linear .45s; isolation: isolate;
+}
+.slide.alt { --gx: 10%; --gy: 100%; }
+.slide.mid { --gx: 64%; --gy: 42%; }
+.slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .45s ease, transform .45s ease; }
+.slide.red { background: radial-gradient(ellipse 75% 85% at 42% 32%, #E23C44 0%, #C42A33 48%, #8A2A30 100%); }
+.slide.red .eyebrow, .slide.red .stamp, .slide.red .kicker { color: rgba(255, 255, 255, 0.75); }
+.slide.red .brand .mark { color: #fff; }
+.slide-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: clamp(14px, 3vh, 36px); min-height: 26px; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: clamp(0.88rem, 1vw, 1.02rem); }
+.brand .mark { width: 20px; height: 22px; color: var(--red); flex: none; }
+.wm i { font-weight: 300; font-style: italic; }
+.wm b { font-weight: 700; }
+.brand .x { color: var(--fg-3); margin-left: 2px; }
+.slide.red .brand .x { color: rgba(255, 255, 255, 0.75); }
+.slide-body { flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; gap: clamp(14px, 2.4vh, 28px); min-width: 0; }
+.slide-body.top { justify-content: flex-start; }
+.stamp { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 28px; margin-top: clamp(14px, 2.4vh, 28px); margin-right: 300px; min-height: 36px; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--fg-3); }
+.stamp .grow { flex: 1; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.02em; text-transform: none; }
+h1, h2, h3 { font-weight: 700; line-height: 1.12; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); max-width: 26ch; }
+h3 { font-size: clamp(1.05rem, 1.35vw, 1.4rem); font-weight: 600; }
+.lead { color: var(--fg-2); font-weight: 300; max-width: 60ch; font-size: clamp(1.02rem, 1.3vw, 1.35rem); }
+.grid { display: grid; gap: clamp(12px, 1.5vw, 22px); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { background: linear-gradient(180deg, #1A1A1E, var(--surface)); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 1.7vw, 26px); min-width: 0; }
+.card p { color: var(--fg-2); }
+.dlist { list-style: none; display: grid; gap: 14px; }
+.dlist li { position: relative; padding-left: 28px; font-weight: 300; }
+.dlist li::before { content: ""; position: absolute; left: 2px; top: 0.5em; width: 10px; height: 10px; background: var(--red); transform: rotate(45deg); border-radius: 1px; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ─── Navegação ─── */
+.progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); z-index: 50; transition: width .4s ease; }
+.nav { position: fixed; right: calc(clamp(12px, 2vw, 28px) + env(safe-area-inset-right, 0px)); bottom: calc(clamp(12px, 2vh, 22px) + env(safe-area-inset-bottom, 0px)); z-index: 50; display: flex; align-items: center; gap: 2px; background: rgba(23, 23, 26, 0.92); backdrop-filter: blur(8px); border: 1px solid var(--line); border-radius: 999px; padding: 4px; }
+.nav button { height: 36px; min-width: 36px; border-radius: 999px; display: grid; place-items: center; color: var(--fg-2); }
+.nav button:hover { background: var(--surface-2); color: var(--fg); }
+.nav .txt { padding: 0 12px; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; }
+body.notes-on .nav [data-notes-toggle], body.prep-on .nav [data-prep-toggle] { color: var(--red); }
+.index-menu { position: fixed; right: calc(clamp(12px, 2vw, 28px) + env(safe-area-inset-right, 0px)); bottom: calc(74px + env(safe-area-inset-bottom, 0px)); z-index: 60; background: var(--surface); border: 1px solid var(--line-2); border-radius: 10px; padding: 8px; max-height: 70vh; overflow: auto; min-width: 250px; }
+.index-menu button { display: flex; gap: 12px; width: 100%; text-align: left; padding: 7px 12px; border-radius: 6px; color: var(--fg-2); font-size: 0.9rem; }
+.index-menu button:hover, .index-menu button.current { background: var(--surface-2); color: var(--fg); }
+.index-menu .n { color: var(--red); font-weight: 600; min-width: 2ch; }
+
+/* Roteiro do vendedor (tecla N) */
+.note { position: fixed; left: var(--pad-x); bottom: calc(74px + env(safe-area-inset-bottom, 0px)); z-index: 55; max-width: min(560px, 80vw); background: var(--note-bg); color: var(--note-fg); border-radius: 10px; padding: 14px 18px; font-size: 0.88rem; line-height: 1.5; box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7); display: none; }
+.note strong { display: block; font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 6px; color: var(--red-deep); }
+.note em { font-style: normal; font-weight: 600; }
+body.notes-on .slide.is-active .note { display: block; }
+
+/* Preparação (tecla P): fica só com o vendedor */
+.prep { position: fixed; top: 0; right: 0; bottom: 0; z-index: 70; width: min(420px, 100vw); background: var(--surface); border-left: 1px solid var(--line-2); padding: calc(24px + env(safe-area-inset-top, 0px)) calc(22px + env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) 22px; overflow: auto; display: flex; flex-direction: column; gap: 16px; transform: translateX(100%); transition: transform .35s ease; }
+body.prep-on .prep { transform: none; }
+.prep-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.prep h3 { font-size: 1.1rem; }
+.prep .hint { color: var(--fg-2); font-size: 0.82rem; }
+.prep fieldset { border: 0; display: grid; gap: 10px; }
+.prep legend { margin-bottom: 8px; }
+.field { display: grid; gap: 5px; font-size: 0.8rem; color: var(--fg-2); }
+.field input, textarea { width: 100%; background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--radius); color: var(--fg); font: inherit; font-size: 0.92rem; padding: 9px 12px; }
+textarea { resize: vertical; min-height: 92px; line-height: 1.45; }
+.field input::placeholder, textarea::placeholder { color: var(--fg-3); }
+.checks { display: grid; gap: 6px; font-size: 0.86rem; color: var(--fg-2); }
+.checks label { display: flex; gap: 10px; align-items: center; cursor: pointer; }
+.checks input { accent-color: var(--red); width: 16px; height: 16px; }
+.danger-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.85rem; color: var(--fg-2); }
+
+/* Micro pacto */
+.pact { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 14px 6px 6px; color: var(--fg-2); font-size: 0.82rem; font-weight: 500; letter-spacing: 0; text-transform: none; transition: all .25s ease; white-space: nowrap; }
+.tick { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); display: grid; place-items: center; transition: all .25s ease; flex: none; }
+.tick svg { width: 13px; height: 13px; opacity: 0; transition: opacity .2s; }
+.pact:hover { border-color: var(--red); color: var(--fg); }
+.pact.on { border-color: var(--red); color: var(--fg); background: var(--red-tint); }
+.pact.on .tick, .chip.on .tick, .out.on .tick { background: var(--red); border-color: var(--red); color: #fff; }
+.pact.on .tick svg, .chip.on .tick svg, .out.on .tick svg { opacity: 1; }
+
+/* Botões */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius); font-weight: 600; font-size: 0.9rem; background: var(--red-logo); color: #fff; transition: background .2s, transform .2s; }
+.btn:hover { background: var(--red); transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line-2); }
+.btn.ghost:hover { border-color: var(--fg-3); }
+.btn.small { padding: 7px 12px; font-size: 0.82rem; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.toast { position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; background: var(--fg); color: var(--ink); padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; transition: all .3s; z-index: 80; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* Chips de seleção */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 9px; text-align: left; border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 14px 6px 6px; color: var(--fg-2); font-size: var(--small); transition: all .2s ease; }
+.chip:hover { border-color: var(--fg-3); color: var(--fg); }
+.chip.on { border-color: var(--red); background: var(--red-tint); color: var(--fg); }
+
+/* ─── Capa / encerramento ─── */
+.corner { position: absolute; left: 0; top: 0; width: 30vw; height: 40vh; z-index: -1; background: linear-gradient(165deg, rgba(150, 34, 42, 0.62), rgba(90, 18, 24, 0.3)); clip-path: polygon(0 0, 100% 0, 44% 100%, 0 54%); }
+.lockup { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); }
+.lockup .mark { width: clamp(64px, 7.4vw, 128px); height: auto; color: #fff; flex: none; }
+.lockup .wm { display: flex; flex-direction: column; line-height: 0.98; }
+.lockup .wm i { font-size: clamp(1.5rem, 2.9vw, 3.1rem); }
+.lockup .wm b { font-size: clamp(2.1rem, 4.3vw, 4.7rem); letter-spacing: -0.015em; }
+.cover h1 { max-width: 22ch; }
+.cover-meta { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px clamp(16px, 3vw, 48px); margin-right: 300px; }
+.cover-meta > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cover-meta strong { font-weight: 500; }
+.cover-meta small { color: var(--fg-3); font-size: var(--small); }
+.big-mark { position: absolute; right: 7vw; top: 50%; transform: translateY(-50%); width: min(24vw, 360px); height: auto; color: var(--red-logo); z-index: -1; }
+.closing h1 { max-width: 18ch; }
+
+/* ─── Combinado ─── */
+.agree .card .num { font-weight: 700; font-size: clamp(2.2rem, 4vw, 4rem); line-height: 0.9; color: var(--red); margin: 6px 0 12px; }
+
+/* ─── Diagnóstico ─── */
+.diag { display: grid; grid-template-columns: minmax(190px, 240px) minmax(0, 1fr); gap: clamp(16px, 2.6vw, 44px); align-items: start; }
+.blocks { display: grid; gap: 4px; }
+.blocks button { display: grid; grid-template-columns: 26px 1fr 10px; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius); border: 1px solid transparent; color: var(--fg-2); text-align: left; transition: all .2s; }
+.blocks button:hover { color: var(--fg); }
+.blocks .n { font-size: 0.72rem; font-weight: 700; color: var(--fg-3); letter-spacing: 0.1em; }
+.blocks .st { width: 8px; height: 8px; transform: rotate(45deg); background: var(--line-2); }
+.blocks button.done .st { background: var(--red); }
+.blocks button.on { background: var(--surface-2); border-color: var(--line-2); color: var(--fg); }
+.blocks button.on .n { color: var(--red); }
+.bpanel { display: none; flex-direction: column; gap: 14px; min-width: 0; animation: fadeUp .35s ease; }
+.bpanel.on { display: flex; }
+.bpanel .q { font-size: clamp(1.3rem, 2.1vw, 2.1rem); font-weight: 600; line-height: 1.25; max-width: 32ch; text-wrap: balance; }
+.prompts { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.prompts li { border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; color: var(--fg-2); font-size: var(--small); }
+.nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.nums-out { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: var(--small); color: var(--fg-2); }
+.nums-out b { color: var(--fg); font-size: 1.15rem; font-weight: 700; }
+.nums-out .lead-num b { color: var(--red); }
+.prio { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.prio input { width: 100%; accent-color: var(--red); }
+.prio output { font-weight: 700; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--red); min-width: 4ch; text-align: right; font-variant-numeric: tabular-nums; }
+.scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--fg-3); margin-top: -6px; }
+
+/* ─── Resumo ─── */
+.sum { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.sum > div { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); gap: 20px; padding: clamp(10px, 1.6vh, 16px) 0; border-bottom: 1px solid var(--line); }
+.sum dt { color: var(--fg-3); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; padding-top: 0.3em; }
+.sum dd { font-size: clamp(1rem, 1.3vw, 1.3rem); font-weight: 500; overflow-wrap: anywhere; white-space: pre-line; }
+.sum .empty { color: var(--fg-3); font-weight: 300; font-style: italic; }
+.sum .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; white-space: normal; }
+.sum .tags span { background: var(--red-tint); border: 1px solid var(--red-line); border-radius: 999px; padding: 2px 10px; font-size: 0.82rem; }
+
+/* ─── Quem somos ─── */
+.about { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(20px, 3vw, 56px); align-items: start; }
+.about blockquote { font-weight: 700; font-size: clamp(1.4rem, 2.4vw, 2.4rem); line-height: 1.2; text-wrap: balance; margin-bottom: 18px; }
+.badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.badges span { border: 1px solid var(--red-line); background: var(--red-tint); border-radius: 999px; padding: 6px 14px; font-size: var(--small); font-weight: 500; }
+.team { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.team div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 600; font-size: 0.85rem; color: #fff; background: var(--red-logo); }
+.team b { display: block; font-weight: 600; }
+.team .role { color: var(--red); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.team p { color: var(--fg-2); font-size: var(--small); }
+
+/* ─── Por que a Triângulo ─── */
+.rival h3 { margin: 8px 0; }
+.rival.us { background: var(--red-logo); border-color: var(--red-logo); }
+.rival.us .kicker { color: rgba(255, 255, 255, 0.85); }
+.rival.us p { color: #fff; font-weight: 500; }
+
+/* ─── Caminho / hoje × resolvido ─── */
+.tabs { display: inline-flex; flex-wrap: wrap; gap: 4px; border: 1px solid var(--line-2); border-radius: 14px; padding: 4px; align-self: flex-start; }
+.tabs button { padding: 7px 14px; border-radius: 10px; color: var(--fg-2); font-size: var(--small); display: inline-flex; gap: 8px; align-items: center; }
+.tabs button.on { background: var(--fg); color: var(--ink); font-weight: 600; }
+.tabs .rec { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
+.why-line { color: var(--fg-2); font-size: var(--small); }
+.why-line b { color: var(--fg); font-weight: 600; }
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 24px); }
+.ba ul { list-style: none; display: grid; gap: 12px; margin-top: 16px; }
+.ba li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--fg-2); font-weight: 300; }
+.ba li::before { content: "×"; color: var(--fg-3); }
+.ba .after { background: var(--red-logo); border-color: var(--red-logo); }
+.ba .after .kicker { color: rgba(255, 255, 255, 0.85); }
+.ba .after li { color: #fff; font-weight: 500; }
+.ba .after li::before { content: "✓"; color: #fff; }
+
+/* ─── Método ─── */
+.step-card { position: relative; }
+.step-card .num { font-weight: 700; font-size: clamp(2.4rem, 4.6vw, 4.6rem); line-height: 0.9; margin: 8px 0 10px; color: var(--red); }
+.step-card.here { border-color: var(--red-line); background: var(--red-tint); }
+.here-tag { display: inline-block; margin-top: 12px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg); background: var(--red-logo); border-radius: 999px; padding: 3px 10px; }
+
+/* ─── Antes do valor (sequência de pactos) ─── */
+.seq-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.seq-pills button { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.4); color: rgba(255, 255, 255, 0.8); font-size: 0.78rem; }
+.seq-pills button .tick { width: 18px; height: 18px; border-color: rgba(255, 255, 255, 0.6); }
+.seq-pills button.cur { background: rgba(255, 255, 255, 0.14); color: #fff; border-color: #fff; }
+.seq-pills button.ok .tick { background: #fff; border-color: #fff; color: var(--red-logo); }
+.seq-pills button.ok .tick svg { opacity: 1; }
+.seq-step { display: none; flex-direction: column; gap: 18px; animation: fadeUp .35s ease; }
+.seq-step.on { display: flex; }
+.seq-step h1 { max-width: 22ch; font-size: clamp(2rem, 4vw, 4.2rem); }
+.seq-step textarea { max-width: 640px; min-height: 70px; background: rgba(0, 0, 0, 0.22); border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+.seq-step textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
+.slide.red .btn { background: #fff; color: var(--red-logo); }
+.slide.red .btn:hover { background: #FFE7E8; }
+.slide.red .btn.ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.55); }
+
+/* ─── Valor ─── */
+.ops { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; }
+.ops div { padding: clamp(14px, 1.6vw, 22px); border-right: 1px solid var(--line-2); background: var(--surface); }
+.ops div:last-child { border-right: 0; }
+.ops h3 { margin: 6px 0 6px; }
+.ops p { color: var(--fg-2); font-size: var(--small); }
+.ops-cap { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--fg-2); font-size: var(--small); }
+.ops-cap .line { flex: 1; height: 1px; background: var(--red-line); min-width: 40px; }
+
+/* ─── Prova ─── */
+.case .client { font-weight: 600; font-size: 1.08rem; margin: 10px 0 8px; }
+.case dl { display: grid; gap: 8px; }
+.case dt { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-3); }
+.case dd { color: var(--fg-2); font-size: var(--small); }
+
+/* ─── Investimento ─── */
+.price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 22px); align-items: stretch; }
+.plan { display: flex; flex-direction: column; gap: 10px; transition: opacity .3s; }
+.plan.p2 { border-color: var(--red-line); }
+.plan.down { border-style: dashed; background: transparent; }
+.plan .val { font-weight: 700; font-size: clamp(1.6rem, 2.6vw, 2.8rem); line-height: 1.05; transition: filter .4s, color .4s; }
+.plan .val-sub { color: var(--fg-2); font-size: 0.86rem; min-height: 1.3em; }
+.plan.locked .val, .plan.locked .val-sub { filter: blur(9px); color: var(--fg-3); user-select: none; }
+.plan p { font-size: var(--small); }
+.plan .btn { margin-top: auto; align-self: flex-start; }
+.terms-line { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--fg-2); font-size: var(--small); }
+.terms-line b { color: var(--fg); font-weight: 600; }
+.ask { font-weight: 700; font-size: clamp(1.2rem, 1.8vw, 1.8rem); }
+
+/* ─── Próximo passo ─── */
+.outs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.3vw, 18px); }
+.out { text-align: left; display: flex; flex-direction: column; gap: 8px; transition: all .25s; }
+.out:hover { border-color: var(--line-2); }
+.out.on { border-color: var(--red); background: var(--red-tint); }
+.out .kicker { display: flex; justify-content: space-between; align-items: center; }
+.out p { font-size: var(--small); }
+.r2-box { display: grid; gap: 10px; }
+.r2-box .field { max-width: 260px; }
+.record { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.record textarea { min-height: 160px; font-size: 0.82rem; }
+
+/* ─── Responsivo ─── */
+@media screen and (max-width: 1180px) {
+  .g4, .outs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .price-grid { grid-template-columns: 1fr 1fr; }
+  .ops { grid-template-columns: 1fr 1fr; }
+  .ops div:nth-child(2) { border-right: 0; }
+  .ops div:nth-child(-n+2) { border-bottom: 1px solid var(--line-2); }
+}
+@media screen and (max-width: 820px), screen and (max-height: 520px) and (max-width: 1000px) {
+  body { overflow-x: clip; overflow-y: auto; }
+  .deck { height: auto; }
+  .slide { position: relative; inset: auto; opacity: 1; visibility: visible; transform: none; overflow: visible; overflow-x: clip; border-bottom: 1px solid var(--line); padding: 44px max(16px, env(safe-area-inset-right, 0px)) 44px max(16px, env(safe-area-inset-left, 0px)); }
+  .slide.cover { min-height: 100svh; }
+  .nav .hide-m, .progress, .note { display: none !important; }
+  .nav { gap: 0; }
+  .g3, .g4, .outs, .about, .ba, .price-grid, .ops, .nums, .diag { grid-template-columns: 1fr; }
+  .ops div { border-right: 0; border-bottom: 1px solid var(--line-2); }
+  .ops div:last-child { border-bottom: 0; }
+  .blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sum > div { grid-template-columns: 1fr; gap: 4px; }
+  .stamp, .cover-meta { margin-right: 0; }
+  .big-mark { opacity: 0.18; width: 70vw; right: -18vw; }
+  .corner { width: 60vw; height: 26vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<main class="deck" id="deck">
+
+<!-- 01 · CAPA -->
+<section class="slide cover" data-title="Capa" data-key="capa">
+  <div class="corner" aria-hidden="true"></div>
+  <div class="slide-header"><span class="eyebrow" data-cover-eyebrow>Diagnóstico · 2026</span><span class="kicker" data-date></span></div>
+  <div class="slide-body">
+    <div class="lockup"><span data-mark="lock"></span><span class="wm"><i>Triângulo</i><b>Solutions</b></span></div>
+    <h1>Vamos encontrar onde o lucro <span class="hl">da <span data-emp="sua empresa">sua empresa</span> está preso.</span></h1>
+    <p class="lead" data-f="mission"></p>
+    <div class="btn-row hide-print"><button class="btn ghost small" data-prep-open>Preparar a reunião</button></div>
+  </div>
+  <div class="cover-meta">
+    <div data-has="prep.contato" hidden><span class="kicker">Conversa com</span><strong data-text="prep.contato"></strong><small data-emp="">&nbsp;</small></div>
+    <div><span class="kicker">Conduzida por</span><strong data-seller>Triângulo Solutions</strong><small>Triângulo Solutions</small></div>
+    <div><span class="kicker">Site</span><strong data-f="site"></strong><small data-f="city"></small></div>
+  </div>
+  <aside class="note" data-note-capa></aside>
+</section>
+
+<!-- 02 · COMBINADO -->
+<section class="slide mid" data-title="Combinado" data-key="combinado">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Combinado da conversa</span>
+    <h2>Como vai ser a nossa conversa.</h2>
+    <div class="grid g3 agree">
+      <div class="card"><span class="kicker">Primeiro</span><div class="num">01</div><h3>Entender onde vocês estão</h3><p>Como a empresa funciona hoje, de onde vêm os clientes e o que já dá certo.</p></div>
+      <div class="card"><span class="kicker">Depois</span><div class="num">02</div><h3>Entender para onde querem ir</h3><p>A meta, e o que está travando o caminho até ela.</p></div>
+      <div class="card"><span class="kicker">Se fizer sentido</span><div class="num">03</div><h3>Mostrar como a gente ajudaria</h3><p>O caminho, o investimento e o próximo passo. Se não fizer sentido, a gente fala isso também.</p></div>
+    </div>
+  </div>
+  <div class="stamp" data-stamp data-pact-key="combinado"></div>
+  <aside class="note"><strong>Roteiro</strong>Leia os três objetivos e peça um ok. Esse combinado dá permissão para as perguntas que vêm a seguir. Marque <em>Combinado</em> quando a pessoa concordar.</aside>
+</section>
+
+<!-- 03 · DIAGNÓSTICO -->
+<section class="slide alt" data-title="Diagnóstico" data-key="diagnostico">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body top">
+    <span class="eyebrow">Diagnóstico</span>
+    <div class="diag">
+      <nav class="blocks" data-blocks aria-label="Etapas do diagnóstico"></nav>
+      <div data-bpanels></div>
+    </div>
+  </div>
+  <div class="stamp" data-stamp data-hint="As anotações ficam salvas só neste navegador"></div>
+  <aside class="note" data-note-diag></aside>
+</section>
+
+<!-- 04 · RESUMO -->
+<section class="slide mid" data-title="Resumo" data-key="resumo">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Pelo que entendi</span>
+    <h2>Deixa eu ver se entendi direito.</h2>
+    <dl class="sum" data-sum></dl>
+  </div>
+  <div class="stamp" data-stamp data-pact-key="resumo" data-hint="Faz sentido esse resumo?"></div>
+  <aside class="note"><strong>Roteiro</strong>Leia em voz alta, devagar, e pergunte se faz sentido. Se a pessoa corrigir algo, volte ao diagnóstico, ajuste e só então siga. Para passar à solução: "com isso na mesa, dá para separar o que é urgente do que pode esperar. Vou te mostrar por onde a gente começaria."</aside>
+</section>
+
+<!-- 05 · QUEM SOMOS -->
+<section class="slide" data-title="Quem somos" data-key="quem">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Quem somos</span>
+    <div class="about">
+      <div>
+        <blockquote>Existe lucro preso em toda empresa. <span class="hl">Nosso trabalho é destravar.</span></blockquote>
+        <ul class="dlist">
+          <li>Nascemos na Engenharia de Produção da UFTM, numa aula de empreendedorismo.</li>
+          <li>O primeiro problema que resolvemos foi o de um instalador de cortinas de alto padrão que levava dias para precificar um orçamento. Daí veio o Precisa, nosso sistema de precificação.</li>
+          <li data-f="mission"></li>
+        </ul>
+        <div class="badges"><span>Premiado pela FAPEMIG · pesquisa e inovação</span><span>Pré-incubado na UFTM</span></div>
+      </div>
+      <div class="team" data-team></div>
+    </div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Curto, sem contar a história inteira. Ligue a autoridade ao problema que a pessoa acabou de contar: "a Triângulo nasceu resolvendo um problema parecido com o seu."</aside>
+</section>
+
+<!-- 06 · POR QUE A TRIÂNGULO -->
+<section class="slide alt" data-title="Por que a Triângulo" data-key="porque">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Por que ainda não foi resolvido</span>
+    <h2>Cada um resolve um pedaço. <span class="hl">O lucro fica preso no meio.</span></h2>
+    <div class="grid g4" data-rivals></div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Pergunte com quem a empresa já tentou resolver isso antes. A resposta costuma cair numa dessas três primeiras colunas.</aside>
+</section>
+
+<!-- 07 · CAMINHO INDICADO -->
+<section class="slide mid" data-title="Caminho indicado" data-key="caminho">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body top">
+    <span class="eyebrow">O caminho para a <span data-emp="sua empresa">sua empresa</span></span>
+    <div class="tabs" data-path-tabs="caminho"></div>
+    <p class="why-line" data-why></p>
+    <div class="ba">
+      <div class="card"><span class="kicker">Como está hoje</span><ul data-today></ul></div>
+      <div class="card after"><span class="kicker">Como fica resolvido</span><ul data-solved></ul></div>
+    </div>
+  </div>
+  <div class="stamp" data-stamp data-pact-key="cenario"></div>
+  <aside class="note"><strong>Roteiro</strong>Mostre só o contraste entre os dois cenários. O "como" fica para o método. O caminho vem marcado pelas travas do diagnóstico; se não bater com a prioridade que a pessoa deu, troque a aba.</aside>
+</section>
+
+<!-- 08 · COMO TRABALHAMOS -->
+<section class="slide" data-title="Como trabalhamos" data-key="metodo">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">A gente não chuta: triangula</span>
+    <h2>Como a Triângulo trabalha.</h2>
+    <div class="grid g4" data-method></div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Mostre que a etapa 1 já começou nesta conversa. Ligue cada etapa a uma trava que apareceu no diagnóstico.</aside>
+</section>
+
+<!-- 09 · ANTES DO VALOR -->
+<section class="slide red" data-title="Antes do valor" data-key="pactos">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Antes de falar de valor</span>
+    <div class="seq-pills" data-seq-pills></div>
+    <div data-seq-steps></div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Uma pergunta por vez. Espere a resposta antes de clicar. Se a pessoa travar em alguma, resolva ali mesmo antes de seguir: preço só depois dos seis.</aside>
+</section>
+
+<!-- 10 · VALOR -->
+<section class="slide alt" data-title="Valor" data-key="valor">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">O que está incluído</span>
+    <h2>Não é uma ferramenta. <span class="hl">É uma operação inteira.</span></h2>
+    <div class="ops" data-ops></div>
+    <div class="ops-cap"><span>Um time só, sem terceirizar pedaços</span><span class="line"></span><span data-ops-count></span></div>
+    <div><span class="kicker">O que sai das costas de vocês</span><div class="chips" data-centralize style="margin-top:10px"></div></div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Pergunte: "se você fosse montar isso com pessoas separadas, quantas seriam e quanto custaria?" Deixe a pessoa fazer a conta.</aside>
+</section>
+
+<!-- 11 · PROVA SOCIAL -->
+<section class="slide" data-title="Prova social" data-key="prova">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body">
+    <span class="eyebrow">Quem já passou por isso</span>
+    <h2>Problemas parecidos, já resolvidos.</h2>
+    <div class="grid g3" data-cases></div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Conte o problema e o que foi feito, em poucas frases. O objetivo é tirar o medo de ser o primeiro, não impressionar.</aside>
+</section>
+
+<!-- 12 · INVESTIMENTO -->
+<section class="slide mid" data-title="Investimento" data-key="investimento">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body top">
+    <span class="eyebrow">Investimento</span>
+    <div class="tabs" data-path-tabs="preco"></div>
+    <p class="why-line" data-price-scope></p>
+    <div class="price-grid" data-prices></div>
+    <div class="terms-line" data-price-terms hidden></div>
+    <p class="ask" data-ask hidden>E aí, o que você achou?</p>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Ordem: valor padrão, condição de parceria, por que existe a condição, sem prisão. Depois pergunte o que a pessoa achou e <em>fique em silêncio</em>. Se a objeção for valor, pergunte: "me ajuda a entender: é o tamanho do investimento ou tem algo na proposta que não te convenceu?" Se for o investimento, mostre <em>Começar menor</em>: reduza escopo, nunca o piso.</aside>
+</section>
+
+<!-- 13 · PRÓXIMO PASSO -->
+<section class="slide alt" data-title="Próximo passo" data-key="decisao">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <div class="slide-body top">
+    <span class="eyebrow">Próximo passo</span>
+    <h2>Como a gente segue a partir daqui.</h2>
+    <div class="outs" data-outs></div>
+    <div class="r2-box" data-r2-box hidden>
+      <span class="kicker">Motivo da segunda conversa</span>
+      <div class="chips" data-r2-reasons></div>
+      <label class="field" for="r2-date">Data e horário combinados<input id="r2-date" data-bind="r2date" placeholder="ex.: terça, 14h"></label>
+    </div>
+    <div class="record hide-print">
+      <div class="btn-row">
+        <button class="btn small" data-copy>Copiar resumo da reunião</button>
+        <button class="btn ghost small" data-show-record>Ver o texto</button>
+        <button class="btn ghost small" data-reset-ask>Nova reunião</button>
+      </div>
+      <div class="danger-row" data-reset-row hidden><span>Apagar as anotações desta reunião neste navegador?</span><button class="btn small" data-reset-yes>Apagar</button><button class="btn ghost small" data-reset-no>Cancelar</button></div>
+      <label class="field" for="record-text" data-record-wrap hidden>Resumo para colar no CRM<textarea id="record-text" data-record readonly></textarea></label>
+    </div>
+  </div>
+  <div class="stamp" data-stamp></div>
+  <aside class="note"><strong>Roteiro</strong>Escolha uma das quatro saídas junto com a pessoa. Segunda conversa só com motivo real e data marcada antes de desligar. No fim, copie o resumo e registre no CRM.</aside>
+</section>
+
+<!-- 14 · ENCERRAMENTO -->
+<section class="slide cover closing mid" data-title="Encerramento" data-key="fim">
+  <div class="slide-header"><div class="brand" data-brand></div></div>
+  <span data-mark="big-mark"></span>
+  <div class="slide-body">
+    <span class="eyebrow" data-thanks>Obrigado</span>
+    <h1>Existe lucro preso em toda empresa. <span class="hl">Vamos destravar o seu.</span></h1>
+    <p class="lead">Destrave o lucro que já é seu.</p>
+  </div>
+  <div class="cover-meta">
+    <div><span class="kicker">Site</span><strong data-f="site"></strong><small data-f="city"></small></div>
+    <div><span class="kicker">Instagram</span><strong data-f="instagram"></strong></div>
+    <div><span class="kicker">WhatsApp</span><strong data-phone></strong><small data-seller>Triângulo Solutions</small></div>
+  </div>
+  <aside class="note"><strong>Roteiro</strong>Agradeça e repita o próximo passo combinado, com data.</aside>
+</section>
+
+</main>
+
+<nav class="nav" aria-label="Navegação">
+  <button data-prev aria-label="Anterior" class="hide-m"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="txt hide-m" data-index-toggle aria-label="Índice"></button>
+  <button data-next aria-label="Próximo" class="hide-m"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button class="txt hide-m" data-notes-toggle aria-label="Mostrar roteiro do vendedor" title="Roteiro (N)">Roteiro</button>
+  <button class="txt" data-prep-toggle aria-label="Preparar a reunião" title="Preparar (P)">Preparar</button>
+</nav>
+<div class="index-menu" data-index-menu hidden></div>
+
+<aside class="prep" aria-label="Preparação da reunião">
+  <div class="prep-head"><h3>Preparar a reunião</h3><button class="btn ghost small" data-prep-close>Fechar</button></div>
+  <p class="hint">Preencha antes da call. Fica salvo só neste navegador e aparece no roteiro (tecla N).</p>
+  <fieldset>
+    <legend class="kicker">Quem</legend>
+    <label class="field" for="p-empresa">Empresa<input id="p-empresa" data-bind="prep.empresa" placeholder="Nome da empresa"></label>
+    <label class="field" for="p-contato">Com quem é a conversa<input id="p-contato" data-bind="prep.contato" placeholder="Nome de quem participa"></label>
+    <label class="field" for="p-vendedor">Seu nome<input id="p-vendedor" data-bind="prep.vendedor" placeholder="Quem conduz a reunião"></label>
+    <label class="field" for="p-whats">Seu WhatsApp<input id="p-whats" data-bind="prep.whats" inputmode="tel" placeholder="(00) 00000-0000"></label>
+  </fieldset>
+  <fieldset>
+    <legend class="kicker">Pesquisa rápida</legend>
+    <div class="checks">
+      <label><input type="checkbox" id="c-insta" data-check="insta"> Instagram: bio, destaques, frequência</label>
+      <label><input type="checkbox" id="c-site" data-check="site"> Site: existe, está atualizado, tem WhatsApp</label>
+      <label><input type="checkbox" id="c-gmn" data-check="gmn"> Google Meu Negócio: avaliações, fotos, horários</label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend class="kicker">Três anotações</legend>
+    <label class="field" for="p-gancho">Gancho de conexão<input id="p-gancho" data-bind="prep.gancho" placeholder="Algo real e leve para abrir a conversa"></label>
+    <label class="field" for="p-forte">Ponto forte<input id="p-forte" data-bind="prep.forte" placeholder="O que a empresa já faz bem"></label>
+    <label class="field" for="p-fraco">Ponto fraco que vira pergunta<input id="p-fraco" data-bind="prep.fraco" placeholder="ex.: Instagram parado desde março"></label>
+  </fieldset>
+</aside>
+
+<div class="toast" data-toast role="status"></div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   CONFIG · conteúdo da apresentação.
+   Tudo que ainda falta confirmar está com confirm: true e aparece
+   na tela como [CONFIRMAR] até ser preenchido.
+   ════════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  site: "triangulosolutions.com.br",
+  instagram: "@triangulosolutionsbrasil",
+  city: "Uberaba/MG",
+  phone: "(16) 99388-2232",   // WhatsApp padrão; cada vendedor coloca o seu em "Preparar"
+  mission: "Somos uma consultoria empresarial que usa soluções tecnológicas próprias para aplicar planos de ação reais dentro das empresas.",
+
+  team: [
+    ["Lucas Boaretto", "Sócio · CEO", "Comercial e desenvolvimento de projetos."],
+    ["Vinícius Nicoletti Marzocchi", "Sócio · CSO", "Relacionamento com clientes e gestão financeira."],
+    ["Matheus Miguel Tomé Pires", "Sócio · CTO/CIO", "Desenvolvimento e marketing. Tem agência própria e atua com identidade visual de eventos."],
+    ["Pedro Henrique Pazoti Mega", "Diretor de projetos", "Conduz a execução dos projetos."],
+    ["Carlos Felício", "Diretoria · Design", "Design. Estuda Engenharia Mecânica na UFTM."]
+  ],
+
+  rivals: [
+    { k: "Agência", h: "Entende de post.", t: "Cuida do Instagram e do anúncio, mas não entra no seu processo." },
+    { k: "Software house", h: "Entende de código.", t: "Entrega o sistema, mas não entende de venda nem do dia a dia da empresa." },
+    { k: "O sobrinho", h: "Boa vontade.", t: "Resolve na hora, sem método. Quando ele some, a solução some junto." },
+    { k: "Triângulo", h: "Um time só.", t: "Diagnóstico de processo, marketing e software juntos. Primeiro entendemos o processo real, depois construímos sob medida.", us: true }
+  ],
+
+  // Diagnóstico · q é a pergunta na tela; prompts são desdobramentos; tip vai no roteiro
+  blocks: [
+    { id: "hoje", label: "Hoje", q: "Me conta como a {empresa} funciona hoje, do cliente chegar até a entrega.",
+      prompts: ["Como o cliente chega até vocês?", "Quem atende e quem fecha a venda?", "Tamanho da equipe", "Planilha, caderno ou sistema?", "O que funciona e você não mexeria?"],
+      ph: "Como funciona hoje, canais, equipe, ferramentas, o que já funciona",
+      tip: "Pergunta aberta e escuta. Puxe aqui o ponto fraco da pesquisa: <em>{fraco}</em>." },
+    { id: "direcao", label: "Direção", q: "Daqui a um ano, como vocês querem que a {empresa} esteja?",
+      prompts: ["Isso tem um número?", "Faturamento, clientes, tempo livre?", "Por que essa meta?", "Por que agora?"],
+      ph: "A meta, em palavras e, se possível, em número",
+      tip: "Transforme desejo em meta concreta. Se vier vago (\"crescer\"), pergunte quanto e até quando." },
+    { id: "numeros", label: "Números", q: "Só para eu dimensionar, sem precisar ser exato:", special: "nums",
+      prompts: ["Vocês trabalham com uma meta mensal?", "Quão longe estão dela hoje?"],
+      ph: "Contexto dos números (sazonalidade, ticket por tipo de cliente…)",
+      tip: "Com tato. Se a pessoa não quiser falar de faturamento, vá por clientes por mês × valor médio e confira: \"fazendo a conta, fica em torno de R$ X por mês?\"" },
+    { id: "travas", label: "Travas", q: "O que está entre onde vocês estão e essa meta?", special: "signals",
+      prompts: ["Desde quando?", "Já tentaram resolver?", "Por que não ficou?"],
+      ph: "As travas com as palavras da pessoa",
+      tip: "Marque as travas que aparecerem. Elas definem o caminho indicado mais à frente." },
+    { id: "impacto", label: "Impacto", q: "Se tudo continuar como está, onde a {empresa} estará daqui a seis meses?",
+      prompts: ["Quanto isso custa por mês?", "Quem mais sente isso?", "O que vocês deixam de fazer?"],
+      ph: "A consequência, de preferência com número",
+      tip: "Não ofereça solução aqui. Deixe a pessoa dimensionar o custo do problema com as próprias palavras." },
+    { id: "prioridade", label: "Prioridade", q: "Imagina isso resolvido. Qual é a primeira coisa que muda na rotina de vocês?", special: "prio",
+      prompts: ["De 0 a 10, quanto é prioridade agora?", "O que faria virar 10?"],
+      ph: "O ganho que a pessoa enxerga e a disposição para agir",
+      tip: "Se a nota ficar abaixo de 7, pergunte o que faria virar 10. Nota baixa e sem motivo concreto aponta para a saída \"não seguir agora\"." },
+    { id: "decisao", label: "Decisão", q: "Além de você, quem participa de uma decisão como essa?", special: "who",
+      prompts: ["O que faltaria para bater o martelo?", "Mais alguém opina?"],
+      ph: "Quem decide e como",
+      tip: "Valide o decisor agora, não no fim. Se houver outra pessoa, proponha marcar a próxima conversa com ela junto." }
+  ],
+
+  // Travas · cada uma aponta para um caminho
+  signals: [
+    { id: "indicacao", path: "presenca", t: "Cliente novo depende de indicação" },
+    { id: "orcamento", path: "sistema", t: "Orçamento ou precificação demora" },
+    { id: "espalhado", path: "crm", t: "Informação espalhada em planilha, caderno e WhatsApp" },
+    { id: "presenca", path: "presenca", t: "Pouca presença no Google e no Instagram" },
+    { id: "manual", path: "sistema", t: "Processo manual que toma horas da semana" },
+    { id: "visao", path: "crm", t: "Sem visão única dos números do negócio" },
+    { id: "canal", path: "presenca", t: "Nenhum canal previsível de novos clientes" },
+    { id: "dono", path: "sistema", t: "Decisões e cálculos presos no dono" },
+    { id: "some", path: "crm", t: "Cliente para de comprar e ninguém percebe" }
+  ],
+  who: ["Decido sozinho(a)", "Com sócio(a)", "Com cônjuge ou família", "Com outro decisor"],
+
+  paths: {
+    presenca: {
+      name: "Presença digital", sub: "Site e assessoria de conteúdo",
+      today: ["Cliente novo depende de indicação", "Mês bom e mês ruim sem saber por quê", "Instagram feito quando sobra tempo", "Quem procura no Google encontra o concorrente"],
+      solved: ["Site no ar, encontrado por quem procura o que vocês vendem", "Conteúdo toda semana, com vocês só aprovando", "Um canal de novos clientes além da indicação", "A qualidade do trabalho aparece antes do primeiro contato"],
+      price: {
+        scope: "Assessoria de conteúdo: a IA produz roteiro, legenda e arte toda semana e vocês só aprovam.",
+        std: { v: "R$ 2.500", s: "de setup + R$ 350/mês" },
+        partner: { v: "R$ 1.500", s: "de setup + R$ 297/mês" },
+        why: ["Post no Instagram da Triângulo contando o projeto", "Uso da marca como case no site e no portfólio", "Indicações para outros empresários"], whyConfirm: true,
+        free: "Mensalidade sem fidelidade", freeConfirm: true,
+        extra: "Depois, quando fizer sentido: gestão de tráfego pago por + R$ 200/mês.",
+        down: { h: "Começar pelo site", v: "R$ 0", s: "de implantação + R$ 97/mês de hospedagem e gestão", t: "A assessoria entra quando o site estiver rodando." }
+      }
+    },
+    sistema: {
+      name: "Sistema sob medida", sub: "Orçamento e processo no automático",
+      today: ["Orçamento demora e o cliente esfria", "O preço sai da cabeça do dono ou de uma planilha frágil", "Erro de cálculo vira prejuízo", "Ninguém mais consegue fazer o que o dono faz"],
+      solved: ["Preço calculado na hora, a partir das regras do negócio", "As regras ficam no sistema, não na cabeça de alguém", "Lista de materiais e documento prontos", "A equipe faz o orçamento sem depender do dono"],
+      price: {
+        scope: "Sistema construído para o processo de vocês, do mesmo jeito que construímos o Precisa.",
+        std: { confirm: true }, partner: { confirm: true },
+        why: ["Post no Instagram da Triângulo contando o projeto", "Uso da marca como case no site e no portfólio", "Indicações para outros empresários"], whyConfirm: true,
+        free: "Condições de manutenção depois da entrega", freeConfirm: true,
+        down: { h: "Começar por uma parte", confirm: true, t: "Primeiro o módulo que mais pesa hoje, depois o resto." }
+      }
+    },
+    crm: {
+      name: "CRM e painel sob medida", sub: "Clientes e números num lugar só",
+      today: ["Informação em planilha, caderno e WhatsApp", "Ninguém sabe quem está devendo ou quem parou de comprar", "Decisão tomada no feeling", "Horas juntando dado para responder uma pergunta simples"],
+      solved: ["Clientes, histórico e cobranças num lugar só", "Lista automática de inadimplentes e de clientes inativos", "Painel com os números que importam", "O tempo da equipe vai para vender e cobrar, não para procurar informação"],
+      price: {
+        scope: "Referência: MVP de CRM de clientes e cobrança (cadastro, débitos, inadimplentes, inativos, histórico de cobranças e painel). Outro escopo é orçado à parte.",
+        std: { v: "R$ 5.500", s: "ou 5x de R$ 1.100" },
+        partner: { v: "R$ 2.500", s: "ou 5x de R$ 500" },
+        why: ["Post no Instagram da Triângulo contando o projeto", "Uso da marca como case no site e no portfólio", "Indicações para outros empresários"], whyConfirm: false,
+        free: "Valor fechado do projeto, sem mensalidade obrigatória", freeConfirm: true,
+        down: { h: "MVP menor", confirm: true, t: "Menos módulos no início. O resto entra depois do uso real." }
+      }
+    }
+  },
+  pathOrder: ["presenca", "sistema", "crm"],
+
+  method: [
+    ["Diagnóstico", "Entender o processo real e onde o lucro está preso.", true],
+    ["Protótipo", "Vocês aprovam a solução desenhada antes de a construção começar."],
+    ["Construção", "Sob medida, com os dados reais da empresa, validada por etapa."],
+    ["Acompanhamento", "Medir o uso e ajustar. Tem que funcionar no dia a dia."]
+  ],
+
+  seq: [
+    { k: "entendimento", label: "Entendimento", q: "Até aqui, tem algo que não ficou claro?", yes: "Ficou claro" },
+    { k: "aderencia", label: "Aderência", q: "Deixando o preço de lado por um instante: isso resolve o que a {empresa} precisa agora?", yes: "Resolve" },
+    { k: "urgencia", label: "Urgência", q: "Se a gente começasse amanhã, por onde você gostaria que fosse?", input: true, yes: "Anotado" },
+    { k: "retro", label: "Ano passado", q: "Pensa no ano passado com isso já rodando. O que teria sido diferente?", input: true, yes: "Anotado" },
+    { k: "indispensavel", label: "Indispensável", q: "Para dizer sim com tranquilidade, o que essa solução precisa ter de qualquer jeito?", input: true, yes: "Anotado" },
+    { k: "simnao", label: "Sim ou não", q: "Combinado então: eu te mostro o valor e você me dá uma resposta direta, seja sim ou não. Pode ser?", yes: "Pode ser" }
+  ],
+
+  ops: [
+    ["Diagnóstico de processo", "Olhar de engenharia de produção sobre o fluxo da empresa."],
+    ["Marketing", "Posicionamento, site e conteúdo."],
+    ["Desenvolvimento", "Sistemas, CRM e painéis feitos para o caso de vocês."],
+    ["Acompanhamento", "Ajustes depois da entrega, a partir do uso real."]
+  ],
+
+  // Resultados em número ainda sem fonte: ficam como [CONFIRMAR]
+  cases: [
+    { client: "FN Cortinas", tag: "Sistema sob medida · Precisa", problem: "Precificar um orçamento de cortinas de alto padrão levava dias.", done: "Construímos o Precisa, sistema de precificação feito para o processo do ateliê. Está em uso." },
+    { client: "Ribercon", tag: "CRM e painel", problem: "Dados espalhados, sem um sistema único.", done: "Integramos a informação num CRM com painel de indicadores." },
+    { client: "Teacher Lucas", tag: "Site e conteúdo", problem: "Sem canal digital para atrair novos alunos.", done: "Site, identidade visual e conteúdo produzido com IA." }
+  ],
+
+  outcomes: [
+    { id: "fecha", h: "Seguir agora", t: "Formalizamos hoje: contrato assinado antes de começar, depois o kickoff." },
+    { id: "r2", h: "Segunda conversa", t: "Só com motivo real, e com data marcada antes de desligar." },
+    { id: "video", h: "Proposta em vídeo", t: "Gostou, mas ainda não é hora de decidir. Já combinamos quando o vídeo será visto." },
+    { id: "nao", h: "Não seguir agora", t: "Não é prioridade agora ou não é o que a Triângulo resolve. A porta fica aberta." }
+  ],
+  r2Reasons: ["Outro decisor precisa participar", "Escopo sob medida pede protótipo antes do valor", "Falta um dado do cliente para fechar o escopo"],
+
+  pacts: { combinado: "Combinado", resumo: "O resumo faz sentido", cenario: "Esse é o cenário que queremos" }
+};
+
+/* ════════════════════════════════════════════════════════════════
+   Estado da reunião · salvo só neste navegador
+   ════════════════════════════════════════════════════════════════ */
+const KEY = "triangulo-diagnostico-v1";
+const fresh = () => ({ prep: {}, check: {}, notes: {}, nums: {}, signals: [], prio: null, who: [], path: null, pacts: {}, seq: {}, seqAns: {}, outcome: null, r2: [], r2date: "" });
+let S = fresh();
+try { Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} }
+
+/* Utilitários */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pad = n => String(n).padStart(2, "0");
+const brl = n => "R$ " + Math.round(n).toLocaleString("pt-BR");
+const num = v => Number(String(v ?? "").replace(/\D/g, "")) || 0;
+const CONF = '<span class="confirm">[CONFIRMAR]</span>';
+const TICK = '<span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 8.5l3 3 7-7"/></svg></span>';
+const getP = p => p.split(".").reduce((o, k) => o == null ? undefined : o[k], S);
+function setP(p, v) { const ks = p.split("."); let o = S; ks.slice(0, -1).forEach(k => { o[k] = o[k] || {}; o = o[k]; }); o[ks[ks.length - 1]] = v; save(); refresh(); }
+const emp = () => (S.prep.empresa || "").trim();
+const fill = s => s.replace(/\{empresa\}/g, emp() || "sua empresa").replace(/\{fraco\}/g, S.prep.fraco || "anote na preparação");
+function toast(msg) { const t = $("[data-toast]"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("show"), 2200); }
+const toggleIn = (arr, v) => arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+
+/* Símbolo da Triângulo (vetorizado da logo oficial) */
+const MARK_D = "M 411.6 298 C 269.3 354.8, 277.1 351.3, 271.8 361.9 L 269.5 366.5 269.2 485.9 C 268.9 620.2, 268.5 612.1, 276.2 620.4 C 278.6 622.9, 282.1 625.7, 284.1 626.7 C 286 627.7, 341.9 649.9, 408.3 676 L 529 723.5 529 775 C 529 843.4, 526.9 839.5, 557.2 827.5 C 699.9 771.1, 795.5 732.4, 800.1 729.2 C 803.8 726.6, 806.2 723.9, 808.2 720.1 L 811 714.8 811 593.6 L 811 472.5 808.6 467.4 C 805.2 460.2, 800 455.6, 791.1 451.9 C 786.9 450.2, 731.3 428.3, 667.5 403.2 L 551.5 357.5 551 303.5 C 550.7 273.8, 550.4 249.4, 550.2 249.3 C 549.3 248.4, 543.9 246, 542.8 246.1 C 542.1 246.1, 483.1 269.5, 411.6 298 M 414.5 438 C 289.7 486.5, 293.1 484.9, 299.4 491.1 C 301 492.7, 338.6 507.6, 418.6 538.4 C 482.9 563.1, 538.3 584.6, 541.7 586.1 C 551.5 590.4, 551 587.5, 551 641 L 551 687.1 553.2 686.4 C 565.8 682.5, 779.8 598.6, 781.4 597 L 783.5 595 781.5 591.4 C 779.5 587.8, 778.9 587.6, 657.6 541 C 556 502, 535.2 493.7, 532.6 491.1 L 529.5 488 529.2 441 C 529.1 415.1, 528.6 394, 528.2 394.1 C 527.8 394.2, 476.6 413.9, 414.5 438";
+const mark = cls => `<svg class="mark ${cls || ""}" viewBox="266 243 548 595" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="${MARK_D}"/></svg>`;
+(() => {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1081 1081"><rect width="1081" height="1081" fill="#CE2B34"/><path fill="#fff" fill-rule="evenodd" d="${MARK_D}"/></svg>`;
+  const l = document.createElement("link"); l.rel = "icon"; l.href = "data:image/svg+xml," + encodeURIComponent(svg); document.head.appendChild(l);
+})();
+
+/* ════════════════════════════════════════════════════════════════
+   Montagem a partir do CONFIG (feita uma vez)
+   ════════════════════════════════════════════════════════════════ */
+const C = CONFIG;
+const slides = $$(".slide");
+$$("[data-f]").forEach(el => el.textContent = C[el.dataset.f] ?? "");
+$$("[data-date]").forEach(el => el.textContent = new Date().toLocaleDateString("pt-BR"));
+$$("[data-mark]").forEach(el => el.outerHTML = mark(el.dataset.mark));
+slides.forEach((s, i) => {
+  const st = $("[data-stamp]", s); if (!st) return;
+  const key = st.dataset.pactKey, hint = st.dataset.hint;
+  st.innerHTML = `<span data-stamp-name>Triângulo Solutions</span><span class="grow">${esc(hint || "")}</span>` +
+    (key ? `<button class="pact" data-pact="${key}">${TICK}${esc(C.pacts[key])}</button>` : "") +
+    `<span>${pad(i + 1)} / ${pad(slides.length)}</span>`;
+});
+
+// Diagnóstico
+$("[data-blocks]").innerHTML = C.blocks.map((b, i) => `<button data-block="${i}"><span class="n">${pad(i + 1)}</span><span>${esc(b.label)}</span><span class="st"></span></button>`).join("");
+$("[data-bpanels]").innerHTML = C.blocks.map((b, i) => {
+  let extra = "";
+  if (b.special === "nums") extra = `
+    <div class="nums">
+      <label class="field" for="n-clientes">Clientes por mês<input id="n-clientes" data-bind="nums.clientes" inputmode="numeric" placeholder="ex.: 40"></label>
+      <label class="field" for="n-ticket">Valor médio por cliente (R$)<input id="n-ticket" data-bind="nums.ticket" inputmode="numeric" placeholder="ex.: 350"></label>
+      <label class="field" for="n-meta">Meta de faturamento mensal (R$)<input id="n-meta" data-bind="nums.meta" inputmode="numeric" placeholder="ex.: 25000"></label>
+    </div>
+    <div class="nums-out" data-nums-out></div>`;
+  if (b.special === "signals") extra = `<div class="chips">${C.signals.map(s => `<button class="chip" data-signal="${s.id}">${TICK}${esc(s.t)}</button>`).join("")}</div>`;
+  if (b.special === "prio") extra = `
+    <label class="field" for="prio">De 0 a 10, quanto resolver isso é prioridade agora?</label>
+    <div class="prio"><input type="range" id="prio" min="0" max="10" step="1" data-prio><output data-prio-out>–</output></div>
+    <div class="scale"><span>0 · pode esperar</span><span>10 · é para ontem</span></div>`;
+  if (b.special === "who") extra = `<div class="chips">${C.who.map(w => `<button class="chip" data-who="${esc(w)}">${TICK}${esc(w)}</button>`).join("")}</div>`;
+  return `<div class="bpanel" data-bpanel="${i}">
+    <span class="kicker">${pad(i + 1)} · ${esc(b.label)}</span>
+    <p class="q" data-fill="${esc(b.q)}"></p>
+    <ul class="prompts">${b.prompts.map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+    ${extra}
+    <label class="field" for="note-${b.id}">Anotações<textarea id="note-${b.id}" data-bind="notes.${b.id}" placeholder="${esc(b.ph)}"></textarea></label>
+  </div>`;
+}).join("");
+let block = 0;
+function showBlock(i) {
+  block = i;
+  $$("[data-block]").forEach(b => b.classList.toggle("on", +b.dataset.block === i));
+  $$("[data-bpanel]").forEach(p => p.classList.toggle("on", +p.dataset.bpanel === i));
+  renderDiagNote();
+}
+$$("[data-block]").forEach(b => b.addEventListener("click", () => showBlock(+b.dataset.block)));
+
+// Quem somos, rivais, método, operação, cases
+$("[data-team]").innerHTML = C.team.map(([n, r, t]) => `<div><span class="avatar">${esc(n.split(" ").map(w => w[0]).filter(c => /[A-ZÀ-Ú]/.test(c)).slice(0, 2).join(""))}</span><span><b>${esc(n)}</b><span class="role">${esc(r)}</span><p>${esc(t)}</p></span></div>`).join("");
+$("[data-rivals]").innerHTML = C.rivals.map(r => `<div class="card rival${r.us ? " us" : ""}"><span class="kicker">${esc(r.k)}</span><h3>${esc(r.h)}</h3><p>${esc(r.t)}</p></div>`).join("");
+$("[data-method]").innerHTML = C.method.map(([h, t, here], i) => `<div class="card step-card${here ? " here" : ""}"><span class="kicker">Etapa</span><div class="num">${pad(i + 1)}</div><h3>${esc(h)}</h3><p style="margin-top:6px">${esc(t)}</p>${here ? '<span class="here-tag">Começou nesta conversa</span>' : ""}</div>`).join("");
+$("[data-ops]").innerHTML = C.ops.map(([h, t]) => `<div><span class="kicker">Incluído</span><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join("");
+$("[data-ops-count]").textContent = `${C.ops.length} frentes trabalhando juntas`;
+$("[data-cases]").innerHTML = C.cases.map(c => `<div class="card case"><span class="kicker">${esc(c.tag)}</span><div class="client">${esc(c.client)}</div>
+  <dl><div><dt>Problema</dt><dd>${esc(c.problem)}</dd></div><div><dt>O que fizemos</dt><dd>${esc(c.done)}</dd></div><div><dt>Resultado</dt><dd>${c.result ? esc(c.result) : CONF}</dd></div></dl></div>`).join("");
+
+// Sequência antes do valor
+$("[data-seq-pills]").innerHTML = C.seq.map((q, i) => `<button data-seq-pill="${i}">${TICK}${esc(q.label)}</button>`).join("");
+$("[data-seq-steps]").innerHTML = C.seq.map((q, i) => `<div class="seq-step" data-seq-step="${i}">
+    <span class="kicker">Pergunta ${i + 1} de ${C.seq.length}</span>
+    <h1 data-fill="${esc(q.q)}"></h1>
+    ${q.input ? `<label class="field" for="seq-${q.k}" style="color:rgba(255,255,255,.8)">Resposta<textarea id="seq-${q.k}" data-bind="seqAns.${q.k}" placeholder="Anote com as palavras da pessoa"></textarea></label>` : ""}
+    <div class="btn-row"><button class="btn" data-seq-yes="${i}">${esc(q.yes)}</button>${i ? `<button class="btn ghost" data-seq-back="${i}">Voltar</button>` : ""}</div>
+  </div>`).join("") + `<div class="seq-step" data-seq-step="${C.seq.length}">
+    <span class="kicker">Tudo combinado</span><h1>Agora sim, vamos falar de valor.</h1>
+    <div class="btn-row"><button class="btn" data-goto-key="valor">Ver o que está incluído</button><button class="btn ghost" data-seq-back="${C.seq.length}">Voltar</button></div></div>`;
+let seqI = C.seq.findIndex(q => !S.seq[q.k]); if (seqI < 0) seqI = C.seq.length;
+function renderSeq() {
+  $$("[data-seq-step]").forEach(s => s.classList.toggle("on", +s.dataset.seqStep === seqI));
+  $$("[data-seq-pill]").forEach(p => { const i = +p.dataset.seqPill; p.classList.toggle("cur", i === seqI); p.classList.toggle("ok", !!S.seq[C.seq[i].k]); });
+}
+$$("[data-seq-yes]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.seqYes; S.seq[C.seq[i].k] = true; save(); seqI = i + 1; renderSeq(); refresh(); }));
+$$("[data-seq-back]").forEach(b => b.addEventListener("click", () => { seqI = Math.max(0, +b.dataset.seqBack - 1); renderSeq(); }));
+$$("[data-seq-pill]").forEach(b => b.addEventListener("click", () => { seqI = +b.dataset.seqPill; renderSeq(); }));
+
+// Próximo passo
+$("[data-outs]").innerHTML = C.outcomes.map((o, i) => `<button class="card out" data-out="${o.id}"><span class="kicker">Saída ${i + 1}${TICK}</span><h3>${esc(o.h)}</h3><p>${esc(o.t)}</p></button>`).join("");
+$("[data-r2-reasons]").innerHTML = C.r2Reasons.map(r => `<button class="chip" data-r2="${esc(r)}">${TICK}${esc(r)}</button>`).join("");
+
+/* ════════════════════════════════════════════════════════════════
+   Interações que alteram o estado
+   ════════════════════════════════════════════════════════════════ */
+function bindInputs() {
+  $$("[data-bind]").forEach(el => { el.value = getP(el.dataset.bind) ?? ""; });
+  $$("[data-check]").forEach(el => { el.checked = !!S.check[el.dataset.check]; });
+  const pr = $("[data-prio]"); pr.value = S.prio ?? 5;
+}
+$$("[data-bind]").forEach(el => el.addEventListener("input", () => setP(el.dataset.bind, el.value)));
+$$("[data-check]").forEach(el => el.addEventListener("change", () => { S.check[el.dataset.check] = el.checked; save(); }));
+$("[data-prio]").addEventListener("input", e => { S.prio = +e.target.value; save(); refresh(); });
+$$("[data-signal]").forEach(b => b.addEventListener("click", () => { S.signals = toggleIn(S.signals, b.dataset.signal); save(); refresh(); }));
+$$("[data-who]").forEach(b => b.addEventListener("click", () => { S.who = toggleIn(S.who, b.dataset.who); save(); refresh(); }));
+$$("[data-r2]").forEach(b => b.addEventListener("click", () => { S.r2 = toggleIn(S.r2, b.dataset.r2); save(); refresh(); }));
+$$("[data-out]").forEach(b => b.addEventListener("click", () => { S.outcome = S.outcome === b.dataset.out ? null : b.dataset.out; save(); refresh(); }));
+$$("[data-pact]").forEach(b => b.addEventListener("click", () => { S.pacts[b.dataset.pact] = !S.pacts[b.dataset.pact]; save(); refresh(); }));
+
+/* Caminho indicado pelas travas */
+function recommended() {
+  const score = Object.fromEntries(C.pathOrder.map(p => [p, 0]));
+  S.signals.forEach(id => { const s = C.signals.find(x => x.id === id); if (s) score[s.path]++; });
+  const best = C.pathOrder.reduce((a, b) => score[b] > score[a] ? b : a, C.pathOrder[0]);
+  return score[best] ? best : null;
+}
+const curPath = () => S.path || recommended() || C.pathOrder[0];
+$$("[data-path-tabs]").forEach(el => {
+  el.innerHTML = C.pathOrder.map(p => `<button data-path="${p}">${esc(C.paths[p].name)}<span class="rec" data-rec="${p}" hidden>indicado</span></button>`).join("");
+});
+$$("[data-path]").forEach(b => b.addEventListener("click", () => { S.path = b.dataset.path; save(); refresh(); }));
+
+/* Investimento · padrão → parceria → por que → sem prisão → começar menor */
+let stage = 0, down = false;
+function valHTML(o) { return o.confirm ? `<div class="val">${CONF}</div><div class="val-sub">&nbsp;</div>` : `<div class="val">${esc(o.v)}</div><div class="val-sub">${esc(o.s || "")}</div>`; }
+function renderPrice() {
+  const P = C.paths[curPath()].price;
+  $("[data-price-scope]").textContent = P.scope;
+  $("[data-prices]").innerHTML = `
+    <div class="card plan p1${stage < 1 ? " locked" : ""}"><span class="kicker">Valor padrão</span>${valHTML(P.std)}<p>Sem contrapartidas.</p>
+      ${stage === 0 ? '<button class="btn small" data-stage="1">Mostrar valor padrão</button>' : ""}</div>
+    <div class="card plan p2${stage < 2 ? " locked" : ""}"><span class="eyebrow">Condição de parceria</span>${valHTML(P.partner)}<p>${stage < 2 ? "Liberada depois do valor padrão." : "Mesmo escopo, em troca de contrapartidas."}</p>
+      ${stage === 1 ? '<button class="btn small" data-stage="2">Mostrar condição de parceria</button>' : ""}</div>
+    <div class="card plan down${down ? "" : " locked"}"><span class="kicker">Começar menor</span>${valHTML(P.down)}<p>${down ? `<b style="color:var(--fg)">${esc(P.down.h)}.</b> ${esc(P.down.t)}` : "Só se o valor for a trava. Reduz escopo, não o preço."}</p>
+      ${stage === 2 && !down ? '<button class="btn ghost small" data-down>Mostrar opção menor</button>' : ""}</div>`;
+  const terms = $("[data-price-terms]");
+  terms.hidden = stage < 2; $("[data-ask]").hidden = stage < 2;
+  terms.innerHTML = `<span><b>Por que a condição existe:</b> ${P.why.map(esc).join(" · ")}${P.whyConfirm ? " " + CONF : ""}</span>
+    <span><b>Sem prisão:</b> ${esc(P.free)}${P.freeConfirm ? " " + CONF : ""}</span>${P.extra ? `<span>${esc(P.extra)}</span>` : ""}`;
+  $$("[data-stage]", $("[data-prices]")).forEach(b => b.addEventListener("click", () => { stage = +b.dataset.stage; renderPrice(); }));
+  const d = $("[data-down]"); if (d) d.addEventListener("click", () => { down = true; renderPrice(); });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   refresh · atualiza tudo o que depende das anotações
+   ════════════════════════════════════════════════════════════════ */
+function refresh() {
+  const e = emp(), seller = (S.prep.vendedor || "").trim();
+  // nomes
+  $$("[data-emp]").forEach(el => el.textContent = e || el.dataset.emp);
+  $$("[data-seller]").forEach(el => el.textContent = seller || "Triângulo Solutions");
+  $$("[data-phone]").forEach(el => el.textContent = (S.prep.whats || "").trim() || C.phone);
+  $$("[data-text]").forEach(el => el.textContent = getP(el.dataset.text) || "");
+  $$("[data-has]").forEach(el => el.hidden = !(getP(el.dataset.has) || "").trim());
+  $$("[data-fill]").forEach(el => el.textContent = fill(el.dataset.fill));
+  $("[data-cover-eyebrow]").textContent = e ? `Diagnóstico · ${e} · 2026` : "Diagnóstico · 2026";
+  $("[data-thanks]").textContent = S.prep.contato ? `Obrigado, ${S.prep.contato.trim().split(" ")[0]}` : "Obrigado";
+  $$("[data-brand]").forEach(el => el.innerHTML = `${mark()}<span class="wm"><i>Triângulo</i> <b>Solutions</b></span>${e ? `<span class="x">× ${esc(e)}</span>` : ""}`);
+  $$("[data-stamp-name]").forEach(el => el.textContent = e ? `Triângulo Solutions × ${e}` : `Triângulo Solutions · ${C.city}`);
+
+  // estados de seleção
+  $$("[data-signal]").forEach(b => b.classList.toggle("on", S.signals.includes(b.dataset.signal)));
+  $$("[data-who]").forEach(b => b.classList.toggle("on", S.who.includes(b.dataset.who)));
+  $$("[data-r2]").forEach(b => b.classList.toggle("on", S.r2.includes(b.dataset.r2)));
+  $$("[data-out]").forEach(b => b.classList.toggle("on", S.outcome === b.dataset.out));
+  $$("[data-pact]").forEach(b => b.classList.toggle("on", !!S.pacts[b.dataset.pact]));
+  $("[data-r2-box]").hidden = S.outcome !== "r2";
+  $("[data-prio-out]").textContent = S.prio == null ? "–" : S.prio;
+
+  // números
+  const cl = num(S.nums.clientes), tk = num(S.nums.ticket), mt = num(S.nums.meta), hoje = cl * tk;
+  $("[data-nums-out]").innerHTML = [
+    hoje ? `<span class="lead-num">Hoje, perto de <b>${brl(hoje)}</b>/mês</span>` : "",
+    mt ? `<span>Meta <b>${brl(mt)}</b>/mês</span>` : "",
+    hoje && mt ? `<span>Distância <b>${brl(Math.max(0, mt - hoje))}</b>/mês</span>` : ""
+  ].join("") || '<span>Preencha os campos para ver a conta.</span>';
+
+  // blocos preenchidos
+  const filled = b => !!(S.notes[b.id] || "").trim() || (b.special === "nums" && (cl || mt)) || (b.special === "signals" && S.signals.length) || (b.special === "prio" && S.prio != null) || (b.special === "who" && S.who.length);
+  $$("[data-block]").forEach(btn => btn.classList.toggle("done", filled(C.blocks[+btn.dataset.block])));
+
+  // resumo
+  const sigs = S.signals.map(id => C.signals.find(s => s.id === id)?.t).filter(Boolean);
+  const v = (t, ph) => t && t.trim() ? esc(t.trim()) : `<span class="empty">${ph}</span>`;
+  const numLine = [hoje ? `hoje perto de ${brl(hoje)}/mês` : "", mt ? `meta de ${brl(mt)}/mês` : ""].filter(Boolean).join(" · ");
+  $("[data-sum]").innerHTML = `
+    <div><dt>Hoje</dt><dd>${v(S.notes.hoje, "Anote no bloco Hoje do diagnóstico")}</dd></div>
+    <div><dt>Onde querem chegar</dt><dd>${v(S.notes.direcao, "Anote no bloco Direção")}${numLine ? `\n<span class="muted">${esc(numLine)}</span>` : ""}</dd></div>
+    <div><dt>O que trava</dt><dd>${sigs.length ? `<span class="tags">${sigs.map(s => `<span>${esc(s)}</span>`).join("")}</span>` : ""}${(S.notes.travas || "").trim() ? esc(S.notes.travas.trim()) : (sigs.length ? "" : '<span class="empty">Marque as travas no diagnóstico</span>')}</dd></div>
+    <div><dt>Se nada mudar</dt><dd>${v(S.notes.impacto, "Anote no bloco Impacto")}</dd></div>
+    <div><dt>Prioridade e decisão</dt><dd>${S.prio != null ? `${S.prio}/10` : '<span class="empty">Sem nota</span>'}${S.who.length ? " · " + esc(S.who.join(", ")) : ""}</dd></div>`;
+
+  // caminho
+  const rec = recommended(), p = curPath(), P = C.paths[p];
+  $$("[data-path]").forEach(b => b.classList.toggle("on", b.dataset.path === p));
+  $$("[data-rec]").forEach(s => s.hidden = s.dataset.rec !== rec);
+  const matched = S.signals.map(id => C.signals.find(s => s.id === id)).filter(s => s && s.path === p).map(s => s.t);
+  $("[data-why]").innerHTML = matched.length ? `Porque vocês contaram: <b>${matched.map(esc).join(" · ")}</b>` : (rec ? `O diagnóstico indicou <b>${esc(C.paths[rec].name)}</b>. Este caminho foi escolhido na conversa.` : "Marque as travas no diagnóstico para o caminho ser indicado.");
+  $("[data-today]").innerHTML = P.today.map(t => `<li>${esc(t)}</li>`).join("");
+  $("[data-solved]").innerHTML = P.solved.map(t => `<li>${esc(t)}</li>`).join("");
+
+  // valor · o que sai das costas
+  const relief = sigs.length ? sigs : P.today;
+  $("[data-centralize]").innerHTML = relief.map(t => `<span class="chip on">${TICK}${esc(t)}</span>`).join("");
+
+  // roteiro da capa
+  $("[data-note-capa]").innerHTML = `<strong>Roteiro · abertura</strong>Conexão leve antes de compartilhar a tela: escolha uma porta só (família, ocupação, lazer ou motivação) e saia rápido.<br>
+    Gancho: <em>${esc(S.prep.gancho || "–")}</em><br>Ponto forte: <em>${esc(S.prep.forte || "–")}</em><br>Ponto fraco que vira pergunta: <em>${esc(S.prep.fraco || "–")}</em>`;
+  renderDiagNote();
+  renderPrice();
+  $("[data-record]").value = recordText();
+}
+function renderDiagNote() {
+  const b = C.blocks[block];
+  $("[data-note-diag]").innerHTML = `<strong>Roteiro · ${esc(b.label)}</strong>${b.tip.replace("{fraco}", esc(S.prep.fraco || "anote na preparação"))}`;
+}
+
+/* Resumo da reunião para o CRM */
+function recordText() {
+  const sigs = S.signals.map(id => C.signals.find(s => s.id === id)?.t).filter(Boolean);
+  const out = C.outcomes.find(o => o.id === S.outcome);
+  const cl = num(S.nums.clientes), tk = num(S.nums.ticket), mt = num(S.nums.meta);
+  const line = (k, v) => v && String(v).trim() ? `${k}: ${String(v).trim()}` : null;
+  return [
+    `R1 · ${emp() || "[empresa]"} · ${new Date().toLocaleDateString("pt-BR")}`,
+    line("Contato", S.prep.contato), line("Conduzida por", S.prep.vendedor),
+    "",
+    "PREPARAÇÃO", line("Gancho", S.prep.gancho), line("Ponto forte", S.prep.forte), line("Ponto fraco", S.prep.fraco),
+    "",
+    "DIAGNÓSTICO",
+    ...C.blocks.map(b => line(b.label, S.notes[b.id])),
+    cl && tk ? `Clientes/mês × valor médio: ${cl} × ${brl(tk)} = ${brl(cl * tk)}/mês` : null,
+    mt ? `Meta mensal: ${brl(mt)}` : null,
+    sigs.length ? `Travas marcadas: ${sigs.join("; ")}` : null,
+    S.prio != null ? `Prioridade: ${S.prio}/10` : null,
+    S.who.length ? `Decisão: ${S.who.join(", ")}` : null,
+    "",
+    `CAMINHO: ${C.paths[curPath()].name}${recommended() && recommended() !== curPath() ? ` (diagnóstico indicou ${C.paths[recommended()].name})` : ""}`,
+    `Combinados: ${Object.keys(C.pacts).filter(k => S.pacts[k]).map(k => C.pacts[k]).join(", ") || "nenhum"} · Antes do valor: ${C.seq.filter(q => S.seq[q.k]).length}/${C.seq.length}`,
+    ...C.seq.filter(q => q.input).map(q => line(q.label, S.seqAns[q.k])),
+    "",
+    `SAÍDA: ${out ? out.h : "não definida"}`,
+    S.outcome === "r2" && S.r2.length ? `Motivo: ${S.r2.join("; ")}` : null,
+    S.outcome === "r2" ? line("Data", S.r2date) : null
+  ].filter(x => x !== null).join("\n").replace(/\n{3,}/g, "\n\n");
+}
+$("[data-copy]").addEventListener("click", async () => {
+  const t = recordText(); $("[data-record]").value = t;
+  try { await navigator.clipboard.writeText(t); toast("Resumo copiado"); }
+  catch { $("[data-record-wrap]").hidden = false; $("[data-record]").select(); toast("Selecionei o texto: copie com Ctrl+C"); }
+});
+$("[data-show-record]").addEventListener("click", () => { const w = $("[data-record-wrap]"); w.hidden = !w.hidden; });
+$("[data-reset-ask]").addEventListener("click", () => $("[data-reset-row]").hidden = false);
+$("[data-reset-no]").addEventListener("click", () => $("[data-reset-row]").hidden = true);
+$("[data-reset-yes]").addEventListener("click", () => {
+  S = fresh(); save(); stage = 0; down = false; seqI = 0;
+  bindInputs(); renderSeq(); renderPrice(); refresh(); showBlock(0);
+  $("[data-reset-row]").hidden = true; $("[data-record-wrap]").hidden = true;
+  toast("Pronto para a próxima reunião"); go(0);
+});
+
+/* ════════════════════════════════════════════════════════════════
+   Navegação
+   ════════════════════════════════════════════════════════════════ */
+let cur = 0;
+const isMobile = () => matchMedia("(max-width: 820px), (max-height: 520px) and (max-width: 1000px)").matches;
+const menu = $("[data-index-menu]");
+menu.innerHTML = slides.map((s, i) => `<button data-goto="${i}"><span class="n">${pad(i + 1)}</span>${esc(s.dataset.title)}</button>`).join("");
+function go(i) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  if (isMobile()) { slides[i].scrollIntoView({ behavior: "smooth" }); return; }
+  // o preço nunca fica aberto de uma reunião para outra: ao sair do investimento sem a parceria, volta a travar
+  if (i !== cur && slides[cur].dataset.key === "investimento" && stage < 2) { stage = 0; down = false; renderPrice(); }
+  slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
+  cur = i;
+  $("#progress").style.width = ((i + 1) / slides.length * 100) + "%";
+  $("[data-index-toggle]").textContent = `${pad(i + 1)} / ${slides.length}`;
+  $$("[data-goto]").forEach(b => b.classList.toggle("current", +b.dataset.goto === i));
+  try { history.replaceState(null, "", "#" + (i + 1)); } catch {}
+}
+const goKey = k => go(slides.findIndex(s => s.dataset.key === k));
+$("[data-next]").addEventListener("click", () => go(cur + 1));
+$("[data-prev]").addEventListener("click", () => go(cur - 1));
+$("[data-index-toggle]").addEventListener("click", e => { e.stopPropagation(); menu.hidden = !menu.hidden; });
+$$("[data-goto]").forEach(b => b.addEventListener("click", () => { go(+b.dataset.goto); menu.hidden = true; }));
+$$("[data-goto-key]").forEach(b => b.addEventListener("click", () => goKey(b.dataset.gotoKey)));
+$("[data-notes-toggle]").addEventListener("click", () => document.body.classList.toggle("notes-on"));
+// fechada, a preparação sai da ordem de foco para as setas voltarem a navegar
+const prepEl = $(".prep"); prepEl.inert = true;
+const prep = open => {
+  document.body.classList.toggle("prep-on", open); prepEl.inert = !open;
+  if (open) setTimeout(() => $("#p-empresa").focus(), 200);
+  else if (prepEl.contains(document.activeElement)) document.activeElement.blur();
+};
+$("[data-prep-toggle]").addEventListener("click", () => prep(!document.body.classList.contains("prep-on")));
+$("[data-prep-open]").addEventListener("click", () => prep(true));
+$("[data-prep-close]").addEventListener("click", () => prep(false));
+document.addEventListener("click", e => { if (!e.target.closest("[data-index-menu]")) menu.hidden = true; });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { prep(false); menu.hidden = true; return; }
+  if (e.target.matches("input, textarea") || isMobile()) return;
+  const k = e.key.toLowerCase();
+  if (["arrowright", "pagedown", " "].includes(k)) { e.preventDefault(); go(cur + 1); }
+  else if (["arrowleft", "pageup"].includes(k)) { e.preventDefault(); go(cur - 1); }
+  else if (k === "home") go(0);
+  else if (k === "end") go(slides.length - 1);
+  else if (k === "n") document.body.classList.toggle("notes-on");
+  else if (k === "p") prep(!document.body.classList.contains("prep-on"));
+  else if (k === "s") { const b = $("[data-pact]", slides[cur]); if (b) b.click(); }
+  else if (k === "f") { try { const r = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); if (r && r.catch) r.catch(() => {}); } catch {} }
+});
+let tx = null;
+document.addEventListener("touchstart", e => { tx = e.target.closest("input, textarea, .prep") ? null : e.touches[0].clientX; }, { passive: true });
+document.addEventListener("touchend", e => {
+  if (tx === null || isMobile()) { tx = null; return; }
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1));
+});
+
+bindInputs(); renderSeq(); renderPrice(); refresh(); showBlock(0);
+go(Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
+</script>
+</body>
+</html>
